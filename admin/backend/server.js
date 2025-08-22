@@ -13,6 +13,7 @@ require('./config/cloudinary');
 
 const app = express();
 
+
 const allowedOrigin = process.env.CLIENT_ORIGIN || '*';
 app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
@@ -22,10 +23,6 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Test route working' });
 });
-
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // API routes
 app.use('/api/contactus', contactRoutes);
