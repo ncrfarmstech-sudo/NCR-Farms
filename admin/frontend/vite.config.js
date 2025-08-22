@@ -10,7 +10,7 @@ export default defineConfig({
     },
   },
   preview: {
-    allowedHosts: ["ncr-farms-7.onrender.com"]
+    allowedHosts: ["ncr-farms-8.onrender.com"]
   }
 
 
