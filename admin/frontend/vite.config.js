@@ -7,6 +7,9 @@ export default defineConfig({
     proxy: {
       '/api': 'http://localhost:5000',
     },
+  },
+  preview: {
+    allowedHosts: ["ncr-farms-rx04.onrender.com"]
   }
 })
 
