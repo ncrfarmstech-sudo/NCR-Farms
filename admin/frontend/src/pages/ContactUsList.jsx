@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { useContactUs } from '../context/ContactUsContext';
 
 function getInitials(name = '') {
@@ -17,7 +18,12 @@ const ContactUsList = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this submission?')) {
       setDeletingId(id);
-      await deleteContact(id);
+      try {
+        await deleteContact(id);
+        toast.success('Contact deleted successfully');
+      } catch {
+        toast.error('Failed to delete contact');
+      }
       setDeletingId(null);
     }
   };
@@ -31,7 +37,10 @@ const ContactUsList = () => {
       {loading ? (
         <div className="text-lg text-gray-500">Loading...</div>
       ) : error ? (
-        <div className="text-lg text-red-500">{error}</div>
+        <>
+          <div className="text-lg text-red-500">{error}</div>
+          {error && toast.error(error)}
+        </>
       ) : contacts.length === 0 ? (
         <div className="text-gray-500">No submissions found.</div>
       ) : (

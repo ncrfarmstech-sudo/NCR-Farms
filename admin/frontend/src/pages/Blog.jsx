@@ -16,7 +16,7 @@ const Blog = () => {
   const loadBlogs = async () => {
     setLoading(true);
     try {
-      const data = await fetchBlogs();
+  const data = await fetchBlogs(); // Fetch blogs from API
       setBlogs(data);
     } catch {
       setError("Failed to load blogs");
@@ -33,10 +33,10 @@ const Blog = () => {
     setLoading(true);
     try {
       if (editBlog) {
-        await updateBlog(editBlog._id, formData);
+  await updateBlog(editBlog._id, formData); // Update existing blog
         toast.success("Blog updated successfully!");
       } else {
-        await createBlog(formData);
+  await createBlog(formData); // Create new blog
         toast.success("Blog created successfully!");
       }
       setEditBlog(null);
@@ -57,7 +57,7 @@ const Blog = () => {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
     setLoading(true);
     try {
-      await deleteBlog(id);
+  await deleteBlog(id); // Delete blog by ID
       toast.success("Blog deleted successfully!");
       loadBlogs();
     } catch {

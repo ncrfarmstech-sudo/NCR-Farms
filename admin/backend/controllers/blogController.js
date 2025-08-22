@@ -17,14 +17,14 @@ const blogService = require("../services/blogService");
 // Create blog
 exports.createBlog = async (req, res) => {
   try {
-    console.log('Creating blog with data:', req.body);
-    console.log('Files received:', req.files);
-    if (req.files) {
-      Object.keys(req.files).forEach(key => {
-        console.log(`req.files[${key}]:`, req.files[key]);
-      });
-    }
     const files = req.files && req.files['images'] ? req.files['images'] : [];
+      console.log('Creating blog with data:', req.body);
+      console.log('Files received:', req.files);
+      if (req.files) {
+        Object.keys(req.files).forEach(key => {
+          console.log(`req.files[${key}]:`, req.files[key]);
+        });
+      }
     const blog = await blogService.createBlog(req.body, files);
     res.status(201).json(blog);
   } catch (error) {
