@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/properties';
+const API_URL = `${import.meta.env.VITE_API_URL || ''}/properties`;
 
 export const fetchProperties = async () => {
   const res = await axios.get(API_URL);

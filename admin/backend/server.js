@@ -13,7 +13,8 @@ require('./config/cloudinary');
 
 const app = express();
 
-app.use(cors());
+const allowedOrigin = process.env.CLIENT_ORIGIN || '*';
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
