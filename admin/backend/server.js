@@ -16,7 +16,8 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://ncr-farms.onrender.com'
+  'https://ncr-farms.onrender.com',
+  'https://ncr-farms-rx04.onrender.com' // <-- your actual frontend domain
 ];
 app.use((req, res, next) => {
   const origin = req.headers.origin;
