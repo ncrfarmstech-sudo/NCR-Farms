@@ -17,7 +17,8 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',
   'https://ncr-farms.onrender.com',
-  'https://ncr-farms-rx04.onrender.com' // <-- your actual frontend domain
+  'https://ncr-farms-101.onrender.com', // backend
+  'https://ncr-farms-rx04.onrender.com' // frontend
 ];
 app.use((req, res, next) => {
   const origin = req.headers.origin;
