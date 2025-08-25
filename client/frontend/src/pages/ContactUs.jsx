@@ -38,7 +38,7 @@ const ContactUs = () => {
             </div>
             <div className="flex items-center gap-3">
               <FaEnvelope className="text-lg" />
-              <span>support@affordindia.com</span>
+              <span>support@ncrfarms.com</span>
             </div>
             <div className="flex items-center gap-3">
               <FaClock className="text-lg" />
@@ -98,5 +98,6 @@ const ContactUs = () => {
     </div>
   );
 };
+
 
 export default ContactUs;
