@@ -19,7 +19,7 @@ const properties = [
     beds: 4,
     price: "60,000",
     rating: 3.9,
-    img: "https://images.unsplash.com/photo-1572120360610-d971b9b78825",
+    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const properties = [
     beds: 4,
     price: "40,000",
     rating: 4.7,
-    img: "https://images.unsplash.com/photo-1600585154084-4e0b94d69f26",
+    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
   },
   {
     id: 4,
