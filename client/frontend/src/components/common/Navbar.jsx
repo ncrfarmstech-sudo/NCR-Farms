@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Menu, Search, X } from "lucide-react"; // Icons
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,7 +8,7 @@ const Navbar = () => {
   return (
     <>
       {/* Fixed Navbar */}
-      <nav className="flex items-center justify-between px-6 py-3 bg-[#234436]/60 fixed top-0 left-0 w-full z-50 backdrop-blur-sm">
+      <nav className="flex items-center justify-between px-6 py-3 bg-[#234436]/60 fixed top-0 left-0 w-full z-50 ">
 
         {/* Mobile Left Menu Button */}
         <button className="md:hidden" onClick={() => setIsOpen(true)}>
@@ -15,16 +16,48 @@ const Navbar = () => {
         </button>
 
         {/* Logo */}
-        <h1 className="text-xl font-bold tracking-wide text-white md:text-2xl">
+        <NavLink
+          to="/"
+          className="text-xl font-bold tracking-wide text-white md:text-2xl hover:text-yellow-400"
+          style={{ textDecoration: 'none' }}
+        >
           NCR Farms
-        </h1>
+        </NavLink>
 
         {/* Desktop Menu (center) */}
         <div className="hidden md:flex flex-1 justify-center space-x-10 text-white font-medium">
-          <a href="#" className="hover:text-yellow-400">Properties</a>
-          <a href="#" className="hover:text-yellow-400">Blog</a>
-          <a href="#" className="hover:text-yellow-400">About Us</a>
-          <a href="#" className="hover:text-yellow-400">Contact Us</a>
+          <NavLink
+            to="/properties"
+            className={({ isActive }) =>
+              isActive ? "text-yellow-400 underline" : "hover:text-yellow-400"
+            }
+          >
+            Properties
+          </NavLink>
+          <NavLink
+            to="/blog"
+            className={({ isActive }) =>
+              isActive ? "text-yellow-400 underline" : "hover:text-yellow-400"
+            }
+          >
+            Blog
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? "text-yellow-400 underline" : "hover:text-yellow-400"
+            }
+          >
+            About Us
+          </NavLink>
+          <NavLink
+            to="/contactus"
+            className={({ isActive }) =>
+              isActive ? "text-yellow-400 underline" : "hover:text-yellow-400"
+            }
+          >
+            Contact Us
+          </NavLink>
         </div>
 
         {/* Search Button (Right) */}
@@ -55,10 +88,50 @@ const Navbar = () => {
 
         {/* Menu Items */}
         <ul className="flex flex-col space-y-6 p-6 text-lg">
-          <li><a href="#">Properties</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Contact Us</a></li>
+          <li>
+            <NavLink
+              to="/properties"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-400 underline" : "hover:text-yellow-400"
+              }
+              onClick={() => setIsOpen(false)}
+            >
+              Properties
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/blog"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-400 underline" : "hover:text-yellow-400"
+              }
+              onClick={() => setIsOpen(false)}
+            >
+              Blog
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-400 underline" : "hover:text-yellow-400"
+              }
+              onClick={() => setIsOpen(false)}
+            >
+              About Us
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/contactus"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-400 underline" : "hover:text-yellow-400"
+              }
+              onClick={() => setIsOpen(false)}
+            >
+              Contact Us
+            </NavLink>
+          </li>
         </ul>
       </div>
 
