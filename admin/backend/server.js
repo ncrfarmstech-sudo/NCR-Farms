@@ -14,8 +14,22 @@ require('./config/cloudinary');
 const app = express();
 
 
-const allowedOrigin = process.env.CLIENT_ORIGIN || '*';
-app.use(cors({ origin: allowedOrigin }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://ncr-farms.onrender.com'
+];
+app.use(cors({
+  origin: function(origin, callback) {
+    // allow requests with no origin (like mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
