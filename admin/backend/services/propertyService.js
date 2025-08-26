@@ -1,7 +1,7 @@
 const cloudinary = require('../config/cloudinary');
 
 
-exports.uploadToCloudinary = async function uploadToCloudinary(file) {
+async function uploadToCloudinary(file) {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream({ folder: "properties" }, (error, result) => {
       if (error) return reject(error);
@@ -9,7 +9,8 @@ exports.uploadToCloudinary = async function uploadToCloudinary(file) {
     });
     stream.end(file.buffer);
   });
-};
+}
+exports.uploadToCloudinary = uploadToCloudinary;
 
 exports.partialUpdateProperty = async (id, data, files) => {
   const property = await Property.findById(id);
