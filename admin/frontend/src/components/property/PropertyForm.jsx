@@ -126,7 +126,7 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel }) => {
         </div>
         <div>
           <label className="block text-sm font-medium">Price</label>
-          <input name="price" value={form.price} onChange={handleChange} placeholder="Price" type="number" className="w-full border px-3 py-2 rounded" required />
+          <input name="price" value={typeof form.price === 'number' ? form.price : String(form.price).replace(/[^\d.]/g, '')} onChange={handleChange} placeholder="Price" type="number" className="w-full border px-3 py-2 rounded" required />
         </div>
         <div>
           <label className="block text-sm font-medium">Type</label>

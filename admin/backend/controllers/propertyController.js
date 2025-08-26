@@ -17,12 +17,13 @@ const propertyService = require('../services/propertyService');
 exports.createProperty = async (req, res) => {
   try {
     const files = req.files && req.files['images'] ? req.files['images'] : [];
+    console.log('Received files in createProperty:', files);
     // Use the same upload logic as PATCH
     let imageUrls = [];
     if (files && files.length > 0) {
       for (const file of files) {
         try {
-          const uploadRes = await require('../services/propertyService').uploadToCloudinary(file);
+          const uploadRes = await propertyService.uploadToCloudinary(file);
           imageUrls.push(uploadRes.secure_url);
         } catch (err) {
           console.error('Cloudinary upload error:', err);

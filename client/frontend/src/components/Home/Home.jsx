@@ -36,13 +36,12 @@ const Home = () => {
                     Live Close To Nature With The Best Managed Farmland Company
                     In Delhi NCR
                 </p>
-                <p className="mt-4 text-sm text-gray-600 leading-relaxed">
-                    We help you reconnect with nature and enjoy a calm, happy
-                    life. With our managed farmlands, where you can build your
-                    dream farmhouse, we monitor and design your farm area for
-                    fully documented titles, eco-friendly living, and a 100%
-                    clear title.
-                </p>
+        <p className="mt-4 text-sm text-gray-600 leading-relaxed">
+          We help you reconnect with nature and enjoy a calm, happy
+          life. With our managed farmlands, where you can build your
+          dream farmhouse, we monitor and design your farm area for
+          fully documented titles, eco-friendly living, and a 100% clear title.
+        </p>
                 <p className="mt-4  text-green-700 font-bold text-xl">
                     Welcome to NCR Farms
                 </p>
@@ -110,7 +109,7 @@ const Home = () => {
           {card.title}
         </h4>
         <p className="text-gray-600 text-xs sm:text-sm md:text-base text-center leading-tight md:leading-snug lg:leading-normal">
-          {card.desc}
+          {typeof card.desc === 'object' ? JSON.stringify(card.desc) : card.desc}
         </p>
       </div>
     ))}

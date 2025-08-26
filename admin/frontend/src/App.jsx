@@ -5,6 +5,8 @@ import ToastContainer from './components/common/ToastContainer';
 import { ContactUsProvider } from './context/ContactUsContext';
 import ContactUsList from './pages/ContactUsList';
 import Properties from './pages/Properties';
+import FeaturedProducts from './pages/FeaturedProducts';
+import { FeaturedProductsProvider } from './context/FeaturedProductsContext';
 import Blog from './pages/Blog';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
@@ -75,19 +77,22 @@ function App() {
         <Navbar />
         <div className="flex-1 min-h-screen bg-gray-50">
           <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
-          <Routes>
-            <Route path="/properties" element={<Properties />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route
-              path="/contactus"
-              element={
-                <ContactUsProvider>
-                  <ContactUsList />
-                </ContactUsProvider>
-              }
-            />
-            <Route path="*" element={<Navigate to="/properties" />} />
-          </Routes>
+          <FeaturedProductsProvider>
+            <Routes>
+              <Route path="/properties" element={<Properties />} />
+              <Route path="/featured-products" element={<FeaturedProducts />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route
+                path="/contactus"
+                element={
+                  <ContactUsProvider>
+                    <ContactUsList />
+                  </ContactUsProvider>
+                }
+              />
+              <Route path="*" element={<Navigate to="/properties" />} />
+            </Routes>
+          </FeaturedProductsProvider>
         </div>
       </div>
     </Router>

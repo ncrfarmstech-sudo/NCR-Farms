@@ -1,6 +1,6 @@
 	import React, { useEffect, useState } from "react";
 	import { fetchProperties, createProperty, patchProperty, deleteProperty } from "../api/property";
-	import PropertyForm from "../components/PropertyForm";
+	import PropertyForm from "../components/property/PropertyForm";
 	import Modal from "../components/Modal";
 	import { Plus, Edit2, Trash2 } from "lucide-react";
 	import { toast } from 'react-toastify';

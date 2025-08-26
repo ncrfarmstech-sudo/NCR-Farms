@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 const navItems = [
   { to: '/properties', label: 'Properties' },
+  { to: '/featured-products', label: 'Featured Products' },
   { to: '/blog', label: 'Blog' },
   { to: '/contactus', label: 'Contact Us' },
 ];
