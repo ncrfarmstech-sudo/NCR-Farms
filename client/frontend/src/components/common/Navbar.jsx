@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Menu, Search, X, ArrowUpRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { FiClock } from "react-icons/fi";
+import { GoArrowUpLeft } from "react-icons/go";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +16,8 @@ const Navbar = () => {
         "Farmhouse with Pool Manesar",
         "10 Bigha Agriculture Plot",
         "Weekend Farmhouse Faridabad",
+        "Farmhouse with Pool Manesar",
+        "10 Bigha Agriculture Plot",
     ];
 
     return (
@@ -99,36 +103,49 @@ const Navbar = () => {
             {/* ---------------- Search Popup ---------------- */}
             {isSearchOpen && (
                 <>
-                    {/* Desktop Search Popup */}
-                    <div className="hidden md:flex fixed inset-0 bg-black/60 z-50 items-start justify-center p-4">
-                        <div className="bg-[#1c3a32] w-full max-w-2xl rounded-lg shadow-lg p-6 mt-20">
-                            {/* Search Input */}
-                            <div className="flex items-center bg-[#234436] px-4 py-2 rounded-md">
-                                <Search className="w-5 h-5 text-gray-300" />
-                                <input
-                                    type="text"
-                                    placeholder="Search Built up farmhouse"
-                                    className="bg-transparent outline-none px-3 text-white flex-1"
-                                />
-                                <button onClick={() => setIsSearchOpen(false)}>
+                    {/* ---------------- Desktop Search Popup ---------------- */}
+
+                    <div className="hidden md:flex fixed inset-0 bg-black/60 z-50 items-start justify-center p-6">
+                        <div className="bg-[#1D3C33] w-full max-w-3xl rounded-md p-6 mt-24 relative">
+                            {/* Search Bar Row */}
+                            <div className="flex items-center space-x-3">
+                                {/* Search Input Box */}
+                                <div className="flex items-center bg-[#2D5D4F] px-4 rounded-md flex-1 h-12">
+                                    <input
+                                        type="text"
+                                        placeholder="Search Built up farmhouse"
+                                        className="bg-transparent outline-none text-gray-200 flex-1 placeholder-gray-400"
+                                    />
+                                    <Search className="w-5 h-5 text-gray-300 ml-2" />
+                                </div>
+
+                                {/* Cross Icon in its own box */}
+                                <button
+                                    onClick={() => setIsSearchOpen(false)}
+                                    className="bg-[#2D5D4F] h-12 w-12 flex items-center justify-center rounded-md hover:bg-[#2a4c40]"
+                                >
                                     <X className="w-5 h-5 text-gray-300 hover:text-white" />
                                 </button>
                             </div>
 
+                          
                             {/* Recent Searches */}
-                            <div className="mt-6">
-                                <h3 className="text-yellow-400 font-semibold flex items-center mb-4">
+                            <div className="mt-8  bg-[#2D5D4F] rounded-sm max-h-72 overflow-y-auto ">
+                                <h3 className="text-yellow-400 font-semibold flex items-center m-3">
+                                    <FiClock className="mr-2 text-yellow-400 w-5 h-5" />
                                     Recent Searches
                                 </h3>
 
-                                <div className="grid grid-cols-2 gap-6 text-gray-200">
+                                <div className="p-6 grid grid-cols-2 gap-x-20 gap-y-4 text-[#F8F4EC] m-3">
                                     {recentSearches.map((item, idx) => (
                                         <button
                                             key={idx}
-                                            className="flex justify-between items-center w-full hover:text-yellow-400"
+                                            className="flex justify-between items-center w-full  pb-2 border-b border-gray-200 hover:text-yellow-400 transition-colors truncate"
                                         >
-                                            {item}
-                                            <ArrowUpRight className="w-4 h-4" />
+                                            <span className="truncate">
+                                                {item}
+                                            </span>
+                                            < GoArrowUpLeft className="w-6 h-6 shrink-0 ml-2" />
                                         </button>
                                     ))}
                                 </div>
@@ -136,7 +153,7 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    {/* Mobile Search Fullscreen */}
+                    {/* ---------------- Mobile Search Fullscreen ---------------- */}
                     <div className="md:hidden fixed inset-0 bg-[#fdf8f3] z-50 flex flex-col">
                         {/* Header */}
                         <div className="flex items-center justify-between px-4 py-3 bg-[#234436] text-white">
@@ -160,8 +177,8 @@ const Navbar = () => {
 
                         {/* Recent Searches */}
                         <div className="px-4 py-2 overflow-y-auto mt-4">
-                            <h3 className="text-gray-700 font-semibold flex items-center mb-3">
-                                <span className="mr-2">⏺</span> Recent Searches
+                            <h3 className="text-gray-700 font-semibold flex items-center mb-5">
+                                <FiClock className="mr-2 text-gray-700 w-5 h-5" />Recent Searches
                             </h3>
 
                             <ul className="space-y-3">
