@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFeaturedProducts } from '../context/FeaturedProductsContext';
-import { useState } from 'react';
 import FeaturedProductForm from '../components/featuredProduct/FeaturedProductForm';
 import FeaturedProductList from '../components/featuredProduct/FeaturedProductList';
 import { toast } from 'react-toastify';
 
 const FeaturedProducts = () => {
   const { featuredProducts, loading, error, addFeaturedProduct, editFeaturedProduct, removeFeaturedProduct } = useFeaturedProducts();
-  const [modalOpen, setModalOpen] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
   const [formLoading, setFormLoading] = useState(false);
 
@@ -24,7 +22,6 @@ const FeaturedProducts = () => {
         toast.success('Featured product added successfully!');
       }
       setEditProduct(null);
-      setModalOpen(false);
     } catch (err) {
       toast.error('Failed to save featured product. It may have been deleted or there was a network error.');
     }
@@ -33,7 +30,7 @@ const FeaturedProducts = () => {
 
   const handleEdit = (product) => {
     setEditProduct(product);
-    setModalOpen(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (id) => {
@@ -48,36 +45,25 @@ const FeaturedProducts = () => {
   };
 
   return (
-    <div className="pt-20 pb-12 px-2 md:px-10 bg-[#f3e9db] min-h-screen ml-56">
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-2 text-gray-800">Featured Products</h1>
-      <div className="flex justify-end mb-4">
+    <div className="p-8 min-h-screen ml-56 bg-[#f3e9db]" style={{ background: '#F3E9DB' }}>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#2D5D4F] mb-4 md:mb-0">Featured Products</h1>
         <button
-          className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800"
-          onClick={() => { setEditProduct(null); setModalOpen(true); }}
+          className="bg-[#2D5D4F] hover:bg-[#24493e] text-white px-6 py-2 rounded-lg font-semibold shadow"
+          onClick={() => setEditProduct(null)}
         >
           Add Featured Product
         </button>
       </div>
-      {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-xl relative">
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-              onClick={() => { setModalOpen(false); setEditProduct(null); }}
-            >
-              ×
-            </button>
-            <FeaturedProductForm
-              onSubmit={handleFormSubmit}
-              loading={formLoading}
-              initialData={editProduct}
-              isEdit={!!editProduct}
-              onCancel={() => { setModalOpen(false); setEditProduct(null); }}
-            />
-          </div>
-        </div>
-      )}
-      {/* Remove loading and error messages for a cleaner UI */}
+      <div className="max-w-6xl mx-auto mb-8 w-full">
+        <FeaturedProductForm
+          onSubmit={handleFormSubmit}
+          loading={formLoading}
+          initialData={editProduct}
+          isEdit={!!editProduct}
+          onCancel={() => setEditProduct(null)}
+        />
+      </div>
       <FeaturedProductList
         products={featuredProducts}
         onEdit={handleEdit}

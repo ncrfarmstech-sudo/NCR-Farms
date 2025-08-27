@@ -107,7 +107,7 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-4 rounded shadow max-w-lg mx-auto max-h-[80vh] overflow-y-auto">
+  <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow max-w-4xl mx-auto max-h-[80vh] overflow-y-auto">
       <h3 className="text-2xl font-bold mb-4 text-green-700">{isEdit ? 'Edit Featured Product' : 'Add Featured Product'}</h3>
       <div className="mb-3 grid grid-cols-2 gap-4">
         <div>
