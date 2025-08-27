@@ -13,6 +13,11 @@ router.get('/:id', featuredProductController.getFeaturedProductById);
 router.put('/:id', upload.fields([
   { name: 'images', maxCount: 10 }
 ]), featuredProductController.updateFeaturedProduct);
+
+// PATCH: Partial update (only changed fields)
+router.patch('/:id', upload.fields([
+  { name: 'images', maxCount: 10 }
+]), featuredProductController.partialUpdateFeaturedProduct);
 router.delete('/:id', featuredProductController.deleteFeaturedProduct);
 
 module.exports = router;

@@ -1,3 +1,17 @@
+// PATCH: Partial update featured product
+exports.partialUpdateFeaturedProduct = async (req, res) => {
+  console.log('ROUTE HIT: partialUpdateFeaturedProduct');
+  console.log('BODY:', req.body);
+  console.log('FILES:', req.files);
+  try {
+    const files = req.files && req.files['images'] ? req.files['images'] : [];
+    const product = await featuredProductService.partialUpdateFeaturedProduct(req.params.id, req.body, files);
+    if (!product) return res.status(404).json({ error: 'Featured Product not found' });
+    res.json(product);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 const featuredProductService = require('../services/featuredProductService');
 
 exports.createFeaturedProduct = async (req, res) => {
@@ -42,6 +56,9 @@ exports.getFeaturedProductById = async (req, res) => {
 };
 
 exports.updateFeaturedProduct = async (req, res) => {
+  console.log('ROUTE HIT: updateFeaturedProduct');
+  console.log('BODY:', req.body);
+  console.log('FILES:', req.files);
   try {
     const files = req.files || [];
     const product = await featuredProductService.updateFeaturedProduct(req.params.id, req.body, files);
