@@ -5,7 +5,8 @@ const initialState = {
   title: '',
   description: '',
   price: '',
-  productType: 'apartment',
+  propertyType: 'Built up farmhouse',
+  locationName: '',
   address: {
     street: '',
     city: '',
@@ -13,10 +14,7 @@ const initialState = {
     pincode: ''
   },
   features: {
-    bedrooms: '',
-    bathrooms: '',
-    area: '',
-    furnished: false
+    area: ''
   },
   images: []
 };
@@ -42,16 +40,17 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
   }, [initialData]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
+  const { name, value, files } = e.target;
     if (name === 'images') {
       const newImgs = Array.from(files).map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
       setImages(prev => [...prev, ...newImgs]);
     } else if (name.startsWith('address.')) {
       setForm({ ...form, address: { ...form.address, [name.split('.')[1]]: value } });
     } else if (name.startsWith('features.')) {
-      setForm({ ...form, features: { ...form.features, [name.split('.')[1]]: type === 'checkbox' ? checked : value } });
-    } else if (name === 'furnished') {
-      setForm({ ...form, features: { ...form.features, furnished: checked } });
+      const key = name.split('.')[1];
+      if (key === 'area') {
+        setForm({ ...form, features: { ...form.features, [key]: value } });
+      }
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -101,7 +100,7 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
       });
       await onSubmit(formData);
       setImages(Array.isArray(initialData?.images) ? initialData.images.map(url => ({ url, isNew: false })) : []);
-    } catch (err) {
+    } catch {
       toast.error('Failed to save featured product. Please try again.');
     }
   };
@@ -120,29 +119,31 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
         </div>
         <div>
           <label className="block text-sm font-medium">Type</label>
-          <select name="productType" value={form.productType} onChange={handleChange} className="w-full border px-3 py-2 rounded">
-            <option value="apartment">Apartment</option>
-            <option value="villa">Villa</option>
-            <option value="land">Land</option>
-            <option value="office">Office</option>
+          <select name="propertyType" value={form.propertyType} onChange={handleChange} className="w-full border px-3 py-2 rounded" required>
+            <option value="">Select Type</option>
+            <option value="Built up farmhouse">Built up farmhouse</option>
+            <option value="Gated Farmhouse">Gated Farmhouse</option>
+            <option value="Agricultural land">Agricultural land</option>
+            <option value="Farmland">Farmland</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Location</label>
+          <select name="locationName" value={form.locationName} onChange={handleChange} className="w-full border px-3 py-2 rounded" required>
+            <option value="">Select Location</option>
+            <option value="Gurgaon">Gurgaon</option>
+            <option value="Sohna">Sohna</option>
+            <option value="Noida">Noida</option>
+            <option value="Alwar">Alwar</option>
+            <option value="Neemrana">Neemrana</option>
+            <option value="Faridabad">Faridabad</option>
           </select>
         </div>
         <div>
           <label className="block text-sm font-medium">Area (sqft)</label>
           <input name="features.area" value={form.features.area} onChange={handleChange} placeholder="Area (sqft)" type="number" className="w-full border px-3 py-2 rounded" />
         </div>
-        <div>
-          <label className="block text-sm font-medium">Bedrooms</label>
-          <input name="features.bedrooms" value={form.features.bedrooms} onChange={handleChange} placeholder="Bedrooms" type="number" className="w-full border px-3 py-2 rounded" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium">Bathrooms</label>
-          <input name="features.bathrooms" value={form.features.bathrooms} onChange={handleChange} placeholder="Bathrooms" type="number" className="w-full border px-3 py-2 rounded" />
-        </div>
-        <div className="col-span-2 flex items-center gap-2 mt-2">
-          <input name="features.furnished" type="checkbox" checked={form.features.furnished} onChange={handleChange} className="mr-2" />
-          <label className="text-sm font-medium">Furnished</label>
-        </div>
+  {/* Bedrooms, Bathrooms, and Furnished fields removed as per new requirements */}
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium">Description</label>

@@ -5,7 +5,7 @@ const Modal = ({ isOpen, onClose, children }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40" style={{ zIndex: 1100 }}>
       <div
-        className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg relative animate-fade-in flex flex-col max-h-[90vh]"
+        className="bg-white rounded-xl shadow-lg p-6 w-full max-w-4xl relative animate-fade-in flex flex-col max-h-[90vh]"
         style={{ zIndex: 1200 }}
       >
         <button

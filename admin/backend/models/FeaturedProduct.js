@@ -4,29 +4,22 @@ const featuredProductSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
   price: { type: Number, required: true },
-  productType: { type: String, required: true },
+  propertyType: { type: String, enum: ['Built up farmhouse', 'Gated Farmhouse', 'Agricultural land', 'Farmland'], required: true },
+  locationName: {
+    type: String,
+    enum: ['Gurgaon', 'Sohna', 'Noida', 'Alwar', 'Neemrana', 'Faridabad'],
+    required: true
+  },
   address: {
     street: { type: String },
     city: { type: String },
     state: { type: String },
     pincode: { type: String }
   },
-  location: {
-    type: {
-      type: String,
-      enum: ['Point'],
-      default: 'Point'
-    },
-    coordinates: {
-      type: [Number],
-      default: [0, 0]
-    }
-  },
+  // location field removed
   features: {
-    bedrooms: { type: Number },
-    bathrooms: { type: Number },
-    area: { type: Number },
-    furnished: { type: Boolean }
+    area: { type: Number }
+    // bedrooms, bathrooms, furnished removed as per property model changes
   },
   images: [{ type: String }],
   status: { type: String, enum: ['available', 'sold', 'rented'], default: 'available' },
@@ -34,6 +27,6 @@ const featuredProductSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-featuredProductSchema.index({ location: '2dsphere' });
+
 
 module.exports = mongoose.model('FeaturedProduct', featuredProductSchema);

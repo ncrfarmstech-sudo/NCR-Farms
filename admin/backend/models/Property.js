@@ -4,29 +4,23 @@ const propertySchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
   price: { type: Number, required: true },
-  propertyType: { type: String, enum: ['apartment', 'villa', 'land', 'office'], required: true },
+  propertyType: { type: String, enum: ['Built up farmhouse', 'Gated Farmhouse', 'Agricultural land', 'Farmland'], required: true },
   address: {
     street: { type: String },
     city: { type: String },
     state: { type: String },
     pincode: { type: String }
   },
-  location: {
-    type: {
-      type: String,
-      enum: ['Point'],
-      default: 'Point'
-    },
-    coordinates: {
-      type: [Number],
-      default: [0, 0]
-    }
+  locationName: {
+    type: String,
+    enum: ['Gurgaon', 'Sohna', 'Noida', 'Alwar', 'Neemrana', 'Faridabad'],
+    required: true
   },
+  // location field removed
   features: {
-    bedrooms: { type: Number },
-    bathrooms: { type: Number },
+    
     area: { type: Number },
-    furnished: { type: Boolean }
+  // furnished removed as per new requirements
   },
   images: [{ type: String }],
   status: { type: String, enum: ['available', 'sold', 'rented'], default: 'available' },
@@ -34,6 +28,6 @@ const propertySchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-propertySchema.index({ location: '2dsphere' });
+
 
 module.exports = mongoose.model('Property', propertySchema);

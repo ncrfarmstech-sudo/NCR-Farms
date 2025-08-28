@@ -27,10 +27,9 @@ exports.partialUpdateProperty = async (id, data, files) => {
   if (typeof data['address.state'] !== 'undefined') property.address.state = data['address.state'];
   if (typeof data['address.pincode'] !== 'undefined') property.address.pincode = data['address.pincode'];
   // Features
-  if (typeof data['features.bedrooms'] !== 'undefined') property.features.bedrooms = data['features.bedrooms'];
-  if (typeof data['features.bathrooms'] !== 'undefined') property.features.bathrooms = data['features.bathrooms'];
+  // bedrooms and bathrooms removed as per new requirements
   if (typeof data['features.area'] !== 'undefined') property.features.area = data['features.area'];
-  if (typeof data['features.furnished'] !== 'undefined') property.features.furnished = data['features.furnished'] === 'true' || data['features.furnished'] === true;
+  // furnished removed as per new requirements
 
   // Merge existing image URLs from frontend with new uploads
   let existingImages = [];
@@ -95,8 +94,7 @@ exports.updateProperty = async (id, data, files) => {
   if (typeof data['address.state'] !== 'undefined') property.address.state = data['address.state'];
   if (typeof data['address.pincode'] !== 'undefined') property.address.pincode = data['address.pincode'];
   // Features
-  if (typeof data['features.bedrooms'] !== 'undefined') property.features.bedrooms = data['features.bedrooms'];
-  if (typeof data['features.bathrooms'] !== 'undefined') property.features.bathrooms = data['features.bathrooms'];
+  // bedrooms and bathrooms removed as per new requirements
   if (typeof data['features.area'] !== 'undefined') property.features.area = data['features.area'];
   if (typeof data['features.furnished'] !== 'undefined') property.features.furnished = data['features.furnished'] === 'true' || data['features.furnished'] === true;
 

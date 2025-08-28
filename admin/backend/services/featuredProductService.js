@@ -16,10 +16,7 @@ exports.partialUpdateFeaturedProduct = async (id, data, files) => {
   if (typeof data['address.city'] !== 'undefined') product.address.city = data['address.city'];
   if (typeof data['address.state'] !== 'undefined') product.address.state = data['address.state'];
   if (typeof data['address.pincode'] !== 'undefined') product.address.pincode = data['address.pincode'];
-  if (typeof data['features.bedrooms'] !== 'undefined') product.features.bedrooms = data['features.bedrooms'];
-  if (typeof data['features.bathrooms'] !== 'undefined') product.features.bathrooms = data['features.bathrooms'];
   if (typeof data['features.area'] !== 'undefined') product.features.area = data['features.area'];
-  if (typeof data['features.furnished'] !== 'undefined') product.features.furnished = data['features.furnished'] === 'true' || data['features.furnished'] === true;
 
   // Handle images (merge existing and new)
   let existingImages = [];
@@ -94,10 +91,7 @@ exports.updateFeaturedProduct = async (id, data, files) => {
   if (typeof data['address.city'] !== 'undefined') product.address.city = data['address.city'];
   if (typeof data['address.state'] !== 'undefined') product.address.state = data['address.state'];
   if (typeof data['address.pincode'] !== 'undefined') product.address.pincode = data['address.pincode'];
-  if (typeof data['features.bedrooms'] !== 'undefined') product.features.bedrooms = data['features.bedrooms'];
-  if (typeof data['features.bathrooms'] !== 'undefined') product.features.bathrooms = data['features.bathrooms'];
   if (typeof data['features.area'] !== 'undefined') product.features.area = data['features.area'];
-  if (typeof data['features.furnished'] !== 'undefined') product.features.furnished = data['features.furnished'] === 'true' || data['features.furnished'] === true;
 
   let existingImages = [];
   if (typeof data['existingImages'] !== 'undefined') {
