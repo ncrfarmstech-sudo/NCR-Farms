@@ -5,7 +5,7 @@ import Blog from './pages/Blog';
 import BlogForm from './components/blog/BlogForm';
 import FeaturedProducts from './pages/FeaturedProducts';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
+import Login from './pages/Login';
 import { createBlog, updateBlog } from './api/blog';
 import { PropertiesProvider } from './context/PropertiesContext';
 import { BlogProvider } from './context/BlogContext';
@@ -18,7 +18,7 @@ const AppRoutes = () => (
     <BlogProvider>
       <ContactUsProvider>
         <Routes>
-          <Route path="/login" element={<React.Fragment />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/properties" element={<Properties />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/create-blog" element={<BlogForm onSubmit={async (data) => {

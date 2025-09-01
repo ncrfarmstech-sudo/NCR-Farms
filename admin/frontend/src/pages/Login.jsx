@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const DUMMY_CREDENTIALS = { username: 'admin', password: 'admin123' };
@@ -8,6 +8,13 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		// If already logged in, redirect to /properties
+		if (localStorage.getItem('isAdmin') === 'true') {
+			navigate('/properties');
+		}
+	}, [navigate]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
