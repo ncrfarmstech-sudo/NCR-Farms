@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+
 import { Menu, Search, X, ArrowUpRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { FiClock } from "react-icons/fi";
@@ -7,18 +9,27 @@ import { GoArrowUpLeft } from "react-icons/go";
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchText, setSearchText] = useState("");
+    const navigate = useNavigate();
 
-    // Example recent searches
-    const recentSearches = [
-        "Luxury Farmhouse in Gurgaon",
-        "5 Acre Farm Land Sohna",
-        "Agriculture Land Greater Noida",
-        "Farmhouse with Pool Manesar",
-        "10 Bigha Agriculture Plot",
-        "Weekend Farmhouse Faridabad",
-        "Farmhouse with Pool Manesar",
-        "10 Bigha Agriculture Plot",
-    ];
+    // Persistent recent searches from localStorage
+    const [recentSearches, setRecentSearches] = useState(() => {
+        const saved = localStorage.getItem('propertySearchHistory');
+        return saved ? JSON.parse(saved) : [];
+    });
+
+    // Update recentSearches when searchText is submitted
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        const trimmed = searchText.trim();
+        if (trimmed) {
+            const updated = [trimmed, ...recentSearches.filter(s => s !== trimmed)].slice(0, 10);
+            setRecentSearches(updated);
+            localStorage.setItem('propertySearchHistory', JSON.stringify(updated));
+            navigate(`/properties?search=${encodeURIComponent(trimmed)}`);
+            setIsSearchOpen(false);
+        }
+    };
 
     return (
         <>
@@ -110,14 +121,19 @@ const Navbar = () => {
                             {/* Search Bar Row */}
                             <div className="flex items-center space-x-3">
                                 {/* Search Input Box */}
-                                <div className="flex items-center bg-[#2D5D4F] px-4 rounded-md flex-1 h-12">
+
+                                <form className="flex items-center bg-[#2D5D4F] px-4 rounded-md flex-1 h-12" onSubmit={handleSearchSubmit}>
                                     <input
                                         type="text"
                                         placeholder="Search Built up farmhouse"
                                         className="bg-transparent outline-none text-gray-200 flex-1 placeholder-gray-400"
+                                        value={searchText}
+                                        onChange={e => setSearchText(e.target.value)}
                                     />
-                                    <Search className="w-5 h-5 text-gray-300 ml-2" />
-                                </div>
+                                    <button type="submit">
+                                        <Search className="w-5 h-5 text-gray-300 ml-2" />
+                                    </button>
+                                </form>
 
                                 {/* Cross Icon in its own box */}
                                 <button
@@ -137,15 +153,22 @@ const Navbar = () => {
                                 </h3>
 
                                 <div className="p-6 grid grid-cols-2 gap-x-20 gap-y-4 text-[#F8F4EC] m-3">
-                                    {recentSearches.map((item, idx) => (
+                                    {recentSearches.length === 0 ? (
+                                        <span className="text-gray-400">No recent searches</span>
+                                    ) : recentSearches.map((item, idx) => (
                                         <button
                                             key={idx}
-                                            className="flex justify-between items-center w-full  pb-2 border-b border-gray-200 hover:text-yellow-400 transition-colors truncate"
+                                            className="flex justify-between items-center w-full pb-2 border-b border-gray-200 hover:text-yellow-400 transition-colors truncate"
+                                            onClick={() => {
+                                                setSearchText(item);
+                                                navigate(`/properties?search=${encodeURIComponent(item)}`);
+                                                setIsSearchOpen(false);
+                                            }}
                                         >
                                             <span className="truncate">
                                                 {item}
                                             </span>
-                                            < GoArrowUpLeft className="w-6 h-6 shrink-0 ml-2" />
+                                            <GoArrowUpLeft className="w-6 h-6 shrink-0 ml-2" />
                                         </button>
                                     ))}
                                 </div>
@@ -165,14 +188,18 @@ const Navbar = () => {
 
                         {/* Search Input (slightly up for mobile) */}
                         <div className="px-4 mt-[-0.6rem]">
-                            <div className="flex items-center bg-white shadow px-4 py-2 rounded-md">
+                            <form className="flex items-center bg-white shadow px-4 py-2 rounded-md" onSubmit={handleSearchSubmit}>
                                 <input
                                     type="text"
                                     placeholder="Search Built up farmhouse"
                                     className="bg-transparent outline-none flex-1 text-gray-700"
+                                    value={searchText}
+                                    onChange={e => setSearchText(e.target.value)}
                                 />
-                                <Search className="w-5 h-8 text-gray-500" />
-                            </div>
+                                <button type="submit">
+                                    <Search className="w-5 h-8 text-gray-500" />
+                                </button>
+                            </form>
                         </div>
 
                         {/* Recent Searches */}

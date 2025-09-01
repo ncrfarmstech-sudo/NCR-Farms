@@ -12,7 +12,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem('isAdmin');
-    navigate(0); // reloads the app to force logout state
+    navigate('/login'); // redirect to login page after logout
   };
   return (
     <nav className="fixed left-0 top-0 h-screen w-60 bg-gradient-to-b from-[#2D5D4F] to-[#3a7d6a] text-white flex flex-col items-center pt-6 z-20 shadow-xl">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DUMMY_CREDENTIALS = { username: 'admin', password: 'admin123' };
 
@@ -6,28 +7,18 @@ const Login = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const navigate = useNavigate();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (username === DUMMY_CREDENTIALS.username && password === DUMMY_CREDENTIALS.password) {
-			setIsLoggedIn(true);
+			localStorage.setItem('isAdmin', 'true');
 			setError('');
+			navigate('/properties');
 		} else {
 			setError('Invalid credentials');
 		}
 	};
-
-	if (isLoggedIn) {
-		return (
-			<div className="flex items-center justify-center h-screen">
-				<div className="bg-white p-8 rounded shadow text-center">
-					<h2 className="text-2xl font-bold mb-4">Welcome, Admin!</h2>
-					<p className="text-gray-700">You have successfully logged in.</p>
-				</div>
-			</div>
-		);
-	}
 
 	return (
 		<div className="flex items-center justify-center h-screen bg-gray-100">
