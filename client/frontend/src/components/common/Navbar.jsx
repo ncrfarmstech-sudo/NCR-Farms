@@ -1,6 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { Menu, Search, X, ArrowUpRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { FiClock } from "react-icons/fi";
