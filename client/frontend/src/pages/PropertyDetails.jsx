@@ -1,6 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from '../api/axios';
+import { fetchFeaturedProductById } from '../api/featuredProduct';
+import { fetchPropertyById } from '../api/property';
 
 const PropertyDetails = () => {
   const { id } = useParams();
@@ -12,11 +15,26 @@ const PropertyDetails = () => {
     const fetchProperty = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(`/properties/${id}`);
-        setProperty(res.data);
-        setError(null);
+        // Try to fetch as a normal property first using the correct API
+        const data = await fetchPropertyById(id);
+        if (data && data._id) {
+          setProperty(data);
+          setError(null);
+        } else {
+          // If not found, try as featured property
+          const featured = await fetchFeaturedProductById(id);
+          setProperty(featured);
+          setError(null);
+        }
       } catch (err) {
-        setError('Failed to fetch property details');
+        // Try as featured property if not found as normal property
+        try {
+          const featured = await fetchFeaturedProductById(id);
+          setProperty(featured);
+          setError(null);
+        } catch (err2) {
+          setError('Failed to fetch property details');
+        }
       }
       setLoading(false);
     };

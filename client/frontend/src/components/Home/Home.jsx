@@ -33,7 +33,7 @@ const Home = () => {
           <h1 className="text-2xl md:text-4xl font-bold mb-6">
             Easy Way to Own Managed Farmland and Enjoy Growth
           </h1>
-          <button className="px-8 py-3 border border-white text-white text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300">
+          <button className="px-8 py-3 border border-yellow-400 text-yellow-400 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300">
             FIND YOUR DREAM FARM PLOT
           </button>
         </div>
@@ -57,24 +57,62 @@ const Home = () => {
         </p>
       </section>
 
-      {/* Stats Section */}
-      <section className="relative text-white text-center px-6 py-32 md:py-64 overflow-hidden min-h-[60vh] md:min-h-[80vh] lg:min-h-[100vh]">
-        {/* Mobile background */}
-        <img
-          src={statsImg}
-          alt="Stats Banner"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden animate-zoom"
-        />
-        {/* Desktop background */}
-        <img
-          src={statsImgDesktop}
-          alt="Stats Banner Desktop"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block animate-zoom"
-        />
-        <div className="relative z-10">
-          <div className="grid grid-cols-3 gap-4 mt-10 text-base md:text-lg font-semibold"></div>
-        </div>
-      </section>
+     
+   {/* Stats Section */}
+<section className="relative text-white text-center px-6 py-32 md:py-64 overflow-hidden min-h-[60vh] md:min-h-[80vh] lg:min-h-[100vh]">
+  {/* Mobile background */}
+  <img
+    src={statsImg}
+    alt="Stats Banner"
+    className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden"
+  />
+
+  {/* Desktop background */}
+  <img
+    src={statsImgDesktop}
+    alt="Stats Banner Desktop"
+    className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
+  />
+
+  {/* Overlay for darker text contrast */}
+  <div className="absolute inset-0 bg-black/40 z-0"></div>
+
+  {/* Content */}
+  <div className="relative z-10 max-w-5xl mx-auto">
+    <h2 className="text-3xl md:text-5xl font-semibold mb-6 leading-tight">
+      Find Your Perfect Farmhouse <br /> in <span className="text-gray-200">Delhi NCR</span>
+    </h2>
+
+    <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+      Escape in luxury farmhouses surrounded by nature’s beauty. Perfect for weekend getaways,
+      family gatherings, and unforgettable celebrations across Gurgaon, Noida, Faridabad, and Greater Noida.
+    </p>
+
+    {/* Stats Cards — Always 3 columns */}
+    <div className="grid grid-cols-3 gap-3 md:gap-6 mt-12 justify-center items-stretch max-w-3xl mx-auto">
+      {/* Box 1 */}
+      <div className="bg-white/10 border border-white/30 rounded-2xl py-4 md:py-6 px-2 md:px-4 backdrop-blur-md shadow-lg flex flex-col items-center justify-center">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-400">500+</h3>
+        <p className="mt-1 md:mt-2 text-gray-100 text-xs sm:text-sm md:text-base">Verified Properties</p>
+      </div>
+
+      {/* Box 2 */}
+      <div className="bg-white/10 border border-white/30 rounded-2xl py-4 md:py-6 px-2 md:px-4 backdrop-blur-md shadow-lg flex flex-col items-center justify-center">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-400">50k+</h3>
+        <p className="mt-1 md:mt-2 text-gray-100 text-xs sm:text-sm md:text-base">Happy Customers</p>
+      </div>
+
+      {/* Box 3 */}
+      <div className="bg-white/10 border border-white/30 rounded-2xl py-4 md:py-6 px-2 md:px-4 backdrop-blur-md shadow-lg flex flex-col items-center justify-center">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-yellow-400">4.8★</h3>
+        <p className="mt-1 md:mt-2 text-gray-100 text-xs sm:text-sm md:text-base">Average Rating</p>
+      </div>
+    </div>
+  </div> {/* ✅ This closing div was missing */}
+</section>
+
+
+
 
       {/* Why Choose NCR Farms */}
       <WhychooseNcr />

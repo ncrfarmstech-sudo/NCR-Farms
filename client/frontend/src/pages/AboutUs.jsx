@@ -1,5 +1,6 @@
 import React from "react";
-import aboutus from "../assets/aboutus.png"; // Add your farmland background image
+import aboutus from "../assets/aboutus.png";
+import forestBg from "../assets/aboutvision.png"; // Import the forest background image
 
 const AboutUs = () => {
     return (
@@ -23,22 +24,35 @@ const AboutUs = () => {
                 </div>
             </div>
 
-          {/* Who We Are */}
-<div className="bg-[#f3e9db] py-8 px-4"> {/* reduced py-12 → py-8 */}
-  <div className="max-w-6xl mx-auto bg-white shadow-md rounded-md p-6 text-justify"> {/* reduced p-8 → p-6 */}
-    <h2 className="text-xl sm:text-2xl font-semibold text-[#1D3C33] mb-4 text-center">
-      Who We Are
-    </h2>
-    <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-10"> {/* leading-relaxed → leading-normal */}
-      NCR Farms is your premier partner in farmland consultancy, dedicated to helping individuals and families realize their dream of owning land.
-      <br />
-      Founded on the principles of sustainability, accessibility, and a deep connection to nature, we are a team of experienced consultants, legal experts, and agricultural specialists committed to making land ownership straightforward and fulfilling.
-      <br />
-      Whether you’re seeking a full-time residence in a serene farmhouse setting or a weekend getaway, we bridge the gap between urban life and rural bliss.
-    </p>
-  </div>
-</div>
-
+            {/* Who We Are */}
+            <div className="bg-[#f3e9db] py-8 px-4">
+                {" "}
+                {/* reduced py-12 → py-8 */}
+                <div className="max-w-6xl mx-auto bg-white shadow-md rounded-md p-6 text-justify">
+                    {" "}
+                    {/* reduced p-8 → p-6 */}
+                    <h2 className="text-xl sm:text-2xl font-semibold text-[#1D3C33] mb-4 text-center">
+                        Who We Are
+                    </h2>
+                    <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-10">
+                        {" "}
+                        {/* leading-relaxed → leading-normal */}
+                        NCR Farms is your premier partner in farmland
+                        consultancy, dedicated to helping individuals and
+                        families realize their dream of owning land.
+                        <br />
+                        Founded on the principles of sustainability,
+                        accessibility, and a deep connection to nature, we are a
+                        team of experienced consultants, legal experts, and
+                        agricultural specialists committed to making land
+                        ownership straightforward and fulfilling.
+                        <br />
+                        Whether you’re seeking a full-time residence in a serene
+                        farmhouse setting or a weekend getaway, we bridge the
+                        gap between urban life and rural bliss.
+                    </p>
+                </div>
+            </div>
 
             {/* What We Do */}
             <div className="bg-white py-12 px-4 text-center">
@@ -133,6 +147,48 @@ const AboutUs = () => {
                         </div>
                     </div>
                 </div>
+{/* Vision & Mission Section */}
+<div className="relative text-white py-16 px-6 overflow-hidden">
+  {/* Background image */}
+  <img
+    src={forestBg}
+    alt="Forest background"
+    className="absolute inset-0 w-full h-full object-cover opacity-100"
+  />
+
+  {/* Content Wrapper */}
+  <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row justify-center gap-6">
+    {/* Vision Box */}
+    <div className="bg-[#e6decd]/95 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
+      <h3 className="font-semibold mb-2">Our Vision:</h3>
+      <p className="text-sm sm:text-base leading-relaxed">
+        To empower every individual to own a piece of land, fostering a
+        widespread reconnection with nature and promoting sustainable living
+        for generations to come.
+      </p>
+    </div>
+
+    {/* Mission Box */}
+    <div className="bg-[#e6decd]/90 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
+      <h3 className="font-semibold mb-2">Our Mission:</h3>
+      <p className="text-sm sm:text-base leading-relaxed">
+        To deliver expert, end-to-end farmland consultancy that makes owning
+        and managing agricultural properties accessible, legally secure, and
+        economically viable.
+      </p>
+    </div>
+  </div>
+
+  {/* Bottom Text */}
+ <p className="relative z-10 text-center text-white mt-10 text-sm sm:text-base md:text-lg max-w-full mx-auto leading-relaxed whitespace-nowrap overflow-x-auto">
+  We strive to create personalized solutions that align with our clients’
+  lifestyles, while advocating for eco-conscious practices in land use and
+  development.
+</p>
+
+</div>
+
+
             </div>
         </div>
     );
