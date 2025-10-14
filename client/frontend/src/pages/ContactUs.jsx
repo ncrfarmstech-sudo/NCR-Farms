@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useContactUs } from "../context/ContactUsContext";
+import { useContext } from "react";
+import { ContactUsContext } from "../context/ContactUsContext.jsx";
 import { FaPhoneAlt, FaEnvelope, FaClock, FaMapMarkerAlt } from "react-icons/fa";
  import { FaShieldAlt,  FaTags, FaHeart } from "react-icons/fa";
  import bgImage from '../assets/contactus.png'
 import WhychooseNcr from "../components/common/WhychooseNcr";
 
 const ContactUs = () => {
-  const { submitContact, loading, error, success } = useContactUs();
+  const { submitContact, loading, error, success } = useContext(ContactUsContext);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleChange = (e) => {
@@ -92,7 +93,7 @@ const ContactUs = () => {
 
 
       {/* Contact Form */}
-      <div className="max-w-2xl mx-auto bg-white shadow-md rounded-xl p-8">
+      <div className="max-w-2xl mx-auto bg-[#1D3C33] shadow-md rounded-xl p-8">
         <h3 className="text-xl font-semibold mb-4 text-gray-800">
           Send Us a Message
         </h3>
@@ -103,7 +104,7 @@ const ContactUs = () => {
             value={form.name}
             onChange={handleChange}
             placeholder="Your Name"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D5D4F]"
+            className="w-full border border-gray-300 bg-[#2D5D4F] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D5D4F]"
             required
           />
           <input
@@ -112,7 +113,7 @@ const ContactUs = () => {
             value={form.email}
             onChange={handleChange}
             placeholder="Your Email"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D5D4F]"
+            className="w-full border border-gray-300 bg-[#2D5D4F] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D5D4F]"
             required
           />
           <textarea
@@ -121,7 +122,7 @@ const ContactUs = () => {
             onChange={handleChange}
             placeholder="Your Message"
             rows="4"
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D5D4F]"
+            className="w-full border border-gray-300 bg-[#2D5D4F] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#2D5D4F]"
             required
           ></textarea>
           {error && <div className="text-red-500 text-sm">{error}</div>}

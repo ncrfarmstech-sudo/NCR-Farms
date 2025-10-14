@@ -78,12 +78,14 @@ export default function FeaturedProperties() {
         )}
       </div>
 
-      {/* Explore More Button */}
+      {/* Explore More Button
       <div className="text-center mt-12">
         <button className="bg-green-900 text-white px-8 py-3 rounded-md font-semibold hover:bg-green-800 transition">
           EXPLORE MORE
         </button>
       </div>
+ */}
+
     </section>
   );
 }

@@ -10,11 +10,16 @@ import Properties from './pages/Properties';
 import PropertyDetails from './pages/PropertyDetails';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
+import Footer from './components/common/Footer';
+
 
 
 import { ContactUsProvider } from './context/ContactUsContext';
 import { PropertiesProvider } from './context/PropertiesContext';
 import { FeaturedProductsProvider } from './context/FeaturedProductsContext';
+
+
+import WhatsappAndCallsButton from './components/common/WhatsappAndCallsButton';
 
 
 
@@ -33,6 +38,8 @@ function App() {
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/about" element={<AboutUs />} />
           </Routes>
+          <Footer />
+          <WhatsappAndCallsButton />
         </FeaturedProductsProvider>
       </PropertiesProvider>
     </ContactUsProvider>

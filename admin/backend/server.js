@@ -9,6 +9,7 @@ const contactRoutes = require('./routes/contactUsRoutes');
 const blogRoutes = require('./routes/blogRoutes'); // ✅ import blog routes
 const propertyRoutes = require('./routes/propertyRoutes');
 const featuredProductRoutes = require('./routes/featuredProductRoutes');
+const contactMailRoute = require('./routes/contactMail');
 // ensure cloudinary config is loaded (optional)
 require('./config/cloudinary');
 
@@ -35,8 +36,10 @@ app.use((req, res, next) => {
   }
   next();
 });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/api/contact', contactMailRoute);
 
 // Test route to verify server and routing
 app.get('/api/test', (req, res) => {
