@@ -21,7 +21,9 @@ const allowedOrigins = [
   'http://localhost:5174',
   'https://ncr-farms.onrender.com',
   'https://ncr-farms-101.onrender.com', // backend
-  'https://ncr-farms-rx04.onrender.com' // frontend
+  'https://ncr-farms-rx04.onrender.com', // frontend
+  'https://ncr-farms-client.onrender.com', // frontend (add your actual URL here)
+  '*' // Allow all origins for testing (remove this in production)
 ];
 app.use((req, res, next) => {
   const origin = req.headers.origin;
