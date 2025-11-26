@@ -9,7 +9,6 @@ const contactRoutes = require('./routes/contactUsRoutes');
 const blogRoutes = require('./routes/blogRoutes'); // ✅ import blog routes
 const propertyRoutes = require('./routes/propertyRoutes');
 const featuredProductRoutes = require('./routes/featuredProductRoutes');
-const contactMailRoute = require('./routes/contactMail');
 // ensure cloudinary config is loaded (optional)
 require('./config/cloudinary');
 
@@ -21,9 +20,7 @@ const allowedOrigins = [
   'http://localhost:5174',
   'https://ncr-farms.onrender.com',
   'https://ncr-farms-101.onrender.com', // backend
-  'https://ncr-farms-rx04.onrender.com', // frontend
-  'https://ncr-farms-client.onrender.com', // frontend (add your actual URL here)
-  '*' // Allow all origins for testing (remove this in production)
+  'https://ncr-farms-rx04.onrender.com' // frontend
 ];
 app.use((req, res, next) => {
   const origin = req.headers.origin;
@@ -41,7 +38,6 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/api/contact', contactMailRoute);
 
 // Test route to verify server and routing
 app.get('/api/test', (req, res) => {

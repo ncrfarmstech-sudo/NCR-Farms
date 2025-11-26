@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, Search, X, ArrowUpRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -17,19 +17,122 @@ const Navbar = () => {
         return saved ? JSON.parse(saved) : [];
     });
 
-    // Update recentSearches when searchText is submitted
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        const trimmed = searchText.trim();
+        // Use actual user input if present; otherwise fall back to the animated word
+        const query = (searchText && searchText.trim()) || displayTextRef.current || "";
+        const trimmed = query.trim();
         if (trimmed) {
             const updated = [trimmed, ...recentSearches.filter(s => s !== trimmed)].slice(0, 10);
             setRecentSearches(updated);
             localStorage.setItem('propertySearchHistory', JSON.stringify(updated));
             navigate(`/properties?search=${encodeURIComponent(trimmed)}`);
             setIsSearchOpen(false);
+            // clear input if you want (optional)
+            // setSearchText("");
         }
     };
 
+    // ---------------- Typing effect setup ----------------
+    const words = ["farmhouse", "villa", "penthouse", "flat", "farmland"];
+
+    // Visible placeholder (state)
+    const [displayText, setDisplayText] = useState("");
+    const displayTextRef = useRef(""); // keep ref for submit usage
+    const wordIndexRef = useRef(0);
+    const deletingRef = useRef(false);
+    const charIndexRef = useRef(0);
+    const timeoutRef = useRef(null);
+
+    // Helper to clear any pending timeouts when popup closes or user types
+    const clearTypingTimeout = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+            timeoutRef.current = null;
+        }
+    };
+
+    // Core typing effect — runs only when search popup is open AND user hasn't typed anything
+    useEffect(() => {
+        // stop typing if popup closed
+        if (!isSearchOpen) {
+            clearTypingTimeout();
+            setDisplayText("");
+            displayTextRef.current = "";
+            // reset counters for fresh start next open
+            wordIndexRef.current = 0;
+            deletingRef.current = false;
+            charIndexRef.current = 0;
+            return;
+        }
+
+        // if user typed, don't run animation
+        if (searchText) {
+            clearTypingTimeout();
+            setDisplayText("");
+            displayTextRef.current = "";
+            deletingRef.current = false;
+            charIndexRef.current = 0;
+            return;
+        }
+
+        const run = () => {
+            const currentWord = words[wordIndexRef.current];
+            if (!deletingRef.current) {
+                // typing forward
+                charIndexRef.current = Math.min(charIndexRef.current + 1, currentWord.length);
+                const next = currentWord.substring(0, charIndexRef.current);
+                setDisplayText(next);
+                displayTextRef.current = next;
+
+                if (charIndexRef.current === currentWord.length) {
+                    // pause at full word then start deleting
+                    timeoutRef.current = setTimeout(() => {
+                        deletingRef.current = true;
+                        run();
+                    }, 1400); // pause at full word
+                    return;
+                } else {
+                    timeoutRef.current = setTimeout(run, 120); // typing speed
+                }
+            } else {
+                // deleting
+                charIndexRef.current = Math.max(0, charIndexRef.current - 1);
+                const next = currentWord.substring(0, charIndexRef.current);
+                setDisplayText(next);
+                displayTextRef.current = next;
+
+                if (charIndexRef.current === 0) {
+                    // move to next word and start typing
+                    deletingRef.current = false;
+                    wordIndexRef.current = (wordIndexRef.current + 1) % words.length;
+                    timeoutRef.current = setTimeout(run, 200); // small gap before next word
+                    return;
+                } else {
+                    timeoutRef.current = setTimeout(run, 60); // deleting speed
+                }
+            }
+        };
+
+        // start the run loop
+        clearTypingTimeout();
+        timeoutRef.current = setTimeout(run, 200); // slight initial delay
+
+        // cleanup on unmount or dependency change
+        return () => clearTypingTimeout();
+    }, [isSearchOpen, searchText]); // restart whenever popup opens/closes or user types
+
+    // keep displayTextRef in sync if component re-renders
+    useEffect(() => {
+        displayTextRef.current = displayText;
+    }, [displayText]);
+
+    // clear timeouts when component unmounts
+    useEffect(() => {
+        return () => clearTypingTimeout();
+    }, []);
+
+    // ---------------- UI (unchanged except placeholder/value handling) ----------------
     return (
         <>
             {/* Fixed Navbar */}
@@ -95,7 +198,13 @@ const Navbar = () => {
                 {/* Desktop Search Button */}
                 <button
                     className="hidden md:flex items-center bg-yellow-500 text-black font-semibold px-4 py-1 rounded"
-                    onClick={() => setIsSearchOpen(true)}
+                    onClick={() => {
+                        setIsSearchOpen(true);
+                        // reset animation counters when opening (optional)
+                        // wordIndexRef.current = 0;
+                        // deletingRef.current = false;
+                        // charIndexRef.current = 0;
+                    }}
                 >
                     <Search className="w-4 h-4 mr-2" />
                     Search
@@ -121,13 +230,27 @@ const Navbar = () => {
                             <div className="flex items-center space-x-3">
                                 {/* Search Input Box */}
 
-                                <form className="flex items-center bg-[#2D5D4F] px-4 rounded-md flex-1 h-12" onSubmit={handleSearchSubmit}>
+                                <form
+                                    className="flex items-center bg-[#2D5D4F] px-4 rounded-md flex-1 h-12"
+                                    onSubmit={handleSearchSubmit}
+                                >
                                     <input
                                         type="text"
-                                        placeholder="Search Built up farmhouse"
-                                        className="bg-transparent outline-none text-gray-200 flex-1 placeholder-gray-400"
+                                        // controlled by user input only
                                         value={searchText}
-                                        onChange={e => setSearchText(e.target.value)}
+                                        placeholder={`Search Built up ${displayText || words[0]}`}
+                                        className="bg-transparent outline-none text-gray-200 flex-1 placeholder-gray-400"
+                                        onChange={e => {
+                                            setSearchText(e.target.value);
+                                            // when user types, stop animation clearing placeholder text visually
+                                            if (e.target.value) {
+                                                clearTypingTimeout();
+                                                setDisplayText("");
+                                                displayTextRef.current = "";
+                                            } else {
+                                                // if they clear input, restart animation by letting effect run
+                                            }
+                                        }}
                                     />
                                     <button type="submit">
                                         <Search className="w-5 h-5 text-gray-300 ml-2" />
@@ -136,14 +259,17 @@ const Navbar = () => {
 
                                 {/* Cross Icon in its own box */}
                                 <button
-                                    onClick={() => setIsSearchOpen(false)}
+                                    onClick={() => {
+                                        setIsSearchOpen(false);
+                                        // optional: clear searchText when closing
+                                        // setSearchText("");
+                                    }}
                                     className="bg-[#2D5D4F] h-12 w-12 flex items-center justify-center rounded-md hover:bg-[#2a4c40]"
                                 >
                                     <X className="w-5 h-5 text-gray-300 hover:text-white" />
                                 </button>
                             </div>
 
-                          
                             {/* Recent Searches */}
                             <div className="mt-8  bg-[#2D5D4F] rounded-sm max-h-72 overflow-y-auto ">
                                 <h3 className="text-yellow-400 font-semibold flex items-center m-3">
@@ -190,10 +316,17 @@ const Navbar = () => {
                             <form className="flex items-center bg-white shadow px-4 py-2 rounded-md" onSubmit={handleSearchSubmit}>
                                 <input
                                     type="text"
-                                    placeholder="Search Built up farmhouse"
-                                    className="bg-transparent outline-none flex-1 text-gray-700"
                                     value={searchText}
-                                    onChange={e => setSearchText(e.target.value)}
+                                    placeholder={`Search Built up ${displayText || words[0]}`}
+                                    className="bg-transparent outline-none flex-1 text-gray-700"
+                                    onChange={e => {
+                                        setSearchText(e.target.value);
+                                        if (e.target.value) {
+                                            clearTypingTimeout();
+                                            setDisplayText("");
+                                            displayTextRef.current = "";
+                                        }
+                                    }}
                                 />
                                 <button type="submit">
                                     <Search className="w-5 h-8 text-gray-500" />
@@ -227,9 +360,8 @@ const Navbar = () => {
 
             {/* ---------------- Mobile Sidebar ---------------- */}
             <div
-                className={`fixed top-0 left-0 h-[70%] w-full bg-[#2D5D4F] text-white transform ${
-                    isOpen ? "translate-x-0" : "-translate-x-full"
-                } transition-transform duration-300 ease-in-out z-40 md:hidden`}
+                className={`fixed top-0 left-0 h-[70%] w-full bg-[#2D5D4F] text-white transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+                    } transition-transform duration-300 ease-in-out z-40 md:hidden`}
             >
                 {/* Close Button */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-white/20 mt-14">

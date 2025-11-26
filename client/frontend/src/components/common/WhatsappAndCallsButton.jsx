@@ -1,57 +1,65 @@
 import React from "react";
 import { FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
+import { createPhoneURL, openWhatsApp } from "../../config/contact";
 
-const WhatsappAndCallsButton = () => {
+const WhatsappAndCallsButton = ({ 
+  whatsappMessage, 
+  customPhoneNumber, 
+  customWhatsappNumber 
+}) => {
+  // Generate URLs using the configuration
+  const phoneURL = createPhoneURL(customPhoneNumber);
+
+  const handleWhatsAppClick = () => {
+    openWhatsApp(whatsappMessage, customWhatsappNumber);
+  };
+
   return (
     <>
       {/* Desktop buttons - bottom right sticky */}
       <div className="hidden md:flex flex-col gap-3 fixed bottom-8 right-8 z-50 items-end">
         {/* Call Button */}
         <a
-          href="tel:+919999999999"
+          href={phoneURL}
           className="flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400 text-green-900 font-semibold shadow-md hover:bg-yellow-500 transition-all duration-300"
-          aria-label="Call"
+          aria-label="Call NCR Farms"
         >
           <FaPhoneAlt size={18} />
           <span>Call</span>
         </a>
 
         {/* WhatsApp Button */}
-        <a
-          href="https://wa.me/919999999999"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-600 text-white font-semibold shadow-md hover:bg-green-700 transition-all duration-300"
-          aria-label="WhatsApp"
+        <button
+          onClick={handleWhatsAppClick}
+          className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-600 text-white font-semibold shadow-md hover:bg-green-700 transition-all duration-300 cursor-pointer border-none"
+          aria-label="Chat on WhatsApp"
         >
           <FaWhatsapp size={20} />
           <span>Chat</span>
-        </a>
+        </button>
       </div>
 
       {/* Mobile buttons - bottom right sticky, same as desktop */}
       <div className="flex md:hidden flex-col gap-3 fixed bottom-4 right-4 z-50 items-end">
         {/* Call Button */}
         <a
-          href="tel:+919999999999"
+          href={phoneURL}
           className="flex items-center gap-2 px-4 py-2 rounded-full bg-yellow-400 text-green-900 font-semibold shadow-md hover:bg-yellow-500 transition-all duration-300"
-          aria-label="Call"
+          aria-label="Call NCR Farms"
         >
           <FaPhoneAlt size={18} />
           <span>Call</span>
         </a>
 
         {/* WhatsApp Button */}
-        <a
-          href="https://wa.me/919999999999"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-600 text-white font-semibold shadow-md hover:bg-green-700 transition-all duration-300"
-          aria-label="WhatsApp"
+        <button
+          onClick={handleWhatsAppClick}
+          className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-600 text-white font-semibold shadow-md hover:bg-green-700 transition-all duration-300 cursor-pointer border-none"
+          aria-label="Chat on WhatsApp"
         >
           <FaWhatsapp size={20} />
           <span>Chat</span>
-        </a>
+        </button>
       </div>
     </>
   );

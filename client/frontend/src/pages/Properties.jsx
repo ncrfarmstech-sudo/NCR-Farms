@@ -165,7 +165,7 @@ const Properties = () => {
                             navigate(`/properties/${p._id || p.id}`);
                           }}
                         >
-                          View More
+                          View Details
                         </button>
                       </div>
 

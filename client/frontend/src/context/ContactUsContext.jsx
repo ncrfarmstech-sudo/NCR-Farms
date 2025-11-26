@@ -1,7 +1,9 @@
-import React, { createContext, useState } from 'react';
-import { sendContactMessage } from '../api/contactus';
+import React, { createContext, useContext, useState } from 'react';
+import axios from '../api/axios';
 
-export const ContactUsContext = createContext();
+const ContactUsContext = createContext();
+
+export const useContactUs = () => useContext(ContactUsContext);
 
 export const ContactUsProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +15,7 @@ export const ContactUsProvider = ({ children }) => {
     setError(null);
     setSuccess(false);
     try {
-      await sendContactMessage(data);
+      await axios.post('/contactus', data);
       setSuccess(true);
     } catch (err) {
       setError(err.response?.data?.error || 'Something went wrong');

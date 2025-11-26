@@ -34,7 +34,7 @@ const AboutUs = () => {
                     <h2 className="text-xl sm:text-2xl font-semibold text-[#1D3C33] mb-4 text-center">
                         Who We Are
                     </h2>
-                    <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-10">
+                    <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-8">
                         {" "}
                         {/* leading-relaxed → leading-normal */}
                         NCR Farms is your premier partner in farmland
@@ -147,49 +147,93 @@ const AboutUs = () => {
                         </div>
                     </div>
                 </div>
-{/* Vision & Mission Section */}
-<div className="relative text-white py-16 px-6 overflow-hidden">
-  {/* Background image */}
-  <img
-    src={forestBg}
-    alt="Forest background"
-    className="absolute inset-0 w-full h-full object-cover opacity-100"
-  />
+                {/* Vision & Mission Section */}
+                <div className="relative text-white py-16 px-6 overflow-hidden">
+                    {/* Background image */}
+                    <img
+                        src={forestBg}
+                        alt="Forest background"
+                        className="absolute inset-0 w-full h-full object-cover opacity-100"
+                    />
 
-  {/* Content Wrapper */}
-  <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row justify-center gap-6">
-    {/* Vision Box */}
-    <div className="bg-[#e6decd]/95 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
-      <h3 className="font-semibold mb-2">Our Vision:</h3>
-      <p className="text-sm sm:text-base leading-relaxed">
-        To empower every individual to own a piece of land, fostering a
-        widespread reconnection with nature and promoting sustainable living
-        for generations to come.
-      </p>
-    </div>
+                    {/* Content Wrapper */}
+                    <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row justify-center gap-6">
+                        {/* Vision Box */}
+                        <div className="bg-[#e6decd]/95 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
+                            <h3 className="font-semibold mb-2">Our Vision:</h3>
+                            <p className="text-sm sm:text-base leading-relaxed">
+                                To empower every individual to own a piece of
+                                land, fostering a widespread reconnection with
+                                nature and promoting sustainable living for
+                                generations to come.
+                            </p>
+                        </div>
 
-    {/* Mission Box */}
-    <div className="bg-[#e6decd]/90 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
-      <h3 className="font-semibold mb-2">Our Mission:</h3>
-      <p className="text-sm sm:text-base leading-relaxed">
-        To deliver expert, end-to-end farmland consultancy that makes owning
-        and managing agricultural properties accessible, legally secure, and
-        economically viable.
-      </p>
+                        {/* Mission Box */}
+                        <div className="bg-[#e6decd]/90 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
+                            <h3 className="font-semibold mb-2">Our Mission:</h3>
+                            <p className="text-sm sm:text-base leading-relaxed">
+                                To deliver expert, end-to-end farmland
+                                consultancy that makes owning and managing
+                                agricultural properties accessible, legally
+                                secure, and economically viable.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Bottom Text */}
+                    <p className="relative z-10 text-center text-white mt-10 text-sm sm:text-base md:text-lg max-w-full mx-auto leading-relaxed whitespace-nowrap overflow-x-auto">
+                        We strive to create personalized solutions that align
+                        with our clients’ lifestyles, while advocating for
+                        eco-conscious practices in land use and development.
+                    </p>
+                </div>
+            </div>
+
+            {/* What Makes Us Different from Others */}
+<div className="py-16 px-4">
+  <div className="max-w-5xl mx-auto text-center">
+    <h2 className="text-xl sm:text-2xl font-semibold text-[#1D3C33] mb-6">
+      What Makes Us Different from Others?
+    </h2>
+    <p className="text-gray-700 text-sm sm:text-base mb-10 leading-relaxed">
+      In a crowded real estate market, NCR Farms stands out through our specialized focus and client-first approach:
+    </p>
+
+    <div className="flex flex-col gap-4 text-left">
+      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+        <p className="text-gray-800 text-sm sm:text-base">
+          <span className="font-semibold">Exclusive Expertise in Farmland:</span> Unlike general real estate agents, we concentrate solely on agricultural and farmhouse properties, backed by in-depth knowledge of rural regulations, soil quality, and sustainable farming.
+        </p>
+      </div>
+
+      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+        <p className="text-gray-800 text-sm sm:text-base">
+          <span className="font-semibold">Comprehensive, Tailored Services:</span> From legal aid to innovative add-ons like hydroponics and solar setups, we offer more than just land sales — we provide a complete ecosystem for thriving in nature.
+        </p>
+      </div>
+
+      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+        <p className="text-gray-800 text-sm sm:text-base">
+          <span className="font-semibold">Commitment to Sustainability and ROI:</span> We prioritize eco-friendly solutions that not only enhance your lifestyle but also ensure your investment grows, setting us apart from firms that overlook long-term value.
+        </p>
+      </div>
+
+      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+        <p className="text-gray-800 text-sm sm:text-base">
+          <span className="font-semibold">Personalized and Transparent Process:</span> Our team listens to your needs, offers unbiased recommendations, and maintains clear communication — building trust that generic consultancies often lack.
+        </p>
+      </div>
+
+      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+        <p className="text-gray-800 text-sm sm:text-base">
+          <span className="font-semibold">Proven Track Record:</span> With a history of successful CLU conversions, property transfers, and satisfied clients reconnecting with nature, we deliver results that speak for themselves.
+        </p>
+      </div>
     </div>
   </div>
-
-  {/* Bottom Text */}
- <p className="relative z-10 text-center text-white mt-10 text-sm sm:text-base md:text-lg max-w-full mx-auto leading-relaxed whitespace-nowrap overflow-x-auto">
-  We strive to create personalized solutions that align with our clients’
-  lifestyles, while advocating for eco-conscious practices in land use and
-  development.
-</p>
-
 </div>
 
-
-            </div>
         </div>
     );
 };

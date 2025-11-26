@@ -4,7 +4,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/common/Navbar';
-import Home from './components/Home/Home';
+import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Properties from './pages/Properties';
 import PropertyDetails from './pages/PropertyDetails';
@@ -29,6 +29,9 @@ function App() {
     <ContactUsProvider>
       <PropertiesProvider>
         <FeaturedProductsProvider>
+
+
+
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -39,6 +42,10 @@ function App() {
             <Route path="/about" element={<AboutUs />} />
           </Routes>
           <Footer />
+
+
+
+
           <WhatsappAndCallsButton />
         </FeaturedProductsProvider>
       </PropertiesProvider>
