@@ -13,14 +13,13 @@ const propertySchema = new mongoose.Schema({
   },
   locationName: {
     type: String,
-    enum: ['Gurgaon', 'Sohna', 'Noida', 'Alwar', 'Neemrana', 'Faridabad'],
     required: true
   },
   // location field removed
   features: {
-    
+
     area: { type: Number },
-  // furnished removed as per new requirements
+    // furnished removed as per new requirements
   },
   images: [{ type: String }],
   status: { type: String, enum: ['available', 'sold', 'rented'], default: 'available' },

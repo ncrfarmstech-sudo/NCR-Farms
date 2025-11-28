@@ -9,8 +9,10 @@ exports.partialUpdateFeaturedProduct = async (id, data, files) => {
 
   // Only update provided fields
   if (typeof data.title !== 'undefined') product.title = data.title;
+  if (typeof data.tag !== 'undefined') product.tag = data.tag;
   if (typeof data.description !== 'undefined') product.description = data.description;
   if (typeof data.price !== 'undefined') product.price = data.price;
+  if (typeof data.locationName !== 'undefined') product.locationName = data.locationName;
   if (typeof data.productType !== 'undefined') product.productType = data.productType;
   if (typeof data['address.street'] !== 'undefined') product.address.street = data['address.street'];
   if (typeof data['address.city'] !== 'undefined') product.address.city = data['address.city'];
@@ -47,8 +49,8 @@ exports.partialUpdateFeaturedProduct = async (id, data, files) => {
   if (imageFiles.length > 0) {
     for (const file of imageFiles) {
       try {
-  const uploadRes = await uploadToCloudinary(file);
-  newImages.push(uploadRes.secure_url);
+        const uploadRes = await uploadToCloudinary(file);
+        newImages.push(uploadRes.secure_url);
       } catch (err) {
         console.error('Cloudinary upload error:', err);
       }
@@ -84,8 +86,10 @@ exports.updateFeaturedProduct = async (id, data, files) => {
   if (!product) return null;
 
   if (typeof data.title !== 'undefined') product.title = data.title;
+  if (typeof data.tag !== 'undefined') product.tag = data.tag;
   if (typeof data.description !== 'undefined') product.description = data.description;
   if (typeof data.price !== 'undefined') product.price = data.price;
+  if (typeof data.locationName !== 'undefined') product.locationName = data.locationName;
   if (typeof data.productType !== 'undefined') product.productType = data.productType;
   if (typeof data['address.street'] !== 'undefined') product.address.street = data['address.street'];
   if (typeof data['address.city'] !== 'undefined') product.address.city = data['address.city'];
@@ -121,8 +125,8 @@ exports.updateFeaturedProduct = async (id, data, files) => {
   if (imageFiles.length > 0) {
     for (const file of imageFiles) {
       try {
-  const uploadRes = await uploadToCloudinary(file);
-  newImages.push(uploadRes.secure_url);
+        const uploadRes = await uploadToCloudinary(file);
+        newImages.push(uploadRes.secure_url);
       } catch (err) {
         console.error('Cloudinary upload error:', err);
       }

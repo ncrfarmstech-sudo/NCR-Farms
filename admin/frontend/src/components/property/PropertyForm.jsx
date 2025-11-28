@@ -12,7 +12,7 @@ const initialState = {
     pincode: ''
   },
   features: {
-  area: ''
+    area: ''
   }
 };
 
@@ -45,7 +45,7 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
   }, [initialData]);
 
   const handleChange = (e) => {
-  const { name, value, files } = e.target;
+    const { name, value, files } = e.target;
     if (name === 'images') {
       // Add new files to images state
       const newImgs = Array.from(files).map(file => ({
@@ -68,7 +68,7 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
           features: { ...form.features, [key]: value }
         });
       }
-  // furnished removed
+      // furnished removed
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -118,26 +118,20 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
   };
 
   return (
-  <form onSubmit={handleSubmit} className={`bg-white p-4 rounded shadow w-full ${typeof className === 'string' ? className : ''}`}>
+    <form onSubmit={handleSubmit} className={`bg-white p-4 rounded shadow w-full ${typeof className === 'string' ? className : ''}`}>
       <h3 className="text-2xl font-bold mb-4 text-green-700">{isEdit ? 'Edit Property' : 'Add Property'}</h3>
       <div className="mb-3 grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium">Location</label>
-          <select
+          <input
+            type="text"
             name="locationName"
             value={form.locationName}
             onChange={handleChange}
+            placeholder="Location"
             className="w-full border px-3 py-2 rounded"
             required
-          >
-            <option value="">Select Location</option>
-            <option value="Gurgaon">Gurgaon</option>
-            <option value="Sohna">Sohna</option>
-            <option value="Noida">Noida</option>
-            <option value="Alwar">Alwar</option>
-            <option value="Neemrana">Neemrana</option>
-            <option value="Faridabad">Faridabad</option>
-          </select>
+          />
         </div>
         <div>
           <label className="block text-sm font-medium">Title</label>
@@ -160,8 +154,8 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
           <label className="block text-sm font-medium">Area (sqft)</label>
           <input name="features.area" value={form.features.area} onChange={handleChange} placeholder="Area (sqft)" type="number" className="w-full border px-3 py-2 rounded" />
         </div>
-  {/* Bedrooms and Bathrooms fields removed as requested */}
-  {/* Furnished option removed as requested */}
+        {/* Bedrooms and Bathrooms fields removed as requested */}
+        {/* Furnished option removed as requested */}
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium">Description</label>

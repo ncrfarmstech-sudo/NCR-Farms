@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const featuredProductSchema = new mongoose.Schema({
   title: { type: String, required: true },
+  tag: { type: String },
   description: { type: String },
   price: { type: Number, required: true },
   propertyType: { type: String, enum: ['Built up farmhouse', 'Gated Farmhouse', 'Agricultural land', 'Farmland'], required: true },
   locationName: {
     type: String,
-    enum: ['Gurgaon', 'Sohna', 'Noida', 'Alwar', 'Neemrana', 'Faridabad'],
     required: true
   },
   address: {

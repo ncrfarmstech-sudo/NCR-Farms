@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 const initialState = {
   title: '',
+  tag: '',
   description: '',
   price: '',
   propertyType: 'Built up farmhouse',
@@ -40,7 +41,7 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
   }, [initialData]);
 
   const handleChange = (e) => {
-  const { name, value, files } = e.target;
+    const { name, value, files } = e.target;
     if (name === 'images') {
       const newImgs = Array.from(files).map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
       setImages(prev => [...prev, ...newImgs]);
@@ -106,12 +107,16 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
   };
 
   return (
-  <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow max-w-4xl mx-auto max-h-[80vh] overflow-y-auto">
+    <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow max-w-4xl mx-auto max-h-[80vh] overflow-y-auto">
       <h3 className="text-2xl font-bold mb-4 text-green-700">{isEdit ? 'Edit Featured Product' : 'Add Featured Product'}</h3>
       <div className="mb-3 grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium">Title</label>
           <input name="title" value={form.title} onChange={handleChange} placeholder="Title" className="w-full border px-3 py-2 rounded" required />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Tag</label>
+          <input name="tag" value={form.tag} onChange={handleChange} placeholder="Tag (e.g., Best Seller, New Arrival)" className="w-full border px-3 py-2 rounded" />
         </div>
         <div>
           <label className="block text-sm font-medium">Price</label>
@@ -129,21 +134,21 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
         </div>
         <div>
           <label className="block text-sm font-medium">Location</label>
-          <select name="locationName" value={form.locationName} onChange={handleChange} className="w-full border px-3 py-2 rounded" required>
-            <option value="">Select Location</option>
-            <option value="Gurgaon">Gurgaon</option>
-            <option value="Sohna">Sohna</option>
-            <option value="Noida">Noida</option>
-            <option value="Alwar">Alwar</option>
-            <option value="Neemrana">Neemrana</option>
-            <option value="Faridabad">Faridabad</option>
-          </select>
+          <input 
+            type="text"
+            name="locationName" 
+            value={form.locationName} 
+            onChange={handleChange} 
+            placeholder="Location" 
+            className="w-full border px-3 py-2 rounded" 
+            required
+          />
         </div>
         <div>
           <label className="block text-sm font-medium">Area (sqft)</label>
           <input name="features.area" value={form.features.area} onChange={handleChange} placeholder="Area (sqft)" type="number" className="w-full border px-3 py-2 rounded" />
         </div>
-  {/* Bedrooms, Bathrooms, and Furnished fields removed as per new requirements */}
+        {/* Bedrooms, Bathrooms, and Furnished fields removed as per new requirements */}
       </div>
       <div className="mb-3">
         <label className="block text-sm font-medium">Description</label>

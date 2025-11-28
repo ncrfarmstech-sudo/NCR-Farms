@@ -36,6 +36,11 @@ export default function FeaturedProperties() {
                   alt={p.title || 'Property'}
                   className="w-full h-44 object-cover"
                 />
+                {p.tag && (
+                  <span className="absolute top-2 right-2 bg-[#F3C218D9] text-white px-2 py-1 rounded-md shadow text-xs font-bold uppercase tracking-wider">
+                    {p.tag}
+                  </span>
+                )}
                 {p.rating && (
                   <span className="absolute bottom-2 right-2 bg-white px-2 py-1 rounded-md shadow text-sm font-semibold flex items-center">
                     ⭐ {p.rating}
@@ -61,10 +66,10 @@ export default function FeaturedProperties() {
                 <div className="flex justify-between items-center mt-auto">
                   <p className="text-green-900 font-bold">
                     Rs. {p.price}
-                    <span className="text-gray-500 text-sm"> /night</span>
+                    
                   </p>
                   <button
-                    className="bg-green-900 text-white px-4 py-2 rounded-md hover:bg-green-800 transition"
+                    className="bg-[#2D5D4F] text-white px-4 py-2 rounded-md hover:bg-[#3D7F6C] transition"
                     onClick={() => navigate(`/properties/${p._id || p.id}`)}
                   >
                     View Details

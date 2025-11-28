@@ -20,6 +20,7 @@ exports.partialUpdateProperty = async (id, data, files) => {
   if (typeof data.title !== 'undefined') property.title = data.title;
   if (typeof data.description !== 'undefined') property.description = data.description;
   if (typeof data.price !== 'undefined') property.price = data.price;
+  if (typeof data.locationName !== 'undefined') property.locationName = data.locationName;
   if (typeof data.propertyType !== 'undefined') property.propertyType = data.propertyType;
   // Address
   if (typeof data['address.street'] !== 'undefined') property.address.street = data['address.street'];
@@ -87,6 +88,7 @@ exports.updateProperty = async (id, data, files) => {
   if (typeof data.title !== 'undefined') property.title = data.title;
   if (typeof data.description !== 'undefined') property.description = data.description;
   if (typeof data.price !== 'undefined') property.price = data.price;
+  if (typeof data.locationName !== 'undefined') property.locationName = data.locationName;
   if (typeof data.propertyType !== 'undefined') property.propertyType = data.propertyType;
   // Address
   if (typeof data['address.street'] !== 'undefined') property.address.street = data['address.street'];

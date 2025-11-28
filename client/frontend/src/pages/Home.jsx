@@ -11,112 +11,202 @@ import "../index.css";
 import WhatsappAndCallsButton from "../components/common/WhatsappAndCallsButton";
 
 const Home = () => {
-  return (
-    <div className="bg-gray-50">
-      {/* Hero Section */}
-      <section className="relative w-full h-[60vh] md:h-[80vh] lg:h-[90vh] flex items-center justify-center overflow-hidden pt-16 md:pt-20">
-        {/* Mobile Banner */}
-        <img
-          src={heroImg}
-          alt="Banner"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden animate-zoom"
-        />
-        {/* Desktop Banner */}
-        <img
-          src={heroImgDesktop}
-          alt="Banner Desktop"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block animate-zoom"
-        />
+    return (
+        <div className="bg-gray-50">
+            {/* Hero Section */}
+            <section className="relative w-full h-[60vh] md:h-[80vh] lg:h-[90vh] flex items-center justify-center overflow-hidden pt-16 md:pt-20">
+                {/* Mobile Banner */}
+                <img
+                    src={heroImg}
+                    alt="Banner"
+                    className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden animate-zoom"
+                />
+                {/* Desktop Banner */}
+                <img
+                    src={heroImgDesktop}
+                    alt="Banner Desktop"
+                    className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block animate-zoom"
+                />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/30 z-10" />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/30 z-10" />
 
-        {/* Centered Content */}
-        <div className="relative z-20 text-center text-white">
-          <h1 className="text-2xl md:text-4xl font-bold mb-6">
-            Rooted in Nature, Driven by Trust<br />
-          </h1>
-          <button className="px-8 py-3 border border-yellow-400 text-yellow-400 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300">
-            FIND YOUR DREAM FARM PLOT
-          </button>
-        </div>
+                {/* Centered Content */}
+                <div className="relative z-20 text-center text-white">
+                    <h1 className="text-2xl md:text-4xl font-bold mb-5">
+                        Own Land. Grow Wealth. Live Better
+                    </h1>
 
-        
-        
-      </section>
+                    <p className="text-md md:text-lg text-[#F8F4EC] max-w-2xl mx-auto mb-6 leading-relaxed">
+                        Buy high potential farmhouse plots, agricultural land
+                        and built-up farmhouses – with complete transparency and
+                        end-to-end support.
+                    </p>
 
-      {/* Intro Section */}
-<section className="px-5 py-10 text-center bg-[#f9f5ef]">
-  <div className="max-w-6xl mx-auto">
-   <h3 className="text-2xl font-bold text-gray-900">
-  Welcome to <span className="text-green-700">NCR Farms</span>
-</h3>
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+                        <button className="px-12 py-3 border border-yellow-400 bg-yellow-400 text-green-900 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300">
+                            EXPLORE PROPERTIES
+                        </button>
 
-    <p className="text-sm md:text-base text-gray-700 leading-relaxed">
-      At NCR Farms, we believe land is more than property — it’s peace, purpose, and prosperity.
-      Our mission is to help you own your perfect farmland, farmhouse, or weekend home near Delhi NCR,
-      Gurgaon, Sohna, or Noida, where comfort meets countryside.
-    </p>
+                        <button className="px-4 py-3 border border-yellow-400 text-yellow-400 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300">
+                            BOOK A FREE CONSULTATION
+                        </button>
+                    </div>
 
-    <p className="mt-5 text-sm md:text-base text-gray-700 leading-relaxed">
-      With years of expertise in real estate and agricultural land investment,
-      NCR Farms connects people to green spaces that grow in both value and vitality.
-    </p>
+                </div>
+            </section>
 
-    <p className="mt-5 text-sm md:text-base text-gray-800 leading-relaxed font-medium">
-      Our vision: To make farmland ownership simple, secure, and sustainable. 
-      <br />
-      Our promise: Verified properties, transparent deals, and lifelong support.
-    </p>
+            {/* Intro Section */}
+            <section className="px-5 py-10 text-center bg-[#f9f5ef]">
+                <div className="max-w-6xl mx-auto">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                        Welcome to{" "}
+                        <span className="text-green-700">NCR Farms</span>
+                    </h3>
+
+                    <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                        At NCR Farms, we help you buy agricultural land, farmhouse plots, and ready farmhouses across Delhi NCR with clear titles, transparent pricing, and end-to-end support. Whether you want a farmhouse near Gurgaon, or an agricultural land, our team ensures every property is legally vetted and value-driven. With a customer centric approach, NCR Farms has become a trusted farmland consulting company in the NCR region.
+                    </p>
+                </div>
+            </section>
+
+            {/* Stats Section */}
+            <section className="relative text-white text-center px-6 py-32 md:py-64 overflow-hidden min-h-[60vh] md:min-h-[80vh] lg:min-h-[100vh]">
+                <img
+                    src={statsImg}
+                    alt="Stats Banner"
+                    className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden"
+                />
+                <img
+                    src={statsImgDesktop}
+                    alt="Stats Banner Desktop"
+                    className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
+                />
+                <div className="absolute inset-0 bg-black/40 z-0"></div>
+
+                <div className="relative z-10 max-w-6xl mx-auto">
+                    <h2 className="text-2xl md:text-3xl font-semibold mb-6 leading-tight">
+                        What We Offer
+                    </h2>
+                    {/*sub heading */}
+                    <p className="text-lg md:text-xl text-[#FFFFFF] font-semibold">
+                        Farmland, farmland plots, built-up farmhouses, and
+                        agricultural investment opportunities across Delhi NCR-
+                        vetted and ready for ownership
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-6 mt-12 justify-center items-stretch max-w-9xl mx-auto">
+                        <div
+                            className="bg-white/10 border border-white/30 rounded-2xl py-5 px-6 backdrop-blur-md shadow-lg 
+                  w-full max-w-[420px] mx-auto flex flex-col items-center justify-start h-full"
+                        >
+                            <h3 className="text-lg md:text-xl font-bold text-yellow-400">
+                                Farmland for Sale
+                            </h3>
+                            <p className="mt-1 text-gray-100 text-xs sm:text-sm md:text-sm text-center leading-snug">
+                                Investment-ready farmland parcels in
+                                appreciation corridors – ideal for farming or
+                                long-term hold.
+                            </p>
+                        </div>
+
+                        <div
+                            className="bg-white/10 border border-white/30 rounded-2xl py-5 px-6 backdrop-blur-md shadow-lg 
+                  w-full max-w-[420px] mx-auto flex flex-col items-center justify-start h-full"
+                        >
+                            <h3 className="text-lg md:text-xl font-bold text-yellow-400">
+                                Farmhouse Plots
+                            </h3>
+                            <p className="mt-1 text-gray-100 text-xs sm:text-sm md:text-sm text-center leading-snug">
+                                Fully demarcated plots to build your weekend
+                                home or rent out for premium stays.
+                            </p>
+                        </div>
+
+                        <div
+                            className="bg-white/10 border border-white/30 rounded-2xl py-5 px-6 backdrop-blur-md shadow-lg 
+                  w-full max-w-[420px] mx-auto flex flex-col items-center justify-start h-full"
+                        >
+                            <h3 className="text-lg md:text-xl font-bold text-yellow-400 whitespace-nowrap">
+                                Built-Up Farmhouses & Investments
+                            </h3>
+                            <p className="mt-1 text-gray-100 text-xs sm:text-sm md:text-sm text-center leading-snug">
+                                Move-in ready farmhouses and structured
+                                agricultural investments for high-net-worth
+                                buyers.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Featured Properties */}
+            <FeaturedProducts />
+
+            {/* Why Choose NCR Farms */}
+            <WhychooseNcr />
+
+            
+            {/* How It Works - Simple 3 Steps */}
+<section className="bg-[#F7EEDD] py-20 px-6">
+  <div className="max-w-6xl mx-auto text-center">
+    {/* Heading */}
+    <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-16">
+      How It Works - Simple 3 Steps
+    </h2>
+
+    {/* Steps */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
+      
+      {/* Step 1 */}
+      <div className="flex flex-col items-center">
+        <span className="text-4xl font-bold text-[#3D7F6C]">1</span>
+        <h3 className="text-lg md:text-xl font-semibold mt-3">
+          Schedule a Consultation
+        </h3>
+        <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
+          Tell us your goals and budget, we recommend the best options.
+        </p>
+      </div>
+
+      {/* Step 2 */}
+      <div className="flex flex-col items-center">
+        <span className="text-4xl font-bold text-[#3D7F6C]">2</span>
+        <h3 className="text-lg md:text-xl font-semibold mt-3">
+          Site Visit & Due Diligence
+        </h3>
+        <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
+          We show only legally clean properties and accompany you to visits.
+        </p>
+      </div>
+
+      {/* Step 3 */}
+      <div className="flex flex-col items-center">
+        <span className="text-4xl font-bold text-[#3D7F6C]">3</span>
+        <h3 className="text-lg md:text-xl font-semibold mt-3">
+          Hassle-Free Ownership
+        </h3>
+        <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
+          We handle documentation, registration, and post-purchase support.
+        </p>
+      </div>
+
+    </div>
+
+    {/* CTA Button */}
+    <div className="mt-12">
+      <button className="bg-[#3D7F6C] text-white px-10 py-3 rounded-md font-medium hover:bg-green-800 transition">
+        Get Started
+      </button>
+    </div>
   </div>
 </section>
 
 
-      {/* Stats Section */}
-      <section className="relative text-white text-center px-6 py-32 md:py-64 overflow-hidden min-h-[60vh] md:min-h-[80vh] lg:min-h-[100vh]">
-        <img
-          src={statsImg}
-          alt="Stats Banner"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden"
-        />
-        <img
-          src={statsImgDesktop}
-          alt="Stats Banner Desktop"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
-        />
-        <div className="absolute inset-0 bg-black/40 z-0"></div>
 
-        <div className="relative z-10 max-w-5xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-semibold mb-6 leading-tight">
-            Our Services -  <br /> in{" "}
-            <span className="text-gray-200">Complete Support from Selection to Ownership</span>
-          </h2>
-         
 
-          <div className="grid grid-cols-3 gap-3 md:gap-6 mt-12 justify-center items-stretch max-w-5xl mx-auto">
-            <div className="bg-white/10 border border-white/30 rounded-2xl py-4 md:py-6 px-2 md:px-4 backdrop-blur-md shadow-lg flex flex-col items-center justify-center">
-              <h3 className="text-2xl sm:text-2xl md:text-2xl font-bold text-yellow-400">Property Consultation</h3>
-              <p className="mt-1 md:mt-2 text-gray-100 text-xs sm:text-sm md:text-base">Our experts help you find the right property that fits your budget, location, and lifestyle.</p>
-            </div>
-            <div className="bg-white/10 border border-white/30 rounded-2xl py-4 md:py-6 px-2 md:px-4 backdrop-blur-md shadow-lg flex flex-col items-center justify-center">
-              <h3 className="text-2xl sm:text-2xl md:text-2xl font-bold text-yellow-400">Legal Assistance</h3>
-              <p className="mt-1 md:mt-2 text-gray-100 text-xs sm:text-sm md:text-base">Every project we list is title clear, verified, and RERA-compliant, ensuring your investment is 100% secure</p>
-            </div>
-            <div className="bg-white/10 border border-white/30 rounded-2xl py-4 md:py-6 px-2 md:px-4 backdrop-blur-md shadow-lg flex flex-col items-center justify-center">
-              <h3 className="text-2xl sm:text-2xl md:text-2xl font-bold text-yellow-400">Architecture & Development</h3>
-              <p className="mt-1 md:mt-2 text-gray-100 text-xs sm:text-sm md:text-base">From design to delivery, we assist you in building your dream farmhouse or eco-retreat with trusted professionals.</p>
-            </div>
-          </div>
         </div>
-      </section>
-
-      {/* Why Choose NCR Farms */}
-      <WhychooseNcr />
-
-      {/* Featured Properties */}
-      <FeaturedProducts />
-    </div>
-  );
+    );
 };
 
 export default Home;

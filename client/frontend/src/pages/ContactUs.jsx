@@ -161,50 +161,12 @@ const ContactUs = () => {
             </div>
 
             {/* Bottom Sentence */}
-            <p className="text-center text-sm text-gray-600 mt-8 mb-12">
+            <p className="text-center text-sm text-gray-600 mt-8 mb-20">
                 Thank you for reaching out to us — we’ll get back to you
                 shortly.
             </p>
 
-            {/* Why Choose NCR Farms Section */}
-            <WhychooseNcr />
 
-            {/* FAQ Section */}
-            <div className="max-w-4xl mx-auto px-6 pb-16">
-                <h2 className="text-2xl font-bold mb-6 text-center text-[#2D5D4F]">
-                    Frequently Asked Questions
-                </h2>
-                <div className="space-y-6">
-                    <div className="bg-white shadow-sm p-2">
-                        <h4 className="font-semibold text-[#2D5D4F]">
-                            How can I place an order?
-                        </h4>
-                        <p className="text-sm text-black mt-1">
-                            You can place an order directly through our website
-                            or call us for assistance.
-                        </p>
-                    </div>
-
-                    <div className="bg-white shadow-sm p-2">
-                        <h4 className="font-semibold text-[#2D5D4F]">
-                            Do you provide home delivery?
-                        </h4>
-                        <p className="text-sm text-black mt-1">
-                            Yes, we deliver across NCR regions within 24 hours.
-                        </p>
-                    </div>
-
-                    <div className="bg-white shadow-sm p-2">
-                        <h4 className="font-semibold text-[#2D5D4F]">
-                            Is your produce organic?
-                        </h4>
-                        <p className="text-sm text-black mt-1">
-                            Absolutely, all our produce is 100% organic and
-                            chemical-free.
-                        </p>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };

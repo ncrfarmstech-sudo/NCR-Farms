@@ -1,9 +1,14 @@
 @import "tailwindcss";
 
+
+
 @keyframes zoom {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
@@ -13,3 +18,5 @@
   animation: zoom 12s ease-in-out infinite;
   transform-origin: center;
 }
+
+
