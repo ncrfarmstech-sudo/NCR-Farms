@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchBlogs } from "../api/blog";
+import { stripHtml } from "../utils/stripHtml";
+import "../blog.css";
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -111,10 +113,10 @@ const Blog = () => {
                   )}
                 </p>
 
-                {/* Blog Content */}
-                <p className="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
-                  {activeBlog.content}
-                </p>
+                {/* Blog Content - Render HTML with styles */}
+                <div className="blog-content text-gray-700 leading-relaxed">
+                  <div dangerouslySetInnerHTML={{ __html: activeBlog.content }} />
+                </div>
               </>
             ) : (
               <p className="text-gray-600">Select a blog to view details.</p>

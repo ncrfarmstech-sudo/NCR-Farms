@@ -1,0 +1,233 @@
+/* Blog Content Styling */
+.blog-content {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #1f2937;
+}
+
+/* Headings */
+.blog-content h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #234436;
+}
+
+.blog-content h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  margin-bottom: 0.875rem;
+  color: #234436;
+}
+
+.blog-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.125rem;
+  margin-bottom: 0.75rem;
+  color: #234436;
+}
+
+.blog-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #234436;
+}
+
+.blog-content h5 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-top: 0.875rem;
+  margin-bottom: 0.5rem;
+  color: #234436;
+}
+
+.blog-content h6 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: #234436;
+}
+
+/* Paragraphs */
+.blog-content p {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+/* Bold and Strong */
+.blog-content strong,
+.blog-content b {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Italic and Emphasis */
+.blog-content em,
+.blog-content i {
+  font-style: italic;
+  color: #1f2937;
+}
+
+/* Underline */
+.blog-content u {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+/* Links */
+.blog-content a {
+  color: #234436;
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.blog-content a:hover {
+  color: #1a2e2a;
+}
+
+/* Lists */
+.blog-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content ul ul,
+.blog-content ol ol,
+.blog-content ul ol,
+.blog-content ol ul {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content li p {
+  margin-bottom: 0.25rem;
+}
+
+/* Blockquotes */
+.blog-content blockquote {
+  border-left: 4px solid #234436;
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 1rem;
+  color: #4b5563;
+  font-style: italic;
+  background-color: #f3f4f6;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.blog-content blockquote p {
+  margin-bottom: 0;
+}
+
+/* Code */
+.blog-content code {
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  color: #dc2626;
+}
+
+.blog-content pre {
+  background-color: #1f2937;
+  color: #f3f4f6;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.blog-content pre code {
+  background-color: transparent;
+  color: #f3f4f6;
+  padding: 0;
+}
+
+/* Horizontal Rule */
+.blog-content hr {
+  border: none;
+  border-top: 2px solid #e5e7eb;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Tables */
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.blog-content th,
+.blog-content td {
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.blog-content th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #234436;
+}
+
+.blog-content tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* Images */
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Strikethrough */
+.blog-content s,
+.blog-content del {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+/* Subscript and Superscript */
+.blog-content sub {
+  font-size: 0.875em;
+  vertical-align: sub;
+}
+
+.blog-content sup {
+  font-size: 0.875em;
+  vertical-align: super;
+}
+
+/* Marks/Highlights */
+.blog-content mark {
+  background-color: #fef08a;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.125rem;
+}

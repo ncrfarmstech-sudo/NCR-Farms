@@ -203,8 +203,8 @@ const Properties = () => {
 
     return (
         <div className="pt-20 pb-12 bg-[#f3e9db] min-h-screen">
-            <div className="px-2 md:px-10 mb-10">
-                <h1 className="text-3xl md:text-4xl font-bold text-center mb-2 text-gray-800">
+            <div className="px-4 md:px-10 mb-10">
+                <h1 className="text-2xl md:text-4xl font-bold text-center mb-2 text-gray-800">
                     Available Properties
                 </h1>
                 {filter.search && (
@@ -213,22 +213,22 @@ const Properties = () => {
                         <b>{fuseResults.length}</b>
                     </div>
                 )}
-                <p className="text-gray-600 text-center mb-10 max-w-2xl mx-auto">
+                <p className="text-gray-600 text-center mb-10 max-w-2xl mx-auto text-sm md:text-base">
                     Browse our curated list of premium farmhouses and properties
                     available for rent and sale across Delhi NCR.
                 </p>
             </div>
 
-            <div className="flex flex-col md:flex-row gap-0">
+            <div className="flex flex-col md:flex-row gap-6 md:gap-0 px-4 md:px-0">
                 {/* Sidebar Filters */}
                 <aside
-                    className="w-full md:w-72 p-6 h-fit sticky top-20 rounded-none md:rounded-r-xl"
+                    className="w-full md:w-72 p-4 md:p-6 h-fit sticky top-20 rounded-xl md:rounded-none md:rounded-r-xl"
                     style={{
                         backgroundColor: "#275A4D",
                         color: "white",
                     }}
                 >
-                    <h2 className="text-xl font-bold mb-4 text-white tracking-wide">
+                    <h2 className="text-lg md:text-xl font-bold mb-4 text-white tracking-wide">
                         FILTER
                     </h2>
 
@@ -261,7 +261,7 @@ const Properties = () => {
 
                     {/* Location */}
                     <div className="mb-6 pb-4 border-b border-gray-500">
-                        <h3 className="text-sm font-semibold mb-3 text-white">
+                        <h3 className="text-xs md:text-sm font-semibold mb-3 text-white">
                             LOCATION
                         </h3>
 
@@ -300,13 +300,13 @@ const Properties = () => {
                                             }}
                                             className="w-4 h-4 rounded bg-white"
                                         />
-                                        <span className="text-gray-200 text-sm">
+                                        <span className="text-gray-200 text-xs md:text-sm">
                                             {location}
                                         </span>
                                     </label>
                                 ))
                             ) : (
-                                <p className="text-sm text-gray-300">
+                                <p className="text-xs md:text-sm text-gray-300">
                                     No locations available
                                 </p>
                             )}
@@ -315,7 +315,7 @@ const Properties = () => {
 
                     {/* Property Type */}
                     <div className="mb-6 pb-4 border-b border-gray-500">
-                        <h3 className="text-sm font-semibold mb-3 text-white">
+                        <h3 className="text-xs md:text-sm font-semibold mb-3 text-white">
                             PROPERTY TYPE
                         </h3>
                         <div className="space-y-2">
@@ -350,7 +350,7 @@ const Properties = () => {
                                         }}
                                         className="w-4 h-4 rounded bg-white"
                                     />
-                                    <span className="text-gray-200 text-sm">
+                                    <span className="text-gray-200 text-xs md:text-sm">
                                         {type}
                                     </span>
                                 </label>
@@ -360,7 +360,7 @@ const Properties = () => {
 
                     {/* Price Range */}
                     <div className="mb-6 pb-4 border-b border-gray-500">
-                        <h3 className="text-sm font-semibold mb-3 text-white">
+                        <h3 className="text-xs md:text-sm font-semibold mb-3 text-white">
                             PRICE RANGE
                         </h3>
                         <div className="space-y-2">
@@ -390,7 +390,7 @@ const Properties = () => {
 
                     {/* Size Filter */}
                     <div className="mb-6 pb-4 border-b border-gray-500">
-                        <h3 className="text-sm font-semibold mb-3 text-white">
+                        <h3 className="text-xs md:text-sm font-semibold mb-3 text-white">
                             SIZE
                         </h3>
                         <div className="space-y-2">
@@ -419,7 +419,7 @@ const Properties = () => {
                                         }}
                                         className="w-4 h-4 rounded bg-white"
                                     />
-                                    <span className="text-gray-200 text-sm">
+                                    <span className="text-gray-200 text-xs md:text-sm">
                                         {size}
                                     </span>
                                 </label>
@@ -429,7 +429,7 @@ const Properties = () => {
 
                     {/* Reset */}
                     <button
-                        className="w-full bg-[#3BA9F5] text-black py-2 rounded-md hover:bg-[#2A94DC] transition font-medium text-sm"
+                        className="w-full bg-[#3BA9F5] text-black py-2 rounded-md hover:bg-[#2A94DC] transition font-medium text-xs md:text-sm"
                         onClick={() => {
                             setFilter({
                                 propertyType: [],
@@ -446,34 +446,34 @@ const Properties = () => {
                 </aside>
 
                 {/* Property Listing */}
-                <main className="flex-1 px-2 md:px-10">
+                <main className="flex-1 px-0 md:px-10">
                     {loading ? (
-                        <div className="text-center text-lg text-gray-500 py-20">
+                        <div className="text-center text-base md:text-lg text-gray-500 py-20">
                             Loading properties...
                         </div>
                     ) : error ? (
-                        <div className="text-center text-red-500 py-20">
+                        <div className="text-center text-red-500 py-20 text-sm md:text-base">
                             {error}
                         </div>
                     ) : filtered.length === 0 ? (
                         <div className="text-center py-20">
-                            <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                            <h3 className="text-lg md:text-xl font-semibold text-gray-700 mb-2">
                                 No properties found
                             </h3>
-                            <p className="text-gray-500">
+                            <p className="text-sm md:text-base text-gray-500">
                                 Try adjusting your search or filters to find
                                 what you're looking for.
                             </p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                             {filtered.map((p, idx) => {
                                 const showDetails = p._showDetails || false;
                                 return (
                                     <div
                                         key={p._id || p.id}
                                         className={
-                                            `bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition flex flex-col animate-fade-in` +
+                                            `bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md hover:shadow-lg transition flex flex-col animate-fade-in` +
                                             (showDetails
                                                 ? " ring-2 ring-green-400"
                                                 : "")
@@ -496,21 +496,21 @@ const Properties = () => {
                                                 alt={
                                                     safe(p.title) || "Property"
                                                 }
-                                                className="w-full h-56 object-cover transition-transform duration-500 hover:scale-105"
+                                                className="w-full h-40 md:h-56 object-cover transition-transform duration-500 hover:scale-105"
                                             />
                                             {safe(p.rating) && (
-                                                <span className="absolute bottom-2 right-2 bg-white px-2 py-1 rounded-md shadow text-sm font-semibold flex items-center">
+                                                <span className="absolute bottom-2 right-2 bg-white px-2 py-1 rounded-md shadow text-xs md:text-sm font-semibold flex items-center">
                                                     ⭐ {safe(p.rating)}
                                                 </span>
                                             )}
                                         </div>
 
                                         {/* Content */}
-                                        <div className="p-5 flex flex-col flex-grow">
-                                            <h3 className="text-lg font-semibold text-green-900 transition-colors duration-300">
+                                        <div className="p-4 md:p-5 flex flex-col flex-grow">
+                                            <h3 className="text-base md:text-lg font-semibold text-green-900 transition-colors duration-300">
                                                 {safe(p.title) || "Farmhouse"}
                                             </h3>
-                                            <p className="text-gray-500 text-sm mb-3">
+                                            <p className="text-gray-500 text-xs md:text-sm mb-3">
                                                 {safe(
                                                     p.address && p.address.city
                                                 ) || ""}
@@ -520,23 +520,9 @@ const Properties = () => {
                                                 ) || ""}
                                             </p>
 
-                                            <div className="flex items-center gap-4 text-gray-600 text-sm mb-2">
-                                                <span>
-                                                    🛏{" "}
-                                                    {p.features &&
-                                                    p.features.bedrooms
-                                                        ? p.features.bedrooms
-                                                        : 0}{" "}
-                                                    Beds
-                                                </span>
-                                                <span>
-                                                    🛁{" "}
-                                                    {p.features &&
-                                                    p.features.bathrooms
-                                                        ? p.features.bathrooms
-                                                        : 0}{" "}
-                                                    Baths
-                                                </span>
+                                            <div className="flex flex-wrap items-center gap-2 md:gap-4 text-gray-600 text-xs md:text-sm mb-2">
+                                               
+                                                
                                                 <span>
                                                     📐{" "}
                                                     {p.features &&
@@ -546,24 +532,21 @@ const Properties = () => {
                                                     sqft
                                                 </span>
                                             </div>
-                                            <div className="text-gray-600 text-sm mb-4">
+                                            <div className="text-gray-600 text-xs md:text-sm mb-4">
                                                 {p.features &&
                                                 p.features.furnished
                                                     ? "🛋️ Furnished"
                                                     : "Unfurnished"}
                                             </div>
 
-                                            <div className="flex justify-between items-center mt-auto">
-                                                <p className="text-green-900 font-bold">
+                                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mt-auto">
+                                                <p className="text-green-900 font-bold text-sm md:text-base">
                                                     Rs. {safe(p.price) || "N/A"}
-                                                    <span className="text-gray-500 text-sm">
-                                                        {" "}
-                                                        /night
-                                                    </span>
+                                                    
                                                 </p>
                                                 <button
                                                     className={
-                                                        "bg-green-900 text-white px-4 py-2 rounded-md hover:bg-green-800 transition " +
+                                                        "bg-green-900 text-white px-4 py-2 rounded-md hover:bg-green-800 transition text-xs md:text-sm w-full md:w-auto " +
                                                         (showDetails
                                                             ? "scale-95"
                                                             : "")
@@ -590,13 +573,13 @@ const Properties = () => {
                                             >
                                                 {showDetails && (
                                                     <div className="mt-4 border-t pt-4 animate-slide-down">
-                                                        <div className="text-gray-700 mb-2">
+                                                        <div className="text-gray-700 mb-2 text-xs md:text-sm">
                                                             {safe(
                                                                 p.description
                                                             ) ||
                                                                 "No description available."}
                                                         </div>
-                                                        <div className="flex gap-2 flex-wrap text-sm text-gray-600 mb-2">
+                                                        <div className="flex gap-2 flex-wrap text-xs text-gray-600 mb-2">
                                                             <span>
                                                                 Status:{" "}
                                                                 {safe(

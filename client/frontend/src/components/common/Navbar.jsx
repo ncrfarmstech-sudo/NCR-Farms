@@ -34,7 +34,7 @@ const Navbar = () => {
     };
 
     // ---------------- Typing effect setup ----------------
-    const words = ["farmhouse", "villa", "penthouse", "flat", "farmland"];
+    const words = ["Agricultural land", "Built up farmhouse", "Farmland", "Gated Farmhouse"];
 
     // Visible placeholder (state)
     const [displayText, setDisplayText] = useState("");
@@ -238,7 +238,7 @@ const Navbar = () => {
                                         type="text"
                                         // controlled by user input only
                                         value={searchText}
-                                        placeholder={`Search Built up ${displayText || words[0]}`}
+                                        placeholder={`Search  ${displayText || words[0]}`}
                                         className="bg-transparent outline-none text-gray-200 flex-1 placeholder-gray-400"
                                         onChange={e => {
                                             setSearchText(e.target.value);

@@ -4,15 +4,15 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 const Footer = () => {
   return (
     <footer className="bg-[#1D3C33] text-[#F8F4EC] py-14 font-[serif]">
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-14 md:gap-16">
         {/* Column 1: About */}
         <div className="col-span-2 md:col-span-1">
-          <h2 className="text-2xl font-medium mb-4">NCR Farms</h2>
-          <p className="text-sm leading-snug mb-5 max-w-[420px]">
+          <h2 className="text-2xl font-medium mb-3 ">NCR Farms</h2>
+          <p className="text-sm leading-snug mb-3 max-w-[450px]">
             Your trusted partner in agricultural real estate in Delhi NCR. We connect buyers, sellers, and renters with premium agricultural properties and farmhouses across the region.
           </p>
 
-          <div className="text-sm space-y-1.5">
+          <div className="text-sm space-y-1">
             <p>
               <span className="font-semibold">Phone:</span>{" "}
               <a href="tel:8920215863" className="hover:underline text-[#F8F4EC]">

@@ -147,9 +147,10 @@ const Home = () => {
             <WhychooseNcr />
 
             
-            {/* How It Works - Simple 3 Steps */}
+           {/* How It Works - Simple 3 Steps */}
 <section className="bg-[#F7EEDD] py-20 px-6">
   <div className="max-w-6xl mx-auto text-center">
+
     {/* Heading */}
     <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-16">
       How It Works - Simple 3 Steps
@@ -157,11 +158,11 @@ const Home = () => {
 
     {/* Steps */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
-      
+
       {/* Step 1 */}
-      <div className="flex flex-col items-center">
+      <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
         <span className="text-4xl font-bold text-[#3D7F6C]">1</span>
-        <h3 className="text-lg md:text-xl font-semibold mt-3">
+        <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
           Schedule a Consultation
         </h3>
         <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
@@ -170,9 +171,9 @@ const Home = () => {
       </div>
 
       {/* Step 2 */}
-      <div className="flex flex-col items-center">
+      <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
         <span className="text-4xl font-bold text-[#3D7F6C]">2</span>
-        <h3 className="text-lg md:text-xl font-semibold mt-3">
+        <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
           Site Visit & Due Diligence
         </h3>
         <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
@@ -181,9 +182,9 @@ const Home = () => {
       </div>
 
       {/* Step 3 */}
-      <div className="flex flex-col items-center">
+      <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
         <span className="text-4xl font-bold text-[#3D7F6C]">3</span>
-        <h3 className="text-lg md:text-xl font-semibold mt-3">
+        <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
           Hassle-Free Ownership
         </h3>
         <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
@@ -199,6 +200,7 @@ const Home = () => {
         Get Started
       </button>
     </div>
+
   </div>
 </section>
 
