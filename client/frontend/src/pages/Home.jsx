@@ -1,16 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import heroImg from "../assets/Home/Banner.png";
 import heroImgDesktop from "../assets/Home/Banner-desktop.png";
 import statsImg from "../assets/Home/Banner2.png";
 import statsImgDesktop from "../assets/Home/Banner2-desktop.png";
 import FeaturedProducts from "../components/Home/FeaturedProducts";
 import WhychooseNcr from "../components/common/WhychooseNcr";
+import Faq from "../components/common/Faq";
 import "../index.css";
 
 // ✅ Correct name here
 import WhatsappAndCallsButton from "../components/common/WhatsappAndCallsButton";
+import FAQ from "../components/common/Faq";
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <div className="bg-gray-50">
             {/* Hero Section */}
@@ -33,22 +37,22 @@ const Home = () => {
 
                 {/* Centered Content */}
                 <div className="relative z-20 text-center text-white">
-                    <h1 className="text-2xl md:text-4xl font-bold mb-5">
+                    <h1 className="text-2xl md:text-4xl font-bold mb-5 cormorant">
                         Own Land. Grow Wealth. Live Better
                     </h1>
 
-                    <p className="text-md md:text-lg text-[#F8F4EC] max-w-2xl mx-auto mb-6 leading-relaxed">
+                    <p className="text-md md:text-lg text-[#F8F4EC] max-w-2xl mx-auto mb-6 leading-relaxed lato">
                         Buy high potential farmhouse plots, agricultural land
                         and built-up farmhouses – with complete transparency and
                         end-to-end support.
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                        <button className="px-12 py-3 border border-yellow-400 bg-yellow-400 text-green-900 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300">
+                        <button className="px-12 py-3 border border-yellow-400 bg-yellow-400 text-green-900 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300 lato">
                             EXPLORE PROPERTIES
                         </button>
 
-                        <button className="px-4 py-3 border border-yellow-400 text-yellow-400 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300">
+                        <button className="px-4 py-3 border border-yellow-400 text-yellow-400 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300 lato">
                             BOOK A FREE CONSULTATION
                         </button>
                     </div>
@@ -59,12 +63,12 @@ const Home = () => {
             {/* Intro Section */}
             <section className="px-5 py-10 text-center bg-[#f9f5ef]">
                 <div className="max-w-6xl mx-auto">
-                    <h3 className="text-2xl font-bold text-gray-900">
+                    <h3 className="text-2xl font-bold text-gray-900 lato">
                         Welcome to{" "}
-                        <span className="text-green-700">NCR Farms</span>
+                        <span className="text-green-700 lato">NCR Farms</span>
                     </h3>
 
-                    <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+                    <p className="text-sm md:text-base text-gray-700 leading-relaxed lato">
                         At NCR Farms, we help you buy agricultural land, farmhouse plots, and ready farmhouses across Delhi NCR with clear titles, transparent pricing, and end-to-end support. Whether you want a farmhouse near Gurgaon, or an agricultural land, our team ensures every property is legally vetted and value-driven. With a customer centric approach, NCR Farms has become a trusted farmland consulting company in the NCR region.
                     </p>
                 </div>
@@ -85,11 +89,11 @@ const Home = () => {
                 <div className="absolute inset-0 bg-black/40 z-0"></div>
 
                 <div className="relative z-10 max-w-6xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl font-semibold mb-6 leading-tight">
+                    <h2 className="text-2xl md:text-3xl font-semibold mb-6 leading-tight cormorant">
                         What We Offer
                     </h2>
                     {/*sub heading */}
-                    <p className="text-lg md:text-xl text-[#FFFFFF] font-semibold">
+                    <p className="text-lg md:text-xl text-[#FFFFFF] font-semibold cormorant">
                         Farmland, farmland plots, built-up farmhouses, and
                         agricultural investment opportunities across Delhi NCR-
                         vetted and ready for ownership
@@ -100,10 +104,10 @@ const Home = () => {
                             className="bg-white/10 border border-white/30 rounded-2xl py-5 px-6 backdrop-blur-md shadow-lg 
                   w-full max-w-[420px] mx-auto flex flex-col items-center justify-start h-full"
                         >
-                            <h3 className="text-lg md:text-xl font-bold text-yellow-400">
+                            <h3 className="text-lg md:text-xl font-bold text-yellow-400 lato">
                                 Farmland for Sale
                             </h3>
-                            <p className="mt-1 text-gray-100 text-xs sm:text-sm md:text-sm text-center leading-snug">
+                            <p className="mt-1 text-gray-100 text-xs sm:text-sm md:text-sm text-center leading-snug lato">
                                 Investment-ready farmland parcels in
                                 appreciation corridors – ideal for farming or
                                 long-term hold.
@@ -196,13 +200,29 @@ const Home = () => {
 
     {/* CTA Button */}
     <div className="mt-12">
-      <button className="bg-[#3D7F6C] text-white px-10 py-3 rounded-md font-medium hover:bg-green-800 transition">
+      <button 
+        onClick={() => navigate('/contactus')}
+        className="bg-[#3D7F6C] text-white px-10 py-3 rounded-md font-medium hover:bg-green-800 transition">
         Get Started
       </button>
     </div>
 
   </div>
 </section>
+
+
+{/* FAQ Section */}
+<section className="bg-white py-20 px-6">
+  <div className="max-w-4xl mx-auto">
+    <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12 text-[#3D7F6C]">
+      Frequently Asked Questions
+    </h2>
+
+    <Faq/>
+  </div>
+</section>
+
+
 
 
 
