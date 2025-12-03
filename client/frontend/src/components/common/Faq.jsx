@@ -3,25 +3,56 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 const faqData = [
   {
-    question: "Is the farmland legally verified?",
+    question: "1. Is it legally safe to buy farmland or farmhouse plots in NCR?",
     answer:
-      "Yes. Every farmland and farmhouse plot we offer undergoes complete legal due diligence including title check, registry validation, and owner verification.",
+      "Yes. NCR Farms lists only verified, legally clear properties with proper documentation, approvals, and title checks. We ensure safe, transparent transactions.",
   },
   {
-    question: "Can I visit the property before purchasing?",
+    question: "2. Can NRIs buy agricultural land or farmhouses in India?",
     answer:
-      "Absolutely. We arrange site visits, explain the location potential, and ensure transparency before you make any decision.",
+      "NRIs cannot directly buy agricultural land, but they can invest through legal structures, partnerships, or farmhouse properties. Our team guides NRIs step-by-step.",
   },
   {
-    question: "Do you help with documentation?",
+    question: "3. What types of properties does NCR Farms offer? Do you help with documentation?",
     answer:
-      "Yes. We provide end-to-end support including agreement, registry, mutation, and transfer process.",
+      "We offer farmland, farmhouse plots, ready-built farmhouses, and agricultural investment properties across Delhi NCR’s high-growth zones.",
   },
   {
-    question: "Is financing or EMI available?",
+    question: "4. What is the starting investment for buying farmland or a farmhouse plot?",
     answer:
-      "For certain projects, structured payment plans are available. Our team will guide you based on your budget.",
+      "Entry prices vary across locations, but we offer affordable farmland options, premium plots, and luxury farmhouses depending on your goals and budget.",
   },
+   {
+    question: "5. Do you help with property documentation and registration?",
+    answer:
+      "Yes. We provide end-to-end support, including due diligence, documentation, registration, mutation, and post-purchase assistance.",
+  },
+ 
+   {
+    question: "6. How do I know which property is the best investment for me?",
+    answer:
+      "After a quick consultation, our advisors evaluate your budget, goals, appreciation expectations, and lifestyle preferences to recommend the best property.",
+  },
+   {
+    question: "7. Can I build a farmhouse on farmland I purchase?",
+    answer:
+      "In most locations, yes-but building permissions depend on local zoning, land-use guidelines, and plot size. We clarify all rules before you invest.",
+  },
+  {
+    question: "8. Do you arrange site visits?",
+    answer:
+      "Absolutely. We schedule guided site visits, where our team walks you through the land, boundaries, approvals, and potential development scope.",
+  },
+  {
+    question: "9. Are the properties suitable for weekend homes or organic farming?",
+    answer:
+      "Yes. Many of our plots are ideal for weekend villas, kitchen gardens, organic farming, and nature-connected living.",
+  },
+  {
+    question: "10. What makes NCR Farms different from other real estate companies?",
+    answer:"We offer verified properties, transparent pricing, expert guidance, and a focus on sustainable, nature-driven living — ensuring both lifestyle and investment value.",
+  },
+
 ];
 
 const FAQ = () => {
@@ -47,9 +78,9 @@ const FAQ = () => {
               {item.question}
             </span>
             {openIndex === index ? (
-              <ChevronUp className="text-gray-600" />
+              <ChevronUp className="text-[#3D7F6C]" />
             ) : (
-              <ChevronDown className="text-gray-600" />
+              <ChevronDown className="text-[#3D7F6C]" />
             )}
           </button>
 
