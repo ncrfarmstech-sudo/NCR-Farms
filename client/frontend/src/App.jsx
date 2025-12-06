@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import Properties from './pages/Properties';
 import PropertyDetails from './pages/PropertyDetails';
+import FeaturedProductDetails from './pages/FeaturedProductDetails';
 import ContactUs from './pages/ContactUs';
 import AboutUs from './pages/AboutUs';
 import Footer from './components/common/Footer';
@@ -37,6 +38,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/properties" element={<Properties />} />
             <Route path="/properties/:id" element={<PropertyDetails />} />
+            <Route path="/featured-products/:id" element={<FeaturedProductDetails />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/about" element={<AboutUs />} />

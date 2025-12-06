@@ -1,9 +1,10 @@
 // PATCH: Partial update featured product (only changed fields)
 const { uploadToCloudinary } = require('./propertyService');
-exports.partialUpdateFeaturedProduct = async (id, data, files) => {
+exports.partialUpdateFeaturedProduct = async (id, data, files, block1Files) => {
   console.log('--- partialUpdateFeaturedProduct called ---');
   console.log('Received data:', data);
   console.log('Received files:', files);
+  console.log('Received block1Files:', block1Files);
   const product = await FeaturedProduct.findById(id);
   if (!product) return null;
 
@@ -19,6 +20,39 @@ exports.partialUpdateFeaturedProduct = async (id, data, files) => {
   if (typeof data['address.state'] !== 'undefined') product.address.state = data['address.state'];
   if (typeof data['address.pincode'] !== 'undefined') product.address.pincode = data['address.pincode'];
   if (typeof data['features.area'] !== 'undefined') product.features.area = data['features.area'];
+
+  // Handle block1 fields
+  if (typeof data['block1.heading'] !== 'undefined') {
+    if (!product.block1) product.block1 = {};
+    product.block1.heading = data['block1.heading'];
+  }
+  if (typeof data['block1.description'] !== 'undefined') {
+    if (!product.block1) product.block1 = {};
+    product.block1.description = data['block1.description'];
+  }
+
+  // Handle block1 images
+  if (block1Files && block1Files.length > 0) {
+    if (!product.block1) product.block1 = {};
+    let existingBlock1Images = [];
+    if (typeof data['existingBlock1Images[]'] !== 'undefined') {
+      if (Array.isArray(data['existingBlock1Images[]'])) {
+        existingBlock1Images = data['existingBlock1Images[]'];
+      } else if (typeof data['existingBlock1Images[]'] === 'string') {
+        existingBlock1Images = [data['existingBlock1Images[]']];
+      }
+    }
+    let newBlock1Images = [];
+    for (const file of block1Files) {
+      try {
+        const uploadRes = await uploadToCloudinary(file, 'featured-products');
+        newBlock1Images.push(uploadRes.secure_url);
+      } catch (err) {
+        console.error('Cloudinary block1 upload error:', err);
+      }
+    }
+    product.block1.images = [...existingBlock1Images, ...newBlock1Images];
+  }
 
   // Handle images (merge existing and new)
   let existingImages = [];

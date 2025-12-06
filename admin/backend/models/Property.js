@@ -22,6 +22,11 @@ const propertySchema = new mongoose.Schema({
     // furnished removed as per new requirements
   },
   images: [{ type: String }],
+  block1: {
+    heading: { type: String },
+    description: { type: String },
+    images: [{ type: String }]
+  },
   status: { type: String, enum: ['available', 'sold', 'rented'], default: 'available' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }

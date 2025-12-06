@@ -70,7 +70,7 @@ export default function FeaturedProperties() {
                   </p>
                   <button
                     className="bg-[#2D5D4F] text-white px-4 py-2 rounded-md hover:bg-[#3D7F6C] transition"
-                    onClick={() => navigate(`/properties/${p._id || p.id}`)}
+                    onClick={() => navigate(`/featured-products/${p._id || p.id}`)}
                   >
                     View Details
                   </button>

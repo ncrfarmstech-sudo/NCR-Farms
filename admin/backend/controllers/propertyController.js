@@ -2,7 +2,8 @@
 exports.partialUpdateProperty = async (req, res) => {
   try {
     const files = req.files && req.files['images'] ? req.files['images'] : [];
-    const property = await propertyService.partialUpdateProperty(req.params.id, req.body, files);
+    const block1Files = req.files && req.files['block1Images'] ? req.files['block1Images'] : [];
+    const property = await propertyService.partialUpdateProperty(req.params.id, req.body, files, block1Files);
     if (!property) {
       return res.status(404).json({ message: "Property not found" });
     }
@@ -17,6 +18,7 @@ const propertyService = require('../services/propertyService');
 exports.createProperty = async (req, res) => {
   try {
     const files = req.files && req.files['images'] ? req.files['images'] : [];
+    const block1Files = req.files && req.files['block1Images'] ? req.files['block1Images'] : [];
     console.log('Received files in createProperty:', files);
     // Use the same upload logic as PATCH
     let imageUrls = [];
@@ -30,7 +32,27 @@ exports.createProperty = async (req, res) => {
         }
       }
     }
-    const propertyData = { ...req.body, images: imageUrls };
+    let block1ImageUrls = [];
+    if (block1Files && block1Files.length > 0) {
+      for (const file of block1Files) {
+        try {
+          const uploadRes = await propertyService.uploadToCloudinary(file);
+          block1ImageUrls.push(uploadRes.secure_url);
+        } catch (err) {
+          console.error('Cloudinary upload error:', err);
+        }
+      }
+    }
+    const block1Data = req.body['block1.heading'] || req.body['block1Heading'] ? {
+      heading: req.body['block1.heading'] || req.body['block1Heading'] || '',
+      description: req.body['block1.description'] || req.body['block1Description'] || '',
+      images: block1ImageUrls
+    } : undefined;
+    const propertyData = { 
+      ...req.body, 
+      images: imageUrls,
+      ...(block1Data && { block1: block1Data })
+    };
     const property = await propertyService.createProperty(propertyData);
     res.status(201).json(property);
   } catch (err) {

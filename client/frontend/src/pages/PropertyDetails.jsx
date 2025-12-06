@@ -5,6 +5,7 @@ import axios from "../api/axios";
 import ContactButtons from "../components/common/ContactButtons";
 import img1 from "../assets/istockphoto1.jpg";
 import img2 from "../assets/pexels1.jpg";
+import "../blog.css";
 
 import {
     FaArrowLeft,
@@ -140,116 +141,49 @@ const PropertyDetails = () => {
             {/* ------------------- Figma Section ------------------- */}
             <div className="bg-[#f5efe6] py-16 px-6 md:px-12">
                 <div className="max-w-6xl mx-auto">
-                    {/* Section 1: The Sanctuaries */}
-                    <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8">
-                        {/* Heading centered across the section */}
+                    
+                   
+
+                    {/* ============= BLOCK 1: DETAILED SECTION ============= */}
+                    {property.block1?.heading || property.block1?.description || (property.block1?.images && property.block1.images.length > 0) ? (
+                      <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-yellow-400">
+                        {/* BLOCK 1 HEADING */}
                         <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
-                            THE SANCTUARIES BY 32ND
+                          {property.block1?.heading || "PROJECT HIGHLIGHTS"}
                         </h2>
 
                         <div className="flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-4">
-                            {/* Left: Text */}
-                            <div className="flex-1">
-                                <ul className="text-gray-700 space-y-2 list-disc list-inside leading-relaxed">
-                                    <li>
-                                        Ready to Move | 1-Acre Freehold
-                                        Farmhouse Plots
-                                    </li>
-                                    <li>
-                                        Limited inventory | Allotment on
-                                        First-Come, First-Served Basis
-                                    </li>
-                                    <li>Price $3.433 / sq.ft</li>
-                                    <li>
-                                        Infrastructure Ready: Wide internal
-                                        roads & secured boundary
-                                    </li>
-                                    <li>
-                                        Lifestyle Canvas: Build your signature
-                                        bunglow, pool, landscaped lawns &
-                                        private orchards
-                                    </li>
-                                </ul>
-                            </div>
+                          {/* LEFT SIDE: BLOCK 1 TEXT CONTENT */}
+                          <div className="flex-1">
+                            {property.block1?.description ? (
+                              <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: property.block1.description }} />
+                            ) : (
+                              <ul className="text-gray-700 space-y-2 list-disc list-inside leading-relaxed">
+                                <li>Experience premium living with modern amenities</li>
+                                <li>Strategic location with excellent connectivity</li>
+                                <li>Thoughtfully designed spaces</li>
+                                <li>Investment opportunity with strong potential</li>
+                                <li>Professional management and 24/7 security</li>
+                              </ul>
+                            )}
+                          </div>
 
-                            {/* Right: Images */}
+                          {/* RIGHT SIDE: BLOCK 1 IMAGES */}
+                          {property.block1?.images && property.block1.images.length > 0 && (
                             <div className="flex-1 flex justify-center gap-3">
+                              {property.block1.images.slice(0, 2).map((img, idx) => (
                                 <img
-                                    src={img1}
-                                    alt="Sanctuaries 1"
-                                    className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
+                                  key={idx}
+                                  src={img}
+                                  alt={`Block 1 Image ${idx + 1}`}
+                                  className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
                                 />
-                                <img
-                                    src={img2}
-                                    alt="Sanctuaries 2"
-                                    className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
-                                />
+                              ))}
                             </div>
+                          )}
                         </div>
-                    </div>
-
-                    {/* Section 2: Location Highlights */}
-                    <div className="bg-[#e9dfce] px-10 py-14 rounded-3xl shadow-md mb-10">
-                        {/* Heading centered across the section */}
-                        <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
-                            THE SANCTUARIES BY 32ND
-                        </h2>
-
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-20">
-                            
-                            {/* Left Side - Text Content */}
-                            <div className="flex-1">
-                                <ul className="text-gray-800 list-disc list-inside space-y-3 leading-relaxed">
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-[#2d5d4f] text-lg mt-1">
-                                            ✔️
-                                        </span>
-                                        <p>
-                                            Seamless connectivity via NH-48,
-                                            Dwarka Expressway & KMP Expressway
-                                        </p>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-[#2d5d4f] text-lg mt-1">
-                                            ✔️
-                                        </span>
-                                        <p>
-                                            Kherki Daula Toll shifting →
-                                            hassle-free drives
-                                        </p>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-[#2d5d4f] text-lg mt-1">
-                                            ✔️
-                                        </span>
-                                        <p>
-                                            Upcoming NH-8 flyovers → faster,
-                                            smoother travel
-                                        </p>
-                                    </li>
-                                    <li className="flex items-start gap-3">
-                                        <span className="text-[#2d5d4f] text-lg mt-1">
-                                            ✔️
-                                        </span>
-                                        <p>
-                                            Located in the premium Manesar
-                                            farmhouse belt, surrounded by luxury
-                                            resorts, retreats & golf courses
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            {/* Right Side - Map Image */}
-                            <div className="flex-1 flex justify-center">
-                                <img
-                                    src="/assets/location-map.jpg"
-                                    alt="Location Map"
-                                    className="w-full md:w-[500px] rounded-2xl shadow-md object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                      </div>
+                    ) : null}
 
                     {/* Section 3: Why Choose */}
                   <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
@@ -276,7 +210,7 @@ const PropertyDetails = () => {
             </div>
 
          {/* ------------------- Property Gallery Section ------------------- */}
-{Array.isArray(property.images) && property.images.length > 1 && (
+{Array.isArray(property.images) && property.images.length > 0 && (
   <div className="max-w-7xl mx-auto mt-16 px-6">
     {/* Section Heading */}
     <div className="text-center mb-10">
@@ -286,7 +220,7 @@ const PropertyDetails = () => {
 
     {/* Image Grid */}
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      {property.images.slice(1, 5).map((img, index) => (
+      {property.images.map((img, index) => (
         <div
           key={index}
           className="overflow-hidden rounded-xl shadow-md hover:scale-105 transform transition duration-300"

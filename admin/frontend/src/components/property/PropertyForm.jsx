@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 const initialState = {
   title: '',
   description: '',
@@ -13,6 +15,10 @@ const initialState = {
   },
   features: {
     area: ''
+  },
+  block1: {
+    heading: '',
+    description: ''
   }
 };
 
@@ -25,35 +31,75 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
     ...data,
     address: { ...initialState.address, ...(data?.address || {}) },
     features: { ...initialState.features, ...(data?.features || {}) },
+    block1: { ...initialState.block1, ...(data?.block1 || {}) },
   });
   const [form, setForm] = useState(getMergedState(initialData));
 
-
-  // Unified image state: { url, file, isNew }
+  // Separate state for regular property images
   const [images, setImages] = useState(() => {
     if (Array.isArray(initialData?.images)) {
-      return initialData.images.map(url => ({ url, isNew: false }));
+      return initialData.images.map(url => ({ 
+        url, 
+        isNew: false
+      }));
     }
     return [];
   });
 
-
+  // Separate state for Block 1 images
+  const [block1Images, setBlock1Images] = useState(() => {
+    if (Array.isArray(initialData?.block1?.images)) {
+      return initialData.block1.images.map(url => ({ 
+        url, 
+        isNew: false
+      }));
+    }
+    return [];
+  });
 
   React.useEffect(() => {
-    setForm(getMergedState(initialData));
-    setImages(Array.isArray(initialData?.images) ? initialData.images.map(url => ({ url, isNew: false })) : []);
-  }, [initialData]);
+    if (initialData && Object.keys(initialData).length > 0) {
+      const mergedData = getMergedState(initialData);
+      setForm(mergedData);
+      // Load regular property images
+      if (Array.isArray(initialData?.images)) {
+        setImages(initialData.images.map(url => ({ 
+          url, 
+          isNew: false
+        })));
+      } else {
+        setImages([]);
+      }
+      // Load Block 1 images
+      if (Array.isArray(initialData?.block1?.images)) {
+        setBlock1Images(initialData.block1.images.map(url => ({ 
+          url, 
+          isNew: false
+        })));
+      } else {
+        setBlock1Images([]);
+      }
+    }
+  }, [JSON.stringify(initialData)]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === 'images') {
-      // Add new files to images state
+      // Add new files to regular property images
       const newImgs = Array.from(files).map(file => ({
         url: URL.createObjectURL(file),
         file,
         isNew: true
       }));
       setImages(prev => [...prev, ...newImgs]);
+    } else if (name === 'block1-images') {
+      // Handle Block 1 images
+      const newImgs = Array.from(files).map(file => ({
+        url: URL.createObjectURL(file),
+        file,
+        isNew: true
+      }));
+      setBlock1Images(newImgs);
     } else if (name.startsWith('address.')) {
       setForm({
         ...form,
@@ -69,6 +115,12 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
         });
       }
       // furnished removed
+    } else if (name.startsWith('block1.')) {
+      const key = name.split('.')[1];
+      setForm({
+        ...form,
+        block1: { ...form.block1, [key]: value }
+      });
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -112,9 +164,24 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
     images.filter(img => img.isNew && img.file).forEach(img => {
       formData.append('images', img.file);
     });
+    // Send Block 1 images - existing
+    block1Images.filter(img => !img.isNew && img.url && !img.url.startsWith('blob:')).forEach(img => {
+      formData.append('existingBlock1Images[]', img.url);
+    });
+    // Send Block 1 images - new
+    block1Images.filter(img => img.isNew && img.file).forEach(img => {
+      formData.append('block1Images', img.file);
+    });
     await onSubmit(formData);
     // Reset images after submit
-    setImages(Array.isArray(initialData?.images) ? initialData.images.map(url => ({ url, isNew: false })) : []);
+    setImages(Array.isArray(initialData?.images) ? initialData.images.map(url => ({ 
+      url, 
+      isNew: false
+    })) : []);
+    setBlock1Images(Array.isArray(initialData?.block1?.images) ? initialData.block1.images.map(url => ({ 
+      url, 
+      isNew: false
+    })) : []);
   };
 
   return (
@@ -161,6 +228,107 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
         <label className="block text-sm font-medium">Description</label>
         <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" className="w-full border px-3 py-2 rounded" />
       </div>
+
+      {/* ============================================ */}
+      {/* BLOCK 1 SECTION - HEADING, DESCRIPTION & IMAGES */}
+      {/* ============================================ */}
+      <div className="mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-3 border-yellow-500 p-6 rounded-lg">
+        <h3 className="text-lg font-bold text-yellow-900 mb-4">📌 BLOCK 1 - Section</h3>
+        
+        {/* Block 1 Heading */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Heading</label>
+          <input 
+            type="text" 
+            name="block1.heading" 
+            value={(form?.block1?.heading) || ''} 
+            onChange={handleChange} 
+            placeholder="e.g., PROJECT HIGHLIGHTS" 
+            className="w-full border px-3 py-2 rounded" 
+          />
+        </div>
+
+        {/* Block 1 Description */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+          <div style={{ minHeight: 250 }}>
+            <CKEditor
+              key={`block1-${initialData?._id || 'new'}`}
+              editor={ClassicEditor}
+              data={(form?.block1?.description) || ''}
+              onReady={editor => {
+                // This will be called when the editor is ready
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                setForm({ ...form, block1: { ...form.block1, description: data } });
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Block 1 Images Upload */}
+        <div className="mb-3">
+          <label className="block text-sm font-bold text-yellow-900 mb-2">
+            Block 1 Images (2 Images)
+          </label>
+          <div
+            className="w-full border-2 border-dashed border-yellow-400 rounded p-4 text-center cursor-pointer hover:border-yellow-600 transition bg-white"
+            onClick={() => document.getElementById('block1-image-input').click()}
+            onDragOver={e => { e.preventDefault(); e.stopPropagation(); }}
+            onDrop={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+              if (files.length > 0) {
+                const newImgs = files.map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
+                setBlock1Images(newImgs);
+              }
+            }}
+          >
+            <span className="text-gray-500">Drag & drop images here or </span>
+            <span className="text-yellow-700 font-semibold underline">click to add</span>
+            <input
+              id="block1-image-input"
+              name="block1-images"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleChange}
+              className="hidden"
+            />
+          </div>
+          {block1Images.length > 0 && (
+            <div className="flex gap-2 mt-2 flex-wrap">
+              {block1Images.map((img, idx) => (
+                <div key={idx} className="relative group flex flex-col items-center">
+                  <div className="relative">
+                    <img src={img.url} alt={`block1-${idx}`} className="w-16 h-16 object-cover rounded border-2 border-yellow-400" />
+                    <button
+                      type="button"
+                      className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 group-hover:opacity-100"
+                      onClick={e => { 
+                        e.stopPropagation(); 
+                        setBlock1Images(prev => prev.filter((_, i) => i !== idx)); 
+                      }}
+                      title="Remove image"
+                    >
+                      ×
+                    </button>
+                    {img.isNew && <span className="absolute bottom-0 left-0 bg-blue-500 text-white text-xs px-1 rounded">New</span>}
+                  </div>
+                  <span className="text-xs font-bold mt-1 text-center px-1">
+                    {idx === 0 && "📌 Image 1"}
+                    {idx === 1 && "📌 Image 2"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Address Section - Kept as it was */}
       <div className="mb-3 grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium">Street</label>
@@ -180,7 +348,9 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
         </div>
       </div>
       <div className="mb-3">
-        <label className="block text-sm font-medium">Property Images</label>
+        <label className="block text-sm font-medium font-bold text-lg mb-2">
+          🖼️ Property Images
+        </label>
         <div
           className="w-full border-2 border-dashed border-gray-300 rounded p-4 text-center cursor-pointer hover:border-green-400 transition"
           onClick={() => document.getElementById('property-image-input').click()}
@@ -210,17 +380,23 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
         {images.length > 0 && (
           <div className="flex gap-2 mt-2 flex-wrap">
             {images.map((img, idx) => (
-              <div key={idx} className="relative group">
-                <img src={img.url} alt={`img-${idx}`} className="w-16 h-16 object-cover rounded border" />
-                <button
-                  type="button"
-                  className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 group-hover:opacity-100"
-                  onClick={e => { e.stopPropagation(); setImages(prev => prev.filter((_, i) => i !== idx)); }}
-                  title="Remove image"
-                >
-                  ×
-                </button>
-                {img.isNew && <span className="absolute bottom-0 left-0 bg-blue-500 text-white text-xs px-1 rounded">New</span>}
+              <div key={idx} className="relative group flex flex-col items-center">
+                <div className="relative">
+                  <img src={img.url} alt={`img-${idx}`} className="w-16 h-16 object-cover rounded border" />
+                  <button
+                    type="button"
+                    className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 group-hover:opacity-100"
+                    onClick={e => { e.stopPropagation(); setImages(prev => prev.filter((_, i) => i !== idx)); }}
+                    title="Remove image"
+                  >
+                    ×
+                  </button>
+                  {img.isNew && <span className="absolute bottom-0 left-0 bg-blue-500 text-white text-xs px-1 rounded">New</span>}
+                </div>
+                <span className="text-xs font-bold mt-1 text-center px-1">
+                  {idx === 0 && "🎬 Hero"}
+                  {idx >= 1 && `🖼️ Gallery ${idx}`}
+                </span>
               </div>
             ))}
           </div>
