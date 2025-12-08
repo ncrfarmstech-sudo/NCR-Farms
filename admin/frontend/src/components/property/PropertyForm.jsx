@@ -90,8 +90,10 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
   });
 
   React.useEffect(() => {
+    console.log('PropertyForm initialData changed:', initialData); // Debug log
     if (initialData && Object.keys(initialData).length > 0) {
       const mergedData = getMergedState(initialData);
+      console.log('Merged form data:', mergedData); // Debug log
       setForm(mergedData);
       // Load regular property images
       if (Array.isArray(initialData?.images)) {

@@ -47,17 +47,21 @@
 				setLoading(false);
 			};
 
-					const handleEdit = (property) => {
-						// Always use the latest property object from the properties array
-						const latest = properties.find((p) => p._id === property._id) || property;
-						setEditProperty({
-							...latest,
-							images: Array.isArray(latest.images) ? latest.images : [],
-						});
-						// No modal, just set editProperty
-					};
-
-		const handleDelete = async (id) => {
+		const handleEdit = (property) => {
+			// Always use the latest property object from the properties array
+			const latest = properties.find((p) => p._id === property._id) || property;
+			console.log('Edit Property Data:', latest); // Debug log
+			setEditProperty({
+				...latest,
+				images: Array.isArray(latest.images) ? latest.images : [],
+				address: latest.address || {},
+				features: latest.features || {},
+				block1: latest.block1 || {},
+				block2: latest.block2 || {},
+				block3: latest.block3 || {},
+			});
+			// No modal, just set editProperty
+		};		const handleDelete = async (id) => {
 			if (!window.confirm("Delete this property?")) return;
 			setLoading(true);
 			try {

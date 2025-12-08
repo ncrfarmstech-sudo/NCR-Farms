@@ -129,8 +129,11 @@ exports.getPropertyById = async (req, res) => {
 
 exports.updateProperty = async (req, res) => {
   try {
-    const files = req.files || [];
-    const property = await propertyService.updateProperty(req.params.id, req.body, files);
+    const files = req.files && req.files['images'] ? req.files['images'] : [];
+    const block1Files = req.files && req.files['block1Images'] ? req.files['block1Images'] : [];
+    const block2Files = req.files && req.files['block2Images'] ? req.files['block2Images'] : [];
+    const block3Files = req.files && req.files['block3Images'] ? req.files['block3Images'] : [];
+    const property = await propertyService.updateProperty(req.params.id, req.body, files, block1Files, block2Files, block3Files);
     if (!property) return res.status(404).json({ error: 'Property not found' });
     res.json(property);
   } catch (err) {
