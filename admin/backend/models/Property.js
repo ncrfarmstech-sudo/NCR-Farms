@@ -27,6 +27,16 @@ const propertySchema = new mongoose.Schema({
     description: { type: String },
     images: [{ type: String }]
   },
+  block2: {
+    heading: { type: String },
+    description: { type: String },
+    images: [{ type: String }]
+  },
+  block3: {
+    heading: { type: String },
+    description: { type: String },
+    images: [{ type: String }]
+  },
   status: { type: String, enum: ['available', 'sold', 'rented'], default: 'available' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }

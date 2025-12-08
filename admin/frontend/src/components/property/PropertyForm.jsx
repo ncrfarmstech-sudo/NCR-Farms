@@ -19,6 +19,14 @@ const initialState = {
   block1: {
     heading: '',
     description: ''
+  },
+  block2: {
+    heading: '',
+    description: ''
+  },
+  block3: {
+    heading: '',
+    description: ''
   }
 };
 
@@ -32,6 +40,8 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
     address: { ...initialState.address, ...(data?.address || {}) },
     features: { ...initialState.features, ...(data?.features || {}) },
     block1: { ...initialState.block1, ...(data?.block1 || {}) },
+    block2: { ...initialState.block2, ...(data?.block2 || {}) },
+    block3: { ...initialState.block3, ...(data?.block3 || {}) },
   });
   const [form, setForm] = useState(getMergedState(initialData));
 
@@ -50,6 +60,28 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
   const [block1Images, setBlock1Images] = useState(() => {
     if (Array.isArray(initialData?.block1?.images)) {
       return initialData.block1.images.map(url => ({ 
+        url, 
+        isNew: false
+      }));
+    }
+    return [];
+  });
+
+  // Separate state for Block 2 images
+  const [block2Images, setBlock2Images] = useState(() => {
+    if (Array.isArray(initialData?.block2?.images)) {
+      return initialData.block2.images.map(url => ({ 
+        url, 
+        isNew: false
+      }));
+    }
+    return [];
+  });
+
+  // Separate state for Block 3 images
+  const [block3Images, setBlock3Images] = useState(() => {
+    if (Array.isArray(initialData?.block3?.images)) {
+      return initialData.block3.images.map(url => ({ 
         url, 
         isNew: false
       }));
@@ -79,6 +111,24 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
       } else {
         setBlock1Images([]);
       }
+      // Load Block 2 images
+      if (Array.isArray(initialData?.block2?.images)) {
+        setBlock2Images(initialData.block2.images.map(url => ({ 
+          url, 
+          isNew: false
+        })));
+      } else {
+        setBlock2Images([]);
+      }
+      // Load Block 3 images
+      if (Array.isArray(initialData?.block3?.images)) {
+        setBlock3Images(initialData.block3.images.map(url => ({ 
+          url, 
+          isNew: false
+        })));
+      } else {
+        setBlock3Images([]);
+      }
     }
   }, [JSON.stringify(initialData)]);
 
@@ -99,7 +149,23 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
         file,
         isNew: true
       }));
-      setBlock1Images(newImgs);
+      setBlock1Images(prev => [...prev, ...newImgs]);
+    } else if (name === 'block2-images') {
+      // Handle Block 2 images
+      const newImgs = Array.from(files).map(file => ({
+        url: URL.createObjectURL(file),
+        file,
+        isNew: true
+      }));
+      setBlock2Images(prev => [...prev, ...newImgs]);
+    } else if (name === 'block3-images') {
+      // Handle Block 3 images
+      const newImgs = Array.from(files).map(file => ({
+        url: URL.createObjectURL(file),
+        file,
+        isNew: true
+      }));
+      setBlock3Images(prev => [...prev, ...newImgs]);
     } else if (name.startsWith('address.')) {
       setForm({
         ...form,
@@ -120,6 +186,18 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
       setForm({
         ...form,
         block1: { ...form.block1, [key]: value }
+      });
+    } else if (name.startsWith('block2.')) {
+      const key = name.split('.')[1];
+      setForm({
+        ...form,
+        block2: { ...form.block2, [key]: value }
+      });
+    } else if (name.startsWith('block3.')) {
+      const key = name.split('.')[1];
+      setForm({
+        ...form,
+        block3: { ...form.block3, [key]: value }
       });
     } else {
       setForm({ ...form, [name]: value });
@@ -172,6 +250,22 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
     block1Images.filter(img => img.isNew && img.file).forEach(img => {
       formData.append('block1Images', img.file);
     });
+    // Send Block 2 images - existing
+    block2Images.filter(img => !img.isNew && img.url && !img.url.startsWith('blob:')).forEach(img => {
+      formData.append('existingBlock2Images[]', img.url);
+    });
+    // Send Block 2 images - new
+    block2Images.filter(img => img.isNew && img.file).forEach(img => {
+      formData.append('block2Images', img.file);
+    });
+    // Send Block 3 images - existing
+    block3Images.filter(img => !img.isNew && img.url && !img.url.startsWith('blob:')).forEach(img => {
+      formData.append('existingBlock3Images[]', img.url);
+    });
+    // Send Block 3 images - new
+    block3Images.filter(img => img.isNew && img.file).forEach(img => {
+      formData.append('block3Images', img.file);
+    });
     await onSubmit(formData);
     // Reset images after submit
     setImages(Array.isArray(initialData?.images) ? initialData.images.map(url => ({ 
@@ -179,6 +273,14 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
       isNew: false
     })) : []);
     setBlock1Images(Array.isArray(initialData?.block1?.images) ? initialData.block1.images.map(url => ({ 
+      url, 
+      isNew: false
+    })) : []);
+    setBlock2Images(Array.isArray(initialData?.block2?.images) ? initialData.block2.images.map(url => ({ 
+      url, 
+      isNew: false
+    })) : []);
+    setBlock3Images(Array.isArray(initialData?.block3?.images) ? initialData.block3.images.map(url => ({ 
       url, 
       isNew: false
     })) : []);
@@ -282,7 +384,7 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
               const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
               if (files.length > 0) {
                 const newImgs = files.map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
-                setBlock1Images(newImgs);
+                setBlock1Images(prev => [...prev, ...newImgs]);
               }
             }}
           >
@@ -310,6 +412,204 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
                       onClick={e => { 
                         e.stopPropagation(); 
                         setBlock1Images(prev => prev.filter((_, i) => i !== idx)); 
+                      }}
+                      title="Remove image"
+                    >
+                      ×
+                    </button>
+                    {img.isNew && <span className="absolute bottom-0 left-0 bg-blue-500 text-white text-xs px-1 rounded">New</span>}
+                  </div>
+                  <span className="text-xs font-bold mt-1 text-center px-1">
+                    {idx === 0 && "📌 Image 1"}
+                    {idx === 1 && "📌 Image 2"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* BLOCK 2 Section */}
+      <div className="border-4 border-green-500 p-6 rounded mb-6 bg-white">
+        <h3 className="text-2xl font-bold text-green-700 mb-4">📦 Block 2</h3>
+
+        {/* Block 2 Heading */}
+        <div className="mb-3">
+          <label className="block text-sm font-bold text-green-700 mb-2">
+            Block 2 Heading
+          </label>
+          <input
+            type="text"
+            name="block2.heading"
+            value={form?.block2?.heading || ''}
+            onChange={handleChange}
+            placeholder="Enter block 2 heading"
+            className="w-full border-2 border-green-400 px-3 py-2 rounded focus:outline-none focus:border-green-600"
+          />
+        </div>
+
+        {/* Block 2 Description */}
+        <div className="mb-3">
+          <label className="block text-sm font-bold text-green-700 mb-2">
+            Block 2 Description
+          </label>
+          <CKEditor
+            editor={ClassicEditor}
+            key={`block2-${initialData?._id || 'new'}`}
+            data={(form?.block2?.description) || ''}
+            onReady={editor => {
+              // This will be called when the editor is ready
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setForm({ ...form, block2: { ...form.block2, description: data } });
+            }}
+          />
+        </div>
+
+        {/* Block 2 Images Upload */}
+        <div className="mb-3">
+          <label className="block text-sm font-bold text-green-700 mb-2">
+            Block 2 Images (2 Images)
+          </label>
+          <div
+            className="w-full border-2 border-dashed border-green-400 rounded p-4 text-center cursor-pointer hover:border-green-600 transition bg-white"
+            onClick={() => document.getElementById('block2-image-input').click()}
+            onDragOver={e => { e.preventDefault(); e.stopPropagation(); }}
+            onDrop={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+              if (files.length > 0) {
+                const newImgs = files.map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
+                setBlock2Images(prev => [...prev, ...newImgs]);
+              }
+            }}
+          >
+            <span className="text-gray-500">Drag & drop images here or </span>
+            <span className="text-green-700 font-semibold underline">click to add</span>
+            <input
+              id="block2-image-input"
+              name="block2-images"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleChange}
+              className="hidden"
+            />
+          </div>
+          {block2Images.length > 0 && (
+            <div className="flex gap-2 mt-2 flex-wrap">
+              {block2Images.map((img, idx) => (
+                <div key={idx} className="relative group flex flex-col items-center">
+                  <div className="relative">
+                    <img src={img.url} alt={`block2-${idx}`} className="w-16 h-16 object-cover rounded border-2 border-green-400" />
+                    <button
+                      type="button"
+                      className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 group-hover:opacity-100"
+                      onClick={e => { 
+                        e.stopPropagation(); 
+                        setBlock2Images(prev => prev.filter((_, i) => i !== idx)); 
+                      }}
+                      title="Remove image"
+                    >
+                      ×
+                    </button>
+                    {img.isNew && <span className="absolute bottom-0 left-0 bg-blue-500 text-white text-xs px-1 rounded">New</span>}
+                  </div>
+                  <span className="text-xs font-bold mt-1 text-center px-1">
+                    {idx === 0 && "📌 Image 1"}
+                    {idx === 1 && "📌 Image 2"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* BLOCK 3 Section */}
+      <div className="border-4 border-blue-500 p-6 rounded mb-6 bg-white">
+        <h3 className="text-2xl font-bold text-blue-700 mb-4">📦 Block 3</h3>
+
+        {/* Block 3 Heading */}
+        <div className="mb-3">
+          <label className="block text-sm font-bold text-blue-700 mb-2">
+            Block 3 Heading
+          </label>
+          <input
+            type="text"
+            name="block3.heading"
+            value={form?.block3?.heading || ''}
+            onChange={handleChange}
+            placeholder="Enter block 3 heading"
+            className="w-full border-2 border-blue-400 px-3 py-2 rounded focus:outline-none focus:border-blue-600"
+          />
+        </div>
+
+        {/* Block 3 Description */}
+        <div className="mb-3">
+          <label className="block text-sm font-bold text-blue-700 mb-2">
+            Block 3 Description
+          </label>
+          <CKEditor
+            editor={ClassicEditor}
+            key={`block3-${initialData?._id || 'new'}`}
+            data={(form?.block3?.description) || ''}
+            onReady={editor => {
+              // This will be called when the editor is ready
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setForm({ ...form, block3: { ...form.block3, description: data } });
+            }}
+          />
+        </div>
+
+        {/* Block 3 Images Upload */}
+        <div className="mb-3">
+          <label className="block text-sm font-bold text-blue-700 mb-2">
+            Block 3 Images (2 Images)
+          </label>
+          <div
+            className="w-full border-2 border-dashed border-blue-400 rounded p-4 text-center cursor-pointer hover:border-blue-600 transition bg-white"
+            onClick={() => document.getElementById('block3-image-input').click()}
+            onDragOver={e => { e.preventDefault(); e.stopPropagation(); }}
+            onDrop={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+              if (files.length > 0) {
+                const newImgs = files.map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
+                setBlock3Images(prev => [...prev, ...newImgs]);
+              }
+            }}
+          >
+            <span className="text-gray-500">Drag & drop images here or </span>
+            <span className="text-blue-700 font-semibold underline">click to add</span>
+            <input
+              id="block3-image-input"
+              name="block3-images"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleChange}
+              className="hidden"
+            />
+          </div>
+          {block3Images.length > 0 && (
+            <div className="flex gap-2 mt-2 flex-wrap">
+              {block3Images.map((img, idx) => (
+                <div key={idx} className="relative group flex flex-col items-center">
+                  <div className="relative">
+                    <img src={img.url} alt={`block3-${idx}`} className="w-16 h-16 object-cover rounded border-2 border-blue-400" />
+                    <button
+                      type="button"
+                      className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 group-hover:opacity-100"
+                      onClick={e => { 
+                        e.stopPropagation(); 
+                        setBlock3Images(prev => prev.filter((_, i) => i !== idx)); 
                       }}
                       title="Remove image"
                     >

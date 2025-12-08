@@ -23,6 +23,14 @@ const initialState = {
     heading: '',
     description: ''
   },
+  block2: {
+    heading: '',
+    description: ''
+  },
+  block3: {
+    heading: '',
+    description: ''
+  },
   images: []
 };
 
@@ -33,6 +41,8 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
     address: { ...initialState.address, ...(data?.address || {}) },
     features: { ...initialState.features, ...(data?.features || {}) },
     block1: { ...initialState.block1, ...(data?.block1 || {}) },
+    block2: { ...initialState.block2, ...(data?.block2 || {}) },
+    block3: { ...initialState.block3, ...(data?.block3 || {}) },
   });
   const [form, setForm] = useState(getMergedState(initialData));
   const [images, setImages] = useState(() => {
@@ -47,11 +57,25 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
     }
     return [];
   });
+  const [block2Images, setBlock2Images] = useState(() => {
+    if (Array.isArray(initialData?.block2?.images)) {
+      return initialData.block2.images.map(url => ({ url, isNew: false }));
+    }
+    return [];
+  });
+  const [block3Images, setBlock3Images] = useState(() => {
+    if (Array.isArray(initialData?.block3?.images)) {
+      return initialData.block3.images.map(url => ({ url, isNew: false }));
+    }
+    return [];
+  });
 
   useEffect(() => {
     setForm(getMergedState(initialData));
     setImages(Array.isArray(initialData?.images) ? initialData.images.map(url => ({ url, isNew: false })) : []);
     setBlock1Images(Array.isArray(initialData?.block1?.images) ? initialData.block1.images.map(url => ({ url, isNew: false })) : []);
+    setBlock2Images(Array.isArray(initialData?.block2?.images) ? initialData.block2.images.map(url => ({ url, isNew: false })) : []);
+    setBlock3Images(Array.isArray(initialData?.block3?.images) ? initialData.block3.images.map(url => ({ url, isNew: false })) : []);
   }, [JSON.stringify(initialData)]);
 
   const handleChange = (e) => {
@@ -62,6 +86,12 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
     } else if (name === 'block1-images') {
       const newImgs = Array.from(files).map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
       setBlock1Images(prev => [...prev, ...newImgs]);
+    } else if (name === 'block2-images') {
+      const newImgs = Array.from(files).map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
+      setBlock2Images(prev => [...prev, ...newImgs]);
+    } else if (name === 'block3-images') {
+      const newImgs = Array.from(files).map(file => ({ url: URL.createObjectURL(file), file, isNew: true }));
+      setBlock3Images(prev => [...prev, ...newImgs]);
     } else if (name.startsWith('address.')) {
       setForm({ ...form, address: { ...form.address, [name.split('.')[1]]: value } });
     } else if (name.startsWith('features.')) {
@@ -72,6 +102,12 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
     } else if (name.startsWith('block1.')) {
       const key = name.split('.')[1];
       setForm({ ...form, block1: { ...form.block1, [key]: value } });
+    } else if (name.startsWith('block2.')) {
+      const key = name.split('.')[1];
+      setForm({ ...form, block2: { ...form.block2, [key]: value } });
+    } else if (name.startsWith('block3.')) {
+      const key = name.split('.')[1];
+      setForm({ ...form, block3: { ...form.block3, [key]: value } });
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -130,9 +166,33 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
           formData.append('block1Images', img.file);
         }
       });
+      // Block2 images
+      block2Images.forEach(img => {
+        if (!img.isNew && img.url && !img.url.startsWith('blob:')) {
+          formData.append('existingBlock2Images[]', img.url);
+        }
+      });
+      block2Images.forEach(img => {
+        if (img.isNew && img.file) {
+          formData.append('block2Images', img.file);
+        }
+      });
+      // Block3 images
+      block3Images.forEach(img => {
+        if (!img.isNew && img.url && !img.url.startsWith('blob:')) {
+          formData.append('existingBlock3Images[]', img.url);
+        }
+      });
+      block3Images.forEach(img => {
+        if (img.isNew && img.file) {
+          formData.append('block3Images', img.file);
+        }
+      });
       await onSubmit(formData);
       setImages(Array.isArray(initialData?.images) ? initialData.images.map(url => ({ url, isNew: false })) : []);
       setBlock1Images(Array.isArray(initialData?.block1?.images) ? initialData.block1.images.map(url => ({ url, isNew: false })) : []);
+      setBlock2Images(Array.isArray(initialData?.block2?.images) ? initialData.block2.images.map(url => ({ url, isNew: false })) : []);
+      setBlock3Images(Array.isArray(initialData?.block3?.images) ? initialData.block3.images.map(url => ({ url, isNew: false })) : []);
     } catch {
       toast.error('Failed to save featured product. Please try again.');
     }
@@ -253,6 +313,126 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
                     type="button"
                     className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 group-hover:opacity-100"
                     onClick={e => { e.stopPropagation(); setBlock1Images(prev => prev.filter((_, i) => i !== idx)); }}
+                    title="Remove image"
+                  >
+                    ×
+                  </button>
+                  {img.isNew && <span className="absolute bottom-0 left-0 bg-blue-500 text-white text-xs px-1 rounded">New</span>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Block 2 Section */}
+      <div className="mb-6 border-t-2 border-green-600 pt-4">
+        <h4 className="text-lg font-bold text-green-700 mb-4">Block 2 - Special Section</h4>
+        {/* Block 2 Heading */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Heading</label>
+          <input 
+            type="text" 
+            name="block2.heading" 
+            value={(form?.block2?.heading) || ''} 
+            onChange={handleChange} 
+            placeholder="e.g., BLOCK 2 TITLE" 
+            className="w-full border px-3 py-2 rounded" 
+          />
+        </div>
+        {/* Block 2 Description with CKEditor */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Description</label>
+          <CKEditor
+            key={`block2-${initialData?._id || 'new'}`}
+            editor={ClassicEditor}
+            data={(form?.block2?.description) || ''}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setForm({ ...form, block2: { ...form.block2, description: data } });
+            }}
+          />
+        </div>
+        {/* Block 2 Images */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Block 2 Images (max 2)</label>
+          <input
+            id="block2-image-input"
+            name="block2-images"
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleChange}
+            className="block mt-1"
+          />
+          {block2Images.length > 0 && (
+            <div className="flex gap-2 mt-2 flex-wrap">
+              {block2Images.map((img, idx) => (
+                <div key={idx} className="relative group">
+                  <img src={img.url} alt={`block2-img-${idx}`} className="w-16 h-16 object-cover rounded border" />
+                  <button
+                    type="button"
+                    className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 group-hover:opacity-100"
+                    onClick={e => { e.stopPropagation(); setBlock2Images(prev => prev.filter((_, i) => i !== idx)); }}
+                    title="Remove image"
+                  >
+                    ×
+                  </button>
+                  {img.isNew && <span className="absolute bottom-0 left-0 bg-blue-500 text-white text-xs px-1 rounded">New</span>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Block 3 Section */}
+      <div className="mb-6 border-t-2 border-blue-600 pt-4">
+        <h4 className="text-lg font-bold text-blue-700 mb-4">Block 3 - Special Section</h4>
+        {/* Block 3 Heading */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Heading</label>
+          <input 
+            type="text" 
+            name="block3.heading" 
+            value={(form?.block3?.heading) || ''} 
+            onChange={handleChange} 
+            placeholder="e.g., BLOCK 3 TITLE" 
+            className="w-full border px-3 py-2 rounded" 
+          />
+        </div>
+        {/* Block 3 Description with CKEditor */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Description</label>
+          <CKEditor
+            key={`block3-${initialData?._id || 'new'}`}
+            editor={ClassicEditor}
+            data={(form?.block3?.description) || ''}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              setForm({ ...form, block3: { ...form.block3, description: data } });
+            }}
+          />
+        </div>
+        {/* Block 3 Images */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700">Block 3 Images (max 2)</label>
+          <input
+            id="block3-image-input"
+            name="block3-images"
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleChange}
+            className="block mt-1"
+          />
+          {block3Images.length > 0 && (
+            <div className="flex gap-2 mt-2 flex-wrap">
+              {block3Images.map((img, idx) => (
+                <div key={idx} className="relative group">
+                  <img src={img.url} alt={`block3-img-${idx}`} className="w-16 h-16 object-cover rounded border" />
+                  <button
+                    type="button"
+                    className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs opacity-80 group-hover:opacity-100"
+                    onClick={e => { e.stopPropagation(); setBlock3Images(prev => prev.filter((_, i) => i !== idx)); }}
                     title="Remove image"
                   >
                     ×

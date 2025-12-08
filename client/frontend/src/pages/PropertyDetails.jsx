@@ -185,6 +185,76 @@ const PropertyDetails = () => {
                       </div>
                     ) : null}
 
+                    {/* ============= BLOCK 2: DETAILED SECTION ============= */}
+                    {property.block2?.heading || property.block2?.description || (property.block2?.images && property.block2.images.length > 0) ? (
+                      <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-green-500">
+                        {/* BLOCK 2 HEADING */}
+                        <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
+                          {property.block2?.heading || "BLOCK 2"}
+                        </h2>
+
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-4">
+                          {/* LEFT SIDE: BLOCK 2 TEXT CONTENT */}
+                          <div className="flex-1">
+                            {property.block2?.description ? (
+                              <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: property.block2.description }} />
+                            ) : (
+                              <p className="text-gray-700 leading-relaxed">No description available</p>
+                            )}
+                          </div>
+
+                          {/* RIGHT SIDE: BLOCK 2 IMAGES */}
+                          {property.block2?.images && property.block2.images.length > 0 && (
+                            <div className="flex-1 flex justify-center gap-3">
+                              {property.block2.images.slice(0, 2).map((img, idx) => (
+                                <img
+                                  key={idx}
+                                  src={img}
+                                  alt={`Block 2 Image ${idx + 1}`}
+                                  className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {/* ============= BLOCK 3: DETAILED SECTION ============= */}
+                    {property.block3?.heading || property.block3?.description || (property.block3?.images && property.block3.images.length > 0) ? (
+                      <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-blue-500">
+                        {/* BLOCK 3 HEADING */}
+                        <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
+                          {property.block3?.heading || "BLOCK 3"}
+                        </h2>
+
+                        <div className="flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-4">
+                          {/* LEFT SIDE: BLOCK 3 TEXT CONTENT */}
+                          <div className="flex-1">
+                            {property.block3?.description ? (
+                              <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: property.block3.description }} />
+                            ) : (
+                              <p className="text-gray-700 leading-relaxed">No description available</p>
+                            )}
+                          </div>
+
+                          {/* RIGHT SIDE: BLOCK 3 IMAGES */}
+                          {property.block3?.images && property.block3.images.length > 0 && (
+                            <div className="flex-1 flex justify-center gap-3">
+                              {property.block3.images.slice(0, 2).map((img, idx) => (
+                                <img
+                                  key={idx}
+                                  src={img}
+                                  alt={`Block 3 Image ${idx + 1}`}
+                                  className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ) : null}
+
                     {/* Section 3: Why Choose */}
                   <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
   <h2 className="text-2xl font-bold mb-6 text-center">

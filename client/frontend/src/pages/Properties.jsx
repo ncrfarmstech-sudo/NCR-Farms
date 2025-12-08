@@ -163,14 +163,14 @@ const Properties = () => {
         
         return filter.size.some((sizeFilter) => {
             switch(sizeFilter) {
-                case '1210 sqyd':
-                    return areaNum >= 1210 && areaNum < 2420;
-                case '2420 sqyd':
-                    return areaNum >= 2420 && areaNum < 43560; // 1 acre
-                case '1 acr':
-                    return areaNum >= 43560 && areaNum < 87120; // 1-2 acres
-                case 'More than 1 acr':
-                    return areaNum >= 43560;
+                case 'Less than 1000 sqyd':
+                    return areaNum < 1000;
+                case '1000-2500 sqyd':
+                    return areaNum >= 1000 && areaNum < 2500;
+                case '2500-4840 sqyd':
+                    return areaNum >= 2500 && areaNum < 4840;
+                case 'More than 1 acre':
+                    return areaNum >= 4840;
                 default:
                     return false;
             }
@@ -334,7 +334,7 @@ const Properties = () => {
                     <div className="mb-5 pb-4 border-b border-gray-500">
                         <h3 className="text-sm font-semibold mb-3 text-white">SIZE</h3>
                         <div className="space-y-2">
-                            {['1210 sqyd', '2420 sqyd', '1 acr', 'More than 1 acr'].map((size) => (
+                            {['Less than 1000 sqyd', '1000-2500 sqyd', '2500-4840 sqyd', 'More than 1 acre'].map((size) => (
                                 <label key={size} className="flex items-center gap-2 cursor-pointer">
                                     <input
                                         type="checkbox"

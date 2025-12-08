@@ -13,7 +13,9 @@ const propertyController = require('../controllers/propertyController');
 router.post('/', upload.fields([
   { name: 'images', maxCount: 10 },
   { name: 'block1Images', maxCount: 2 },
-  { name: 'files', maxCount: 20 }, // catch-all
+  { name: 'block2Images', maxCount: 2 },
+  { name: 'block3Images', maxCount: 2 },
+  { name: 'files', maxCount: 20 },
   { name: 'file', maxCount: 20 }
 ]), propertyController.createProperty);
 router.get('/', propertyController.getProperties);
@@ -21,12 +23,16 @@ router.get('/:id', propertyController.getPropertyById);
 router.put('/:id', upload.fields([
   { name: 'images', maxCount: 10 },
   { name: 'block1Images', maxCount: 2 },
+  { name: 'block2Images', maxCount: 2 },
+  { name: 'block3Images', maxCount: 2 },
   { name: 'files', maxCount: 20 },
   { name: 'file', maxCount: 20 }
 ]), propertyController.updateProperty);
 router.patch('/:id', upload.fields([
   { name: 'images', maxCount: 10 },
   { name: 'block1Images', maxCount: 2 },
+  { name: 'block2Images', maxCount: 2 },
+  { name: 'block3Images', maxCount: 2 },
   { name: 'files', maxCount: 20 },
   { name: 'file', maxCount: 20 }
 ]), propertyController.partialUpdateProperty);

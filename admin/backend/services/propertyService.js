@@ -12,7 +12,7 @@ async function uploadToCloudinary(file) {
 }
 exports.uploadToCloudinary = uploadToCloudinary;
 
-exports.partialUpdateProperty = async (id, data, files, block1Files) => {
+exports.partialUpdateProperty = async (id, data, files, block1Files, block2Files, block3Files) => {
   const property = await Property.findById(id);
   if (!property) return null;
 
@@ -38,6 +38,26 @@ exports.partialUpdateProperty = async (id, data, files, block1Files) => {
   }
   if (typeof data['block1.description'] !== 'undefined' || typeof data['block1Description'] !== 'undefined') {
     property.block1.description = data['block1.description'] || data['block1Description'] || '';
+  }
+
+  // Update Block 2 fields
+  if (typeof data['block2.heading'] !== 'undefined' || typeof data['block2Heading'] !== 'undefined') {
+    if (!property.block2) property.block2 = {};
+    property.block2.heading = data['block2.heading'] || data['block2Heading'] || '';
+  }
+  if (typeof data['block2.description'] !== 'undefined' || typeof data['block2Description'] !== 'undefined') {
+    if (!property.block2) property.block2 = {};
+    property.block2.description = data['block2.description'] || data['block2Description'] || '';
+  }
+
+  // Update Block 3 fields
+  if (typeof data['block3.heading'] !== 'undefined' || typeof data['block3Heading'] !== 'undefined') {
+    if (!property.block3) property.block3 = {};
+    property.block3.heading = data['block3.heading'] || data['block3Heading'] || '';
+  }
+  if (typeof data['block3.description'] !== 'undefined' || typeof data['block3Description'] !== 'undefined') {
+    if (!property.block3) property.block3 = {};
+    property.block3.description = data['block3.description'] || data['block3Description'] || '';
   }
 
   // Merge existing image URLs from frontend with new uploads
@@ -72,6 +92,38 @@ exports.partialUpdateProperty = async (id, data, files, block1Files) => {
     }
   }
 
+  // Handle Block 2 images
+  let existingBlock2Images = [];
+  if (typeof data['existingBlock2Images'] !== 'undefined') {
+    if (Array.isArray(data['existingBlock2Images'])) {
+      existingBlock2Images = data['existingBlock2Images'];
+    } else if (typeof data['existingBlock2Images'] === 'string') {
+      existingBlock2Images = [data['existingBlock2Images']];
+    }
+  } else if (typeof data['existingBlock2Images[]'] !== 'undefined') {
+    if (Array.isArray(data['existingBlock2Images[]'])) {
+      existingBlock2Images = data['existingBlock2Images[]'];
+    } else if (typeof data['existingBlock2Images[]'] === 'string') {
+      existingBlock2Images = [data['existingBlock2Images[]']];
+    }
+  }
+
+  // Handle Block 3 images
+  let existingBlock3Images = [];
+  if (typeof data['existingBlock3Images'] !== 'undefined') {
+    if (Array.isArray(data['existingBlock3Images'])) {
+      existingBlock3Images = data['existingBlock3Images'];
+    } else if (typeof data['existingBlock3Images'] === 'string') {
+      existingBlock3Images = [data['existingBlock3Images']];
+    }
+  } else if (typeof data['existingBlock3Images[]'] !== 'undefined') {
+    if (Array.isArray(data['existingBlock3Images[]'])) {
+      existingBlock3Images = data['existingBlock3Images[]'];
+    } else if (typeof data['existingBlock3Images[]'] === 'string') {
+      existingBlock3Images = [data['existingBlock3Images[]']];
+    }
+  }
+
   let newImages = [];
   if (files && files.length > 0) {
     for (const file of files) {
@@ -96,8 +148,43 @@ exports.partialUpdateProperty = async (id, data, files, block1Files) => {
     }
   }
 
+  let newBlock2Images = [];
+  if (block2Files && block2Files.length > 0) {
+    for (const file of block2Files) {
+      try {
+        const uploadRes = await uploadToCloudinary(file);
+        newBlock2Images.push(uploadRes.secure_url);
+      } catch (err) {
+        console.error('Cloudinary block2 upload error:', err);
+      }
+    }
+  }
+
+  let newBlock3Images = [];
+  if (block3Files && block3Files.length > 0) {
+    for (const file of block3Files) {
+      try {
+        const uploadRes = await uploadToCloudinary(file);
+        newBlock3Images.push(uploadRes.secure_url);
+      } catch (err) {
+        console.error('Cloudinary block3 upload error:', err);
+      }
+    }
+  }
+
   property.images = [...existingImages, ...newImages];
   property.block1.images = [...existingBlock1Images, ...newBlock1Images];
+  
+  // Update Block 2 and Block 3 images
+  if (block2Files?.length > 0 || existingBlock2Images.length > 0) {
+    if (!property.block2) property.block2 = {};
+    property.block2.images = [...existingBlock2Images, ...newBlock2Images];
+  }
+  
+  if (block3Files?.length > 0 || existingBlock3Images.length > 0) {
+    if (!property.block3) property.block3 = {};
+    property.block3.images = [...existingBlock3Images, ...newBlock3Images];
+  }
 
   property.updatedAt = new Date();
   await property.save();

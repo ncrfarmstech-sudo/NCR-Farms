@@ -11,6 +11,8 @@ const featuredProductController = require('../controllers/featuredProductControl
 router.post('/', upload.fields([
   { name: 'images', maxCount: 10 },
   { name: 'block1Images', maxCount: 2 },
+  { name: 'block2Images', maxCount: 2 },
+  { name: 'block3Images', maxCount: 2 },
   { name: 'files', maxCount: 20 },
   { name: 'file', maxCount: 20 }
 ]), featuredProductController.createFeaturedProduct);
@@ -19,6 +21,8 @@ router.get('/:id', featuredProductController.getFeaturedProductById);
 router.put('/:id', upload.fields([
   { name: 'images', maxCount: 10 },
   { name: 'block1Images', maxCount: 2 },
+  { name: 'block2Images', maxCount: 2 },
+  { name: 'block3Images', maxCount: 2 },
   { name: 'files', maxCount: 20 },
   { name: 'file', maxCount: 20 }
 ]), featuredProductController.updateFeaturedProduct);
@@ -27,6 +31,8 @@ router.put('/:id', upload.fields([
 router.patch('/:id', upload.fields([
   { name: 'images', maxCount: 10 },
   { name: 'block1Images', maxCount: 2 },
+  { name: 'block2Images', maxCount: 2 },
+  { name: 'block3Images', maxCount: 2 },
   { name: 'files', maxCount: 20 },
   { name: 'file', maxCount: 20 }
 ]), featuredProductController.partialUpdateFeaturedProduct);
