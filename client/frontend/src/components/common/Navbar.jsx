@@ -53,74 +53,45 @@ const Navbar = () => {
     };
 
     // Core typing effect — runs only when search popup is open AND user hasn't typed anything
-    useEffect(() => {
-        // stop typing if popup closed
-        if (!isSearchOpen) {
-            clearTypingTimeout();
-            setDisplayText("");
-            displayTextRef.current = "";
-            // reset counters for fresh start next open
-            wordIndexRef.current = 0;
-            deletingRef.current = false;
-            charIndexRef.current = 0;
-            return;
-        }
-
-        // if user typed, don't run animation
-        if (searchText) {
-            clearTypingTimeout();
-            setDisplayText("");
-            displayTextRef.current = "";
-            deletingRef.current = false;
-            charIndexRef.current = 0;
-            return;
-        }
-
-        const run = () => {
-            const currentWord = words[wordIndexRef.current];
-            if (!deletingRef.current) {
-                // typing forward
-                charIndexRef.current = Math.min(charIndexRef.current + 1, currentWord.length);
-                const next = currentWord.substring(0, charIndexRef.current);
-                setDisplayText(next);
-                displayTextRef.current = next;
-
-                if (charIndexRef.current === currentWord.length) {
-                    // pause at full word then start deleting
-                    timeoutRef.current = setTimeout(() => {
-                        deletingRef.current = true;
-                        run();
-                    }, 1400); // pause at full word
-                    return;
-                } else {
-                    timeoutRef.current = setTimeout(run, 120); // typing speed
-                }
-            } else {
-                // deleting
-                charIndexRef.current = Math.max(0, charIndexRef.current - 1);
-                const next = currentWord.substring(0, charIndexRef.current);
-                setDisplayText(next);
-                displayTextRef.current = next;
-
-                if (charIndexRef.current === 0) {
-                    // move to next word and start typing
-                    deletingRef.current = false;
-                    wordIndexRef.current = (wordIndexRef.current + 1) % words.length;
-                    timeoutRef.current = setTimeout(run, 200); // small gap before next word
-                    return;
-                } else {
-                    timeoutRef.current = setTimeout(run, 60); // deleting speed
-                }
-            }
-        };
-
-        // start the run loop
+   // ---------------- Whole-word typing effect (no letter-by-letter) ----------------
+useEffect(() => {
+    // Stop animation when popup closed
+    if (!isSearchOpen) {
         clearTypingTimeout();
-        timeoutRef.current = setTimeout(run, 200); // slight initial delay
+        setDisplayText("");
+        displayTextRef.current = "";
+        wordIndexRef.current = 0;
+        return;
+    }
 
-        // cleanup on unmount or dependency change
-        return () => clearTypingTimeout();
-    }, [isSearchOpen, searchText]); // restart whenever popup opens/closes or user types
+    // Stop animation if user types
+    if (searchText) {
+        clearTypingTimeout();
+        setDisplayText("");
+        displayTextRef.current = "";
+        return;
+    }
+
+    const run = () => {
+        // Pick the full word directly
+        const currentWord = words[wordIndexRef.current];
+
+        // Show full word at once
+        setDisplayText(currentWord);
+        displayTextRef.current = currentWord;
+
+        // Move to next word after delay
+        wordIndexRef.current = (wordIndexRef.current + 1) % words.length;
+
+        timeoutRef.current = setTimeout(run, 1500); // change speed here
+    };
+
+    clearTypingTimeout();
+    timeoutRef.current = setTimeout(run, 300);
+
+    return () => clearTypingTimeout();
+}, [isSearchOpen, searchText]);
+ // restart whenever popup opens/closes or user types
 
     // keep displayTextRef in sync if component re-renders
     useEffect(() => {

@@ -71,7 +71,16 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
   });
 
   useEffect(() => {
-    setForm(getMergedState(initialData));
+    // Debug logs to validate edit payload and merged form state
+    try {
+      console.log('FeaturedProductForm initialData changed:', initialData);
+      const merged = getMergedState(initialData || {});
+      console.log('FeaturedProductForm merged form state:', merged);
+      setForm(merged);
+    } catch (e) {
+      console.warn('Error merging initialData in FeaturedProductForm:', e);
+      setForm(getMergedState({}));
+    }
     setImages(Array.isArray(initialData?.images) ? initialData.images.map(url => ({ url, isNew: false })) : []);
     setBlock1Images(Array.isArray(initialData?.block1?.images) ? initialData.block1.images.map(url => ({ url, isNew: false })) : []);
     setBlock2Images(Array.isArray(initialData?.block2?.images) ? initialData.block2.images.map(url => ({ url, isNew: false })) : []);
@@ -118,30 +127,21 @@ const FeaturedProductForm = ({ onSubmit, loading, initialData, isEdit, onCancel 
     const formData = new FormData();
     const isEditMode = !!isEdit;
     try {
-      if (isEditMode && initialData) {
-        Object.entries(form).forEach(([key, value]) => {
-          if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-            Object.entries(value).forEach(([subKey, subValue]) => {
-              if (!initialData[key] || initialData[key][subKey] !== subValue) {
-                formData.append(`${key}.${subKey}`, subValue);
-              }
-            });
-          } else {
-            if (initialData[key] !== value) {
-              formData.append(key, value);
-            }
-          }
-        });
-      } else {
-        Object.entries(form).forEach(([key, value]) => {
-          if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-            Object.entries(value).forEach(([subKey, subValue]) => {
-              formData.append(`${key}.${subKey}`, subValue);
-            });
-          } else {
-            formData.append(key, value);
-          }
-        });
+      // Always send all fields to ensure updates work properly
+      Object.entries(form).forEach(([key, value]) => {
+        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+          Object.entries(value).forEach(([subKey, subValue]) => {
+            formData.append(`${key}.${subKey}`, subValue || '');
+          });
+        } else {
+          formData.append(key, value || '');
+        }
+      });
+      console.log('=== FeaturedProductForm Submit ===');
+      console.log('Form state:', form);
+      console.log('FormData entries:');
+      for (let pair of formData.entries()) {
+        console.log(pair[0], '=', pair[1]);
       }
       // Always send all existing images as 'existingImages[]'
       images.forEach(img => {

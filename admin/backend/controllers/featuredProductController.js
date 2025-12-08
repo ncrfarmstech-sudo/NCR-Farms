@@ -82,10 +82,33 @@ exports.createFeaturedProduct = async (req, res) => {
       description: req.body['block3.description'] || '',
       images: block3Images
     } : undefined;
-    const data = { ...req.body, images: imageUrls };
-    if (block1Data) data.block1 = block1Data;
-    if (block2Data) data.block2 = block2Data;
-    if (block3Data) data.block3 = block3Data;
+    // Build nested objects from dotted form fields for create
+    const address = {
+      street: req.body['address.street'] || '',
+      city: req.body['address.city'] || '',
+      state: req.body['address.state'] || '',
+      pincode: req.body['address.pincode'] || ''
+    };
+    const features = {
+      area: typeof req.body['features.area'] !== 'undefined' && req.body['features.area'] !== ''
+        ? Number(req.body['features.area'])
+        : undefined
+    };
+    const data = {
+      title: req.body.title,
+      tag: req.body.tag,
+      description: req.body.description || '',
+      price: typeof req.body.price !== 'undefined' && req.body.price !== '' ? Number(req.body.price) : undefined,
+      propertyType: req.body.propertyType,
+      locationName: req.body.locationName,
+      status: req.body.status,
+      address,
+      features,
+      images: imageUrls,
+      ...(block1Data && { block1: block1Data }),
+      ...(block2Data && { block2: block2Data }),
+      ...(block3Data && { block3: block3Data })
+    };
     const product = await featuredProductService.createFeaturedProduct(data);
     res.status(201).json(product);
   } catch (err) {

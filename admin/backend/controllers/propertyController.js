@@ -89,8 +89,27 @@ exports.createProperty = async (req, res) => {
       description: req.body['block3.description'] || req.body['block3Description'] || '',
       images: block3ImageUrls
     } : undefined;
-    const propertyData = { 
-      ...req.body, 
+    // Build nested objects from dotted form fields for create
+    const address = {
+      street: req.body['address.street'] || '',
+      city: req.body['address.city'] || '',
+      state: req.body['address.state'] || '',
+      pincode: req.body['address.pincode'] || ''
+    };
+    const features = {
+      area: typeof req.body['features.area'] !== 'undefined' && req.body['features.area'] !== ''
+        ? Number(req.body['features.area'])
+        : undefined
+    };
+    const propertyData = {
+      title: req.body.title,
+      description: req.body.description || '',
+      price: typeof req.body.price !== 'undefined' && req.body.price !== '' ? Number(req.body.price) : undefined,
+      propertyType: req.body.propertyType,
+      locationName: req.body.locationName,
+      status: req.body.status,
+      address,
+      features,
       images: imageUrls,
       ...(block1Data && { block1: block1Data }),
       ...(block2Data && { block2: block2Data }),

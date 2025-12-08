@@ -136,6 +136,7 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+    console.log('handleChange called:', name, '=', value); // Debug log
     if (name === 'images') {
       // Add new files to regular property images
       const newImgs = Array.from(files).map(file => ({
@@ -210,31 +211,21 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
     e.preventDefault();
     const formData = new FormData();
     const isEditMode = !!isEdit;
-    // Only send changed or non-empty fields on edit, all fields on create
-    if (isEditMode && initialData) {
-      Object.entries(form).forEach(([key, value]) => {
-        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-          Object.entries(value).forEach(([subKey, subValue]) => {
-            if (!initialData[key] || initialData[key][subKey] !== subValue) {
-              formData.append(`${key}.${subKey}`, subValue);
-            }
-          });
-        } else {
-          if (initialData[key] !== value) {
-            formData.append(key, value);
-          }
-        }
-      });
-    } else {
-      Object.entries(form).forEach(([key, value]) => {
-        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-          Object.entries(value).forEach(([subKey, subValue]) => {
-            formData.append(`${key}.${subKey}`, subValue);
-          });
-        } else {
-          formData.append(key, value);
-        }
-      });
+    // Always send all fields to ensure updates work properly
+    Object.entries(form).forEach(([key, value]) => {
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        Object.entries(value).forEach(([subKey, subValue]) => {
+          formData.append(`${key}.${subKey}`, subValue || '');
+        });
+      } else {
+        formData.append(key, value || '');
+      }
+    });
+    console.log('=== PropertyForm Submit ===');
+    console.log('Form state:', form);
+    console.log('FormData entries:');
+    for (let pair of formData.entries()) {
+      console.log(pair[0], '=', pair[1]);
     }
     // Send all kept old images (only real URLs, not blob:)
     images.filter(img => !img.isNew && img.url && !img.url.startsWith('blob:')).forEach(img => {

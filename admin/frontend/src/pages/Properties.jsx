@@ -92,6 +92,7 @@
 					   <div className="w-full flex justify-center">
 						   <div className="w-full max-w-4xl overflow-y-auto" style={{ maxHeight: '600px' }}>
 							   <PropertyForm
+								   key={editProperty?._id || 'new'}
 								   initialData={editProperty || {}}
 								   onSubmit={handleFormSubmit}
 								   loading={loading}

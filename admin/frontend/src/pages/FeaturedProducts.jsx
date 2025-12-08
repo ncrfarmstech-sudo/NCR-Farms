@@ -29,7 +29,21 @@ const FeaturedProducts = () => {
   };
 
   const handleEdit = (product) => {
-    setEditProduct(product);
+    // Use latest from state in case list is fresher than card prop
+    const latest = featuredProducts.find(p => p._id === product._id) || product;
+    // Ensure all nested structures exist and arrays are normalized
+    const normalized = {
+      ...latest,
+      images: Array.isArray(latest.images) ? latest.images : [],
+      address: latest.address || {},
+      features: latest.features || {},
+      block1: latest.block1 || {},
+      block2: latest.block2 || {},
+      block3: latest.block3 || {},
+    };
+    // Debug: verify the data being sent to the form
+    console.log('Editing Featured Product:', normalized);
+    setEditProduct(normalized);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -55,9 +69,10 @@ const FeaturedProducts = () => {
       </div>
       <div className="max-w-6xl mx-auto mb-8 w-full">
         <FeaturedProductForm
+          key={editProduct?._id || 'new'}
           onSubmit={handleFormSubmit}
           loading={formLoading}
-          initialData={editProduct}
+          initialData={editProduct || {}}
           isEdit={!!editProduct}
           onCancel={() => setEditProduct(null)}
         />
