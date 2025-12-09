@@ -37,6 +37,13 @@ const featuredProductSchema = new mongoose.Schema({
     description: { type: String },
     images: [{ type: String }]
   },
+  highlights: {
+    heading: { type: String, default: 'Why Choose This Property' },
+    items: [{
+      text: { type: String },
+      icon: { type: String, default: 'FaCheckCircle' }
+    }]
+  },
   status: { type: String, enum: ['available', 'sold', 'rented'], default: 'available' },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }

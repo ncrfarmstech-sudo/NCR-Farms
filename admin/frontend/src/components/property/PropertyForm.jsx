@@ -27,6 +27,14 @@ const initialState = {
   block3: {
     heading: '',
     description: ''
+  },
+  highlights: {
+    heading: 'Why Choose This Property',
+    items: [
+      { text: '', icon: 'FaCheckCircle' },
+      { text: '', icon: 'FaTree' },
+      { text: '', icon: 'FaHome' }
+    ]
   }
 };
 
@@ -42,6 +50,12 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
     block1: { ...initialState.block1, ...(data?.block1 || {}) },
     block2: { ...initialState.block2, ...(data?.block2 || {}) },
     block3: { ...initialState.block3, ...(data?.block3 || {}) },
+    highlights: {
+      heading: data?.highlights?.heading || initialState.highlights.heading,
+      items: data?.highlights?.items && data.highlights.items.length > 0
+        ? data.highlights.items
+        : initialState.highlights.items
+    },
   });
   const [form, setForm] = useState(getMergedState(initialData));
 
@@ -202,6 +216,21 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
         ...form,
         block3: { ...form.block3, [key]: value }
       });
+    } else if (name === 'highlights.heading') {
+      setForm({
+        ...form,
+        highlights: { ...form.highlights, heading: value }
+      });
+    } else if (name.startsWith('highlights.items.')) {
+      const parts = name.split('.');
+      const index = parseInt(parts[2]);
+      const field = parts[3]; // 'text' or 'icon'
+      const newItems = [...form.highlights.items];
+      newItems[index] = { ...newItems[index], [field]: value };
+      setForm({
+        ...form,
+        highlights: { ...form.highlights, items: newItems }
+      });
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -213,7 +242,24 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
     const isEditMode = !!isEdit;
     // Always send all fields to ensure updates work properly
     Object.entries(form).forEach(([key, value]) => {
-      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+      // Special handling for highlights.items array
+      if (key === 'highlights' && value && typeof value === 'object') {
+        // Send highlights.heading
+        if (value.heading) {
+          formData.append('highlights.heading', value.heading);
+        }
+        // Send highlights.items array properly
+        if (Array.isArray(value.items)) {
+          value.items.forEach((item, index) => {
+            if (item.text) {
+              formData.append(`highlights.items.${index}.text`, item.text);
+            }
+            if (item.icon) {
+              formData.append(`highlights.items.${index}.icon`, item.icon);
+            }
+          });
+        }
+      } else if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
         Object.entries(value).forEach(([subKey, subValue]) => {
           formData.append(`${key}.${subKey}`, subValue || '');
         });
@@ -618,6 +664,68 @@ const PropertyForm = ({ onSubmit, loading, initialData, isEdit, onCancel, classN
               ))}
             </div>
           )}
+        </div>
+      </div>
+
+      {/* HIGHLIGHTS Section - Why Choose This Property */}
+      <div className="border-4 border-purple-500 p-6 rounded mb-6 bg-purple-50">
+        <h3 className="text-2xl font-bold text-purple-700 mb-4">✨ Highlights Section</h3>
+
+        {/* Highlights Heading */}
+        <div className="mb-4">
+          <label className="block text-sm font-bold text-purple-700 mb-2">
+            Section Heading
+          </label>
+          <input
+            type="text"
+            name="highlights.heading"
+            value={form.highlights?.heading || ''}
+            onChange={handleChange}
+            placeholder="e.g., Why Choose This Property"
+            className="w-full border-2 border-purple-400 px-3 py-2 rounded focus:outline-none focus:border-purple-600"
+          />
+        </div>
+
+        {/* Highlight Items */}
+        <div className="space-y-4">
+          {[0, 1, 2].map((index) => (
+            <div key={index} className="bg-white p-4 rounded border-2 border-purple-300">
+              <h4 className="font-bold text-purple-700 mb-2">Highlight {index + 1}</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-medium mb-1">Text</label>
+                  <input
+                    type="text"
+                    name={`highlights.items.${index}.text`}
+                    value={form.highlights?.items?.[index]?.text || ''}
+                    onChange={handleChange}
+                    placeholder="Enter highlight text"
+                    className="w-full border px-3 py-2 rounded"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Icon</label>
+                  <select
+                    name={`highlights.items.${index}.icon`}
+                    value={form.highlights?.items?.[index]?.icon || 'FaCheckCircle'}
+                    onChange={handleChange}
+                    className="w-full border px-3 py-2 rounded"
+                  >
+                    <option value="FaCheckCircle">Check Circle</option>
+                    <option value="FaTree">Tree</option>
+                    <option value="FaHome">Home</option>
+                    <option value="FaStar">Star</option>
+                    <option value="FaMapMarkerAlt">Location</option>
+                    <option value="FaShieldAlt">Shield</option>
+                    <option value="FaLeaf">Leaf</option>
+                    <option value="FaHeart">Heart</option>
+                    <option value="FaAward">Award</option>
+                    <option value="FaCrown">Crown</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

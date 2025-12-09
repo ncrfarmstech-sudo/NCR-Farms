@@ -60,6 +60,28 @@ exports.partialUpdateProperty = async (id, data, files, block1Files, block2Files
     property.block3.description = data['block3.description'] || data['block3Description'] || '';
   }
 
+  // Update Highlights fields
+  if (typeof data['highlights.heading'] !== 'undefined') {
+    if (!property.highlights) property.highlights = { items: [] };
+    property.highlights.heading = data['highlights.heading'];
+  }
+  // Handle highlights items (expecting highlights.items.0.text, highlights.items.0.icon, etc.)
+  const highlightItems = [];
+  for (let i = 0; i < 3; i++) {
+    const text = data[`highlights.items.${i}.text`];
+    const icon = data[`highlights.items.${i}.icon`];
+    if (text !== undefined || icon !== undefined) {
+      highlightItems.push({
+        text: text || '',
+        icon: icon || 'FaCheckCircle'
+      });
+    }
+  }
+  if (highlightItems.length > 0) {
+    if (!property.highlights) property.highlights = {};
+    property.highlights.items = highlightItems;
+  }
+
   // Merge existing image URLs from frontend with new uploads
   let existingImages = [];
   if (typeof data['existingImages'] !== 'undefined') {
@@ -257,6 +279,27 @@ exports.updateProperty = async (id, data, files, block1Files, block2Files, block
   if (typeof data['block3.description'] !== 'undefined') {
     if (!property.block3) property.block3 = {};
     property.block3.description = data['block3.description'];
+  }
+
+  // Update Highlights fields for updateProperty
+  if (typeof data['highlights.heading'] !== 'undefined') {
+    if (!property.highlights) property.highlights = { items: [] };
+    property.highlights.heading = data['highlights.heading'];
+  }
+  const highlightItems = [];
+  for (let i = 0; i < 3; i++) {
+    const text = data[`highlights.items.${i}.text`];
+    const icon = data[`highlights.items.${i}.icon`];
+    if (text !== undefined || icon !== undefined) {
+      highlightItems.push({
+        text: text || '',
+        icon: icon || 'FaCheckCircle'
+      });
+    }
+  }
+  if (highlightItems.length > 0) {
+    if (!property.highlights) property.highlights = {};
+    property.highlights.items = highlightItems;
   }
 
   // Handle block1 images

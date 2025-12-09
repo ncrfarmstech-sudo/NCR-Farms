@@ -53,6 +53,24 @@ exports.partialUpdateFeaturedProduct = async (id, data, files, block1Files, bloc
     product.block3.description = data['block3.description'];
   }
 
+  // Update Highlights fields (partialUpdate)
+  if (typeof data['highlights.heading'] !== 'undefined') {
+    if (!product.highlights) product.highlights = { items: [] };
+    product.highlights.heading = data['highlights.heading'];
+  }
+  const highlightItems = [];
+  for (let i = 0; i < 3; i++) {
+    const text = data[`highlights.items.${i}.text`];
+    const icon = data[`highlights.items.${i}.icon`];
+    if (text !== undefined || icon !== undefined) {
+      highlightItems.push({ text: text || '', icon: icon || 'FaCheckCircle' });
+    }
+  }
+  if (highlightItems.length > 0) {
+    if (!product.highlights) product.highlights = {};
+    product.highlights.items = highlightItems;
+  }
+
   // Handle block1 images
   if (block1Files && block1Files.length > 0) {
     if (!product.block1) product.block1 = {};
@@ -230,6 +248,24 @@ exports.updateFeaturedProduct = async (id, data, files, block1Files, block2Files
   if (typeof data['block3.description'] !== 'undefined') {
     if (!product.block3) product.block3 = {};
     product.block3.description = data['block3.description'];
+  }
+
+  // Update Highlights fields (updateFeaturedProduct)
+  if (typeof data['highlights.heading'] !== 'undefined') {
+    if (!product.highlights) product.highlights = { items: [] };
+    product.highlights.heading = data['highlights.heading'];
+  }
+  const highlightItemsUpdate = [];
+  for (let i = 0; i < 3; i++) {
+    const text = data[`highlights.items.${i}.text`];
+    const icon = data[`highlights.items.${i}.icon`];
+    if (text !== undefined || icon !== undefined) {
+      highlightItemsUpdate.push({ text: text || '', icon: icon || 'FaCheckCircle' });
+    }
+  }
+  if (highlightItemsUpdate.length > 0) {
+    if (!product.highlights) product.highlights = {};
+    product.highlights.items = highlightItemsUpdate;
   }
 
   // Handle block1 images

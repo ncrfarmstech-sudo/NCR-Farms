@@ -59,6 +59,7 @@
 				block1: latest.block1 || {},
 				block2: latest.block2 || {},
 				block3: latest.block3 || {},
+				highlights: latest.highlights || { heading: 'Why Choose This Property', items: [] },
 			});
 			// No modal, just set editProperty
 		};		const handleDelete = async (id) => {

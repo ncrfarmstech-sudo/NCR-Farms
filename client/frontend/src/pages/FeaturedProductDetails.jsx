@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchFeaturedProductById } from '../api/featuredProduct';
-import { FaArrowLeft, FaCheckCircle, FaTree, FaHome } from 'react-icons/fa';
+import { FaArrowLeft, FaCheckCircle, FaTree, FaHome, FaStar, FaMapMarkerAlt, FaShieldAlt, FaLeaf, FaHeart, FaAward, FaCrown } from 'react-icons/fa';
 import '../blog.css';
 
 const FeaturedProductDetails = () => {
@@ -61,30 +61,30 @@ const FeaturedProductDetails = () => {
 
           <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 bg-black/30 border border-yellow-500 rounded-lg px-6 py-3 md:px-10 md:py-4 backdrop-blur-sm">
             <div className="flex flex-col items-center">
-              <p className="text-xs uppercase text-gray-300">Area</p>
+              <p className="text-xs uppercase text-gray-300">Location</p>
               <h4 className="text-lg font-semibold">
-                {product.features?.area || 'N/A'} sqft
+                {product.locationName || product.address?.city || 'N/A'}
               </h4>
             </div>
             <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
             <div className="flex flex-col items-center">
-              <p className="text-xs uppercase text-gray-300">Type</p>
+              <p className="text-xs uppercase text-gray-300">Size</p>
               <h4 className="text-lg font-semibold">
-                {product.propertyType || 'N/A'}
-              </h4>
-            </div>
-            <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
-            <div className="flex flex-col items-center">
-              <p className="text-xs uppercase text-gray-300">Status</p>
-              <h4 className="text-lg font-semibold">
-                {product.status || 'Available'}
+                {product.features?.area || 'N/A'} Acre
               </h4>
             </div>
             <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
             <div className="flex flex-col items-center">
               <p className="text-xs uppercase text-gray-300">Price</p>
               <h4 className="text-lg font-semibold">
-                ₹{product.price ? product.price.toLocaleString('en-IN') : 'N/A'}
+                ₹{product.price || product.pricePerSqft || 'N/A'}
+              </h4>
+            </div>
+            <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
+            <div className="flex flex-col items-center">
+              <p className="text-xs uppercase text-gray-300">Property Type</p>
+              <h4 className="text-lg font-semibold">
+                {product.type || product.propertyType || 'N/A'}
               </h4>
             </div>
           </div>
@@ -205,26 +205,58 @@ const FeaturedProductDetails = () => {
             </div>
           ) : null}
 
-          {/* Why Choose Section */}
-          <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
-            <h2 className="text-2xl font-bold mb-6 text-center">
-              WHY CHOOSE THIS PROPERTY
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
-              <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
-                <FaCheckCircle className="text-4xl text-yellow-400" />
-                <p>Premium quality construction</p>
-              </div>
-              <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
-                <FaTree className="text-4xl text-yellow-400" />
-                <p>Strategic location advantage</p>
-              </div>
-              <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
-                <FaHome className="text-4xl text-yellow-400" />
-                <p>High investment growth potential</p>
+          {/* Why Choose Section - Dynamic from Backend */}
+          {product.highlights && (product.highlights.heading || (product.highlights.items && product.highlights.items.length > 0)) ? (
+            <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
+              <h2 className="text-2xl font-bold mb-6 text-center">
+                {product.highlights.heading || 'WHY CHOOSE THIS PROPERTY'}
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
+                {product.highlights.items && product.highlights.items.slice(0, 3).map((item, idx) => {
+                  const iconMap = {
+                    FaCheckCircle,
+                    FaTree,
+                    FaHome,
+                    FaStar,
+                    FaMapMarkerAlt,
+                    FaShieldAlt,
+                    FaLeaf,
+                    FaHeart,
+                    FaAward,
+                    FaCrown,
+                  };
+                  const IconComponent = iconMap[item.icon] || FaCheckCircle;
+                  
+                  return (
+                    <div key={idx} className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
+                      <IconComponent className="text-4xl text-yellow-400" />
+                      <p>{item.text || 'Highlight text'}</p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
+              <h2 className="text-2xl font-bold mb-6 text-center">
+                Why Choose {product.title || "This Property"}
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
+                <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
+                  <FaCheckCircle className="text-4xl text-yellow-400" />
+                  <p>Premium quality construction</p>
+                </div>
+                <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
+                  <FaTree className="text-4xl text-yellow-400" />
+                  <p>Strategic location advantage</p>
+                </div>
+                <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
+                  <FaHome className="text-4xl text-yellow-400" />
+                  <p>High investment growth potential</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

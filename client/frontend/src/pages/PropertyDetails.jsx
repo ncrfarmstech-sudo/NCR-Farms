@@ -20,6 +20,12 @@ import {
     FaSwimmingPool,
     FaTree,
     FaCheckCircle,
+    FaStar,
+    FaShieldAlt,
+    FaLeaf,
+    FaHeart,
+    FaAward,
+    FaCrown,
 } from "react-icons/fa";
 
 const PropertyDetails = () => {
@@ -97,7 +103,16 @@ const PropertyDetails = () => {
                     <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 bg-black/30 border border-yellow-500 rounded-lg px-6 py-3 md:px-10 md:py-4 backdrop-blur-sm">
                         <div className="flex flex-col items-center">
                             <p className="text-xs uppercase text-gray-300">
-                                Land Area
+                                Location
+                            </p>
+                            <h4 className="text-lg font-semibold">
+                                {property.locationName || property.address?.city || "N/A"}
+                            </h4>
+                        </div>
+                        <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
+                        <div className="flex flex-col items-center">
+                            <p className="text-xs uppercase text-gray-300">
+                                Size
                             </p>
                             <h4 className="text-lg font-semibold">
                                 {property.features?.area || "N/A"} Acre
@@ -106,32 +121,19 @@ const PropertyDetails = () => {
                         <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
                         <div className="flex flex-col items-center">
                             <p className="text-xs uppercase text-gray-300">
-                                Possession
-                            </p>
-                            <h4 className="text-lg font-semibold">
-                                {property.status || "Ready-to-Move"}
-                            </h4>
-                        </div>
-                        <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
-                        <div className="flex flex-col items-center">
-                            <p className="text-xs uppercase text-gray-300">
-                                About Project
-                            </p>
-                            <h4 className="text-lg font-semibold">
-                                {property.units || "N/A"} Unit
-                            </h4>
-                        </div>
-                        <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
-                        <div className="flex flex-col items-center">
-                            <p className="text-xs uppercase text-gray-300">
                                 Price
                             </p>
                             <h4 className="text-lg font-semibold">
-                                ₹
-                                {property.pricePerSqft ||
-                                    property.price ||
-                                    "N/A"}{" "}
-                                / sq. ft.
+                                ₹{property.price || property.pricePerSqft || "N/A"}
+                            </h4>
+                        </div>
+                        <div className="hidden md:block h-8 w-[1px] bg-yellow-500"></div>
+                        <div className="flex flex-col items-center">
+                            <p className="text-xs uppercase text-gray-300">
+                                Property Type
+                            </p>
+                            <h4 className="text-lg font-semibold">
+                                {property.type || property.propertyType || "N/A"}
                             </h4>
                         </div>
                     </div>
@@ -146,9 +148,9 @@ const PropertyDetails = () => {
 
                     {/* ============= BLOCK 1: DETAILED SECTION ============= */}
                     {property.block1?.heading || property.block1?.description || (property.block1?.images && property.block1.images.length > 0) ? (
-                      <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-yellow-400">
+                      <div className="bg-[#F2ECE3] px-8 py-6 rounded-xl shadow-md mb-8 ">
                         {/* BLOCK 1 HEADING */}
-                        <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
+                        <h2 className="text-2xl font-bold text-[#2E5D4F] mb-4 text-center">
                           {property.block1?.heading || "PROJECT HIGHLIGHTS"}
                         </h2>
 
@@ -156,9 +158,9 @@ const PropertyDetails = () => {
                           {/* LEFT SIDE: BLOCK 1 TEXT CONTENT */}
                           <div className="flex-1">
                             {property.block1?.description ? (
-                              <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: property.block1.description }} />
+                              <div className="blog-content text-[#404040]" dangerouslySetInnerHTML={{ __html: property.block1.description }} />
                             ) : (
-                              <ul className="text-gray-700 space-y-2 list-disc list-inside leading-relaxed">
+                              <ul className="text-[#404040] space-y-2 list-disc list-inside leading-relaxed">
                                 <li>Experience premium living with modern amenities</li>
                                 <li>Strategic location with excellent connectivity</li>
                                 <li>Thoughtfully designed spaces</li>
@@ -187,9 +189,9 @@ const PropertyDetails = () => {
 
                     {/* ============= BLOCK 2: DETAILED SECTION ============= */}
                     {property.block2?.heading || property.block2?.description || (property.block2?.images && property.block2.images.length > 0) ? (
-                      <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-green-500">
+                      <div className="bg-[#F2ECE3] px-8 py-6 rounded-xl shadow-md mb-8 ">
                         {/* BLOCK 2 HEADING */}
-                        <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
+                        <h2 className="text-2xl font-bold text-[#2E5D4F] mb-4 text-center">
                           {property.block2?.heading || "BLOCK 2"}
                         </h2>
 
@@ -197,9 +199,9 @@ const PropertyDetails = () => {
                           {/* LEFT SIDE: BLOCK 2 TEXT CONTENT */}
                           <div className="flex-1">
                             {property.block2?.description ? (
-                              <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: property.block2.description }} />
+                              <div className="blog-content text-[#404040]" dangerouslySetInnerHTML={{ __html: property.block2.description }} />
                             ) : (
-                              <p className="text-gray-700 leading-relaxed">No description available</p>
+                              <p className="text-[#404040] leading-relaxed">No description available</p>
                             )}
                           </div>
 
@@ -220,61 +222,59 @@ const PropertyDetails = () => {
                       </div>
                     ) : null}
 
-                    {/* ============= BLOCK 3: DETAILED SECTION ============= */}
-                    {property.block3?.heading || property.block3?.description || (property.block3?.images && property.block3.images.length > 0) ? (
-                      <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-blue-500">
-                        {/* BLOCK 3 HEADING */}
-                        <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
-                          {property.block3?.heading || "BLOCK 3"}
+                    {/* Section 3: Why Choose - Dynamic from Backend */}
+                    {property.highlights && (property.highlights.heading || (property.highlights.items && property.highlights.items.length > 0)) ? (
+                      <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
+                        <h2 className="text-2xl font-bold mb-6 text-center">
+                          {property.highlights.heading || 'WHY CHOOSE THIS PROPERTY'}
                         </h2>
-
-                        <div className="flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-4">
-                          {/* LEFT SIDE: BLOCK 3 TEXT CONTENT */}
-                          <div className="flex-1">
-                            {property.block3?.description ? (
-                              <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: property.block3.description }} />
-                            ) : (
-                              <p className="text-gray-700 leading-relaxed">No description available</p>
-                            )}
-                          </div>
-
-                          {/* RIGHT SIDE: BLOCK 3 IMAGES */}
-                          {property.block3?.images && property.block3.images.length > 0 && (
-                            <div className="flex-1 flex justify-center gap-3">
-                              {property.block3.images.slice(0, 2).map((img, idx) => (
-                                <img
-                                  key={idx}
-                                  src={img}
-                                  alt={`Block 3 Image ${idx + 1}`}
-                                  className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
-                                />
-                              ))}
-                            </div>
-                          )}
+                        <div className="grid md:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
+                          {property.highlights.items && property.highlights.items.slice(0, 3).map((item, idx) => {
+                            // Map icon name to actual icon component
+                            const iconMap = {
+                              FaCheckCircle,
+                              FaTree,
+                              FaHome,
+                              FaStar,
+                              FaMapMarkerAlt,
+                              FaShieldAlt,
+                              FaLeaf,
+                              FaHeart,
+                              FaAward,
+                              FaCrown,
+                            };
+                            const IconComponent = iconMap[item.icon] || FaCheckCircle;
+                            
+                            return (
+                              <div key={idx} className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
+                                <IconComponent className="text-4xl text-yellow-400" />
+                                <p>{item.text || 'Highlight text'}</p>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
-                    ) : null}
-
-                    {/* Section 3: Why Choose */}
-                  <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
-  <h2 className="text-2xl font-bold mb-6 text-center">
-    WHY CHOOSE THE SANCTUARIES
-  </h2>
-  <div className="grid md:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
-    <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
-      <FaCheckCircle className="text-4xl text-yellow-400" />
-      <p>Backed by 32nd – Iconic lifestyle destinations</p>
-    </div>
-    <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
-      <FaTree className="text-4xl text-yellow-400" />
-      <p>Rare 1-acre plots close to Gurgaon</p>
-    </div>
-    <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
-      <FaHome className="text-4xl text-yellow-400" />
-      <p>Peaceful living with high investment growth</p>
-    </div>
-  </div>
-</div>
+                    ) : (
+                      <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
+                        <h2 className="text-2xl font-bold mb-6 text-center">
+                          Why Choose {property.title || "This Property"}
+                        </h2>
+                        <div className="grid md:grid-cols-3 gap-6 text-center max-w-3xl mx-auto">
+                          <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
+                            <FaCheckCircle className="text-4xl text-yellow-400" />
+                            <p>Backed by 32nd – Iconic lifestyle destinations</p>
+                          </div>
+                          <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
+                            <FaTree className="text-4xl text-yellow-400" />
+                            <p>Rare 1-acre plots close to Gurgaon</p>
+                          </div>
+                          <div className="bg-[#376b5d] p-6 rounded-lg flex flex-col items-center gap-3">
+                            <FaHome className="text-4xl text-yellow-400" />
+                            <p>Peaceful living with high investment growth</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
 
                 </div>
             </div>
@@ -303,6 +303,43 @@ const PropertyDetails = () => {
         </div>
       ))}
     </div>
+
+    {/* ============= BLOCK 3: DETAILED SECTION (After Gallery, Before Brochure) ============= */}
+    {property.block3?.heading || property.block3?.description || (property.block3?.images && property.block3.images.length > 0) ? (
+      <div className="mt-12 mb-8">
+        <div className="bg-[#F2ECE3] px-8 py-6 rounded-xl shadow-md ">
+          {/* BLOCK 3 HEADING */}
+          <h2 className="text-2xl font-bold text-[#2E5D4F] mb-4 text-center">
+            {property.block3?.heading || "BLOCK 3"}
+          </h2>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-4">
+            {/* LEFT SIDE: BLOCK 3 TEXT CONTENT */}
+            <div className="flex-1">
+              {property.block3?.description ? (
+                <div className="blog-content text-[#404040]" dangerouslySetInnerHTML={{ __html: property.block3.description }} />
+              ) : (
+                <p className="text-[#404040] leading-relaxed">No description available</p>
+              )}
+            </div>
+
+            {/* RIGHT SIDE: BLOCK 3 IMAGES */}
+            {property.block3?.images && property.block3.images.length > 0 && (
+              <div className="flex-1 flex justify-center gap-3">
+                {property.block3.images.slice(0, 2).map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`Block 3 Image ${idx + 1}`}
+                    className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    ) : null}
 
     {/* Brochure Section */}
     <div className="bg-[#2F5D50] mt-12 rounded-t-3xl text-center py-16 px-4 text-white">
