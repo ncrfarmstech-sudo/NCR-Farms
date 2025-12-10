@@ -92,13 +92,13 @@ const FeaturedProductDetails = () => {
       </div>
 
       {/* ------------------- Main Content Section ------------------- */}
-      <div className="bg-[#f5efe6] py-16 px-6 md:px-12">
+      <div className="bg-[#ffffff] py-16 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
           {/* ============= BLOCK 1: DETAILED SECTION ============= */}
           {product.block1?.heading || product.block1?.description || (product.block1?.images && product.block1.images.length > 0) ? (
-            <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-yellow-400">
+            <div className="bg-[#F2ECE3] px-8 py-6 rounded-xl shadow-md mb-8 ">
               {/* BLOCK 1 HEADING */}
-              <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
+              <h2 className="text-2xl font-bold text-[#2E5D4F] mb-4 text-center">
                 {product.block1?.heading || "PRODUCT HIGHLIGHTS"}
               </h2>
 
@@ -106,9 +106,9 @@ const FeaturedProductDetails = () => {
                 {/* LEFT SIDE: BLOCK 1 TEXT CONTENT */}
                 <div className="flex-1">
                   {product.block1?.description ? (
-                    <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: product.block1.description }} />
+                    <div className="blog-content text-[#404040]" dangerouslySetInnerHTML={{ __html: product.block1.description }} />
                   ) : (
-                    <ul className="text-gray-700 space-y-2 list-disc list-inside leading-relaxed">
+                    <ul className="text-[#404040] space-y-2 list-disc list-inside leading-relaxed">
                       <li>Premium quality construction</li>
                       <li>Strategic location advantage</li>
                       <li>Modern amenities</li>
@@ -137,9 +137,9 @@ const FeaturedProductDetails = () => {
 
           {/* ============= BLOCK 2: DETAILED SECTION ============= */}
           {product.block2?.heading || product.block2?.description || (product.block2?.images && product.block2.images.length > 0) ? (
-            <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-green-500">
+            <div className="bg-[#F2ECE3] px-8 py-6 rounded-xl shadow-md mb-8 ">
               {/* BLOCK 2 HEADING */}
-              <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
+              <h2 className="text-2xl font-bold text-[#2E5D4F] mb-4 text-center">
                 {product.block2?.heading || "BLOCK 2"}
               </h2>
 
@@ -147,9 +147,9 @@ const FeaturedProductDetails = () => {
                 {/* LEFT SIDE: BLOCK 2 TEXT CONTENT */}
                 <div className="flex-1">
                   {product.block2?.description ? (
-                    <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: product.block2.description }} />
+                    <div className="blog-content text-[#404040]" dangerouslySetInnerHTML={{ __html: product.block2.description }} />
                   ) : (
-                    <p className="text-gray-700 leading-relaxed">No description available</p>
+                    <p className="text-[#404040] leading-relaxed">No description available</p>
                   )}
                 </div>
 
@@ -172,9 +172,9 @@ const FeaturedProductDetails = () => {
 
           {/* ============= BLOCK 3: DETAILED SECTION ============= */}
           {product.block3?.heading || product.block3?.description || (product.block3?.images && product.block3.images.length > 0) ? (
-            <div className="bg-[#e9dfce] px-8 py-6 rounded-xl shadow-md mb-8 border-2 border-blue-500">
+            <div className="bg-[#F2ECE3] px-8 py-6 rounded-xl shadow-md mb-8 ">
               {/* BLOCK 3 HEADING */}
-              <h2 className="text-2xl font-bold text-[#2d5d4f] mb-4 text-center">
+              <h2 className="text-2xl font-bold text-[#2E5D4F] mb-4 text-center">
                 {product.block3?.heading || "BLOCK 3"}
               </h2>
 
@@ -182,9 +182,9 @@ const FeaturedProductDetails = () => {
                 {/* LEFT SIDE: BLOCK 3 TEXT CONTENT */}
                 <div className="flex-1">
                   {product.block3?.description ? (
-                    <div className="blog-content text-gray-700" dangerouslySetInnerHTML={{ __html: product.block3.description }} />
+                    <div className="blog-content text-[#404040]" dangerouslySetInnerHTML={{ __html: product.block3.description }} />
                   ) : (
-                    <p className="text-gray-700 leading-relaxed">No description available</p>
+                    <p className="text-[#404040] leading-relaxed">No description available</p>
                   )}
                 </div>
 

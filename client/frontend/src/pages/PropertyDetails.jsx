@@ -141,7 +141,7 @@ const PropertyDetails = () => {
             </div>
 
             {/* ------------------- Figma Section ------------------- */}
-            <div className="bg-[#f5efe6] py-16 px-6 md:px-12">
+            <div className="bg-[#ffffff] py-16 px-6 md:px-12">
                 <div className="max-w-6xl mx-auto">
                     
                    

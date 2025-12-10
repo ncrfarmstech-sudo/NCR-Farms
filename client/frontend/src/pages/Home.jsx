@@ -48,15 +48,16 @@ const Home = () => {
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                        <button className="px-12 py-3 border border-yellow-400 bg-yellow-400 text-green-900 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300 lato">
-                            EXPLORE PROPERTIES
-                        </button>
+                        <button className="px-12 py-3 border border-yellow-400  bg-yellow-400  text-green-900  text-sm md:text-base font-medium rounded-md transition-all duration-300  lato hover:bg-white/10 hover:backdrop-blur-md hover:text-white hover:border-white">
+    EXPLORE PROPERTIES
+</button>
 
-                        <button className="px-4 py-3 border border-yellow-400 text-yellow-400 text-sm md:text-base font-medium rounded-md hover:bg-white hover:text-green-900 transition-all duration-300 lato">
-                            BOOK A FREE CONSULTATION
-                        </button>
+
+                       <button className="px-4 py-3 border border-yellow-400  text-yellow-400 text-sm md:text-base  font-medium rounded-md transition-all duration-300 lato hover:bg-white/10hover:backdrop-blur-md hover:text-white hover:border-white">
+    BOOK A FREE CONSULTATION
+</button>
+
                     </div>
-
                 </div>
             </section>
 
@@ -69,7 +70,14 @@ const Home = () => {
                     </h3>
 
                     <p className="text-sm md:text-base text-gray-700 leading-relaxed lato">
-                        At NCR Farms, we help you buy agricultural land, farmhouse plots, and ready farmhouses across Delhi NCR with clear titles, transparent pricing, and end-to-end support. Whether you want a farmhouse near Gurgaon, or an agricultural land, our team ensures every property is legally vetted and value-driven. With a customer centric approach, NCR Farms has become a trusted farmland consulting company in the NCR region.
+                        At NCR Farms, we help you buy agricultural land,
+                        farmhouse plots, and ready farmhouses across Delhi NCR
+                        with clear titles, transparent pricing, and end-to-end
+                        support. Whether you want a farmhouse near Gurgaon, or
+                        an agricultural land, our team ensures every property is
+                        legally vetted and value-driven. With a customer centric
+                        approach, NCR Farms has become a trusted farmland
+                        consulting company in the NCR region.
                     </p>
                 </div>
             </section>
@@ -150,83 +158,81 @@ const Home = () => {
             {/* Why Choose NCR Farms */}
             <WhychooseNcr />
 
-            
-           {/* How It Works - Simple 3 Steps */}
-<section className="bg-[#F7EEDD] py-20 px-6">
-  <div className="max-w-6xl mx-auto text-center">
+            {/* How It Works - Simple 3 Steps */}
+            <section className="bg-[#F7EEDD] py-20 px-6">
+                <div className="max-w-6xl mx-auto text-center">
+                    {/* Heading */}
+                    <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-16">
+                        How It Works - Simple 3 Steps
+                    </h2>
 
-    {/* Heading */}
-    <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-16">
-      How It Works - Simple 3 Steps
-    </h2>
+                    {/* Steps */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
+                        {/* Step 1 */}
+                        <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
+                            <span className="text-4xl font-bold text-[#3D7F6C]">
+                                1
+                            </span>
+                            <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
+                                Schedule a Consultation
+                            </h3>
+                            <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
+                                Tell us your goals and budget, we recommend the
+                                best options.
+                            </p>
+                        </div>
 
-    {/* Steps */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6">
+                        {/* Step 2 */}
+                        <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
+                            <span className="text-4xl font-bold text-[#3D7F6C]">
+                                2
+                            </span>
+                            <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
+                                Site Visit & Due Diligence
+                            </h3>
+                            <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
+                                We show only legally clean properties and
+                                accompany you to visits.
+                            </p>
+                        </div>
 
-      {/* Step 1 */}
-      <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
-        <span className="text-4xl font-bold text-[#3D7F6C]">1</span>
-        <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
-          Schedule a Consultation
-        </h3>
-        <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
-          Tell us your goals and budget, we recommend the best options.
-        </p>
-      </div>
+                        {/* Step 3 */}
+                        <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
+                            <span className="text-4xl font-bold text-[#3D7F6C]">
+                                3
+                            </span>
+                            <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
+                                Hassle-Free Ownership
+                            </h3>
+                            <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
+                                We handle documentation, registration, and
+                                post-purchase support.
+                            </p>
+                        </div>
+                    </div>
 
-      {/* Step 2 */}
-      <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
-        <span className="text-4xl font-bold text-[#3D7F6C]">2</span>
-        <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
-          Site Visit & Due Diligence
-        </h3>
-        <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
-          We show only legally clean properties and accompany you to visits.
-        </p>
-      </div>
+                    {/* CTA Button */}
+                    <div className="mt-12">
+                        <button
+                            onClick={() => navigate("/contactus")}
+                            className="bg-[#3D7F6C] text-white px-10 py-3 rounded-md font-medium hover:bg-green-800 transition"
+                        >
+                            Get Started
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-      {/* Step 3 */}
-      <div className="bg-white p-6 md:p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow flex flex-col items-center">
-        <span className="text-4xl font-bold text-[#3D7F6C]">3</span>
-        <h3 className="text-lg md:text-xl font-semibold mt-3 text-[#2D5D4F]">
-          Hassle-Free Ownership
-        </h3>
-        <p className="text-gray-700 text-sm md:text-base mt-2 leading-relaxed max-w-xs">
-          We handle documentation, registration, and post-purchase support.
-        </p>
-      </div>
+            {/* FAQ Section */}
+            <section className="bg-white py-20 px-6">
+                <div className="max-w-4xl mx-auto">
+                    <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12 text-[#3D7F6C]">
+                        Frequently Asked Questions
+                    </h2>
 
-    </div>
-
-    {/* CTA Button */}
-    <div className="mt-12">
-      <button 
-        onClick={() => navigate('/contactus')}
-        className="bg-[#3D7F6C] text-white px-10 py-3 rounded-md font-medium hover:bg-green-800 transition">
-        Get Started
-      </button>
-    </div>
-
-  </div>
-</section>
-
-
-{/* FAQ Section */}
-<section className="bg-white py-20 px-6">
-  <div className="max-w-4xl mx-auto">
-    <h2 className="text-2xl md:text-3xl font-semibold text-center mb-12 text-[#3D7F6C]">
-      Frequently Asked Questions
-    </h2>
-
-    <Faq/>
-  </div>
-</section>
-
-
-
-
-
-
+                    <Faq />
+                </div>
+            </section>
         </div>
     );
 };
