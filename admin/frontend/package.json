@@ -14,7 +14,6 @@
     "@ckeditor/ckeditor5-react": "^11.0.0",
     "@tailwindcss/vite": "^4.1.12",
     "axios": "^1.11.0",
-    "ckeditor5": "^46.0.2",
     "draft-js": "^0.11.7",
     "lucide-react": "^0.540.0",
     "react": "^19.1.1",

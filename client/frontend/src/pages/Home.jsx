@@ -18,7 +18,7 @@ const Home = () => {
     return (
         <div className="bg-gray-50">
             {/* Hero Section */}
-            <section className="relative w-full h-[60vh] md:h-[80vh] lg:h-[90vh] flex items-center justify-center overflow-hidden pt-16 md:pt-20">
+            <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
                 {/* Mobile Banner */}
                 <img
                     src={heroImg}
@@ -37,11 +37,11 @@ const Home = () => {
 
                 {/* Centered Content */}
                 <div className="relative z-20 text-center text-white">
-                    <h1 className="text-2xl md:text-4xl font-bold mb-5 cormorant">
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-5 cormorant">
                         Own Land. Grow Wealth. Live Better
                     </h1>
 
-                    <p className="text-md md:text-lg text-[#F8F4EC] max-w-2xl mx-auto mb-6 leading-relaxed lato">
+                    <p className="text-md md:text-lg text-[#F8F4EC] max-w-2xl mx-auto mb-14 leading-relaxed lato">
                         Buy high potential farmhouse plots, agricultural land
                         and built-up farmhouses – with complete transparency and
                         end-to-end support.
@@ -49,22 +49,20 @@ const Home = () => {
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                         <button className="px-12 py-3 border border-yellow-400  bg-yellow-400  text-green-900  text-sm md:text-base font-medium rounded-md transition-all duration-300  lato hover:bg-white/10 hover:backdrop-blur-md hover:text-white hover:border-white">
-    EXPLORE PROPERTIES
-</button>
+                            EXPLORE PROPERTIES
+                        </button>
 
-
-                       <button className="px-4 py-3 border border-yellow-400  text-yellow-400 text-sm md:text-base  font-medium rounded-md transition-all duration-300 lato hover:bg-white/10hover:backdrop-blur-md hover:text-white hover:border-white">
-    BOOK A FREE CONSULTATION
-</button>
-
+                        <button className="px-4 py-3 border border-yellow-400  text-yellow-400 text-sm md:text-base  font-medium rounded-md transition-all duration-300 lato hover:bg-white/10hover:backdrop-blur-md hover:text-white hover:border-white">
+                            BOOK A FREE CONSULTATION
+                        </button>
                     </div>
                 </div>
             </section>
 
             {/* Intro Section */}
-            <section className="px-5 py-10 text-center bg-[#f9f5ef]">
+            <section className="px-5 py-10 text-center bg-[#F2ECE3]">
                 <div className="max-w-6xl mx-auto">
-                    <h3 className="text-2xl font-bold text-gray-900 lato">
+                    <h3 className="text-2xl font-bold text-gray-900 lato mb-4">
                         Welcome to{" "}
                         <span className="text-green-700 lato">NCR Farms</span>
                     </h3>
@@ -83,7 +81,7 @@ const Home = () => {
             </section>
 
             {/* Stats Section */}
-            <section className="relative text-white text-center px-6 py-32 md:py-64 overflow-hidden min-h-[60vh] md:min-h-[80vh] lg:min-h-[100vh]">
+            <section className="relative text-white text-center px-6 py-16 md:py-24 overflow-hidden">
                 <img
                     src={statsImg}
                     alt="Stats Banner"
@@ -96,26 +94,26 @@ const Home = () => {
                 />
                 <div className="absolute inset-0 bg-black/40 z-0"></div>
 
-                <div className="relative z-10 max-w-6xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl font-semibold mb-6 leading-tight cormorant">
+                <div className="relative z-10 max-w-6xl mx-auto ">
+                    <h2 className="text-2xl md:text-3xl font-semibold mb-6 leading-tight cormorant text-[#F8F4EC]">
                         What We Offer
                     </h2>
                     {/*sub heading */}
-                    <p className="text-lg md:text-xl text-[#FFFFFF] font-semibold cormorant">
+                    <p className="text-lg md:text-xl text-[#F8F4EC] font-semibold cormorant">
                         Farmland, farmland plots, built-up farmhouses, and
                         agricultural investment opportunities across Delhi NCR-
                         vetted and ready for ownership
                     </p>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-6 mt-12 justify-center items-stretch max-w-9xl mx-auto">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-6 mt-12 justify-center items-stretch max-w-9xl mx-auto ">
                         <div
                             className="bg-white/10 border border-white/30 rounded-2xl py-5 px-6 backdrop-blur-md shadow-lg 
-                  w-full max-w-[420px] mx-auto flex flex-col items-center justify-start h-full"
+                  w-full max-w-[420px] mx-auto flex flex-col items-start justify-start h-full"
                         >
-                            <h3 className="text-lg md:text-xl font-bold text-yellow-400 lato">
+                            <h3 className="text-lg md:text-xl font-bold text-yellow-400 text-left w-full whitespace-nowrap">
                                 Farmland for Sale
                             </h3>
-                            <p className="mt-1 text-gray-100 text-xs sm:text-sm md:text-sm text-center leading-snug lato">
+                            <p className="mt-1 text-[#F8F4EC] text-xs sm:text-sm md:text-sm text-left leading-snug lato">
                                 Investment-ready farmland parcels in
                                 appreciation corridors – ideal for farming or
                                 long-term hold.
@@ -124,12 +122,12 @@ const Home = () => {
 
                         <div
                             className="bg-white/10 border border-white/30 rounded-2xl py-5 px-6 backdrop-blur-md shadow-lg 
-                  w-full max-w-[420px] mx-auto flex flex-col items-center justify-start h-full"
+                  w-full max-w-[420px] mx-auto flex flex-col items-start justify-start h-full"
                         >
-                            <h3 className="text-lg md:text-xl font-bold text-yellow-400">
+                            <h3 className="text-lg md:text-xl font-bold text-yellow-400 text-left w-full whitespace-nowrap">
                                 Farmhouse Plots
                             </h3>
-                            <p className="mt-1 text-gray-100 text-xs sm:text-sm md:text-sm text-center leading-snug">
+                            <p className="mt-1 text-[#F8F4EC] text-xs sm:text-sm md:text-sm text-left leading-snug">
                                 Fully demarcated plots to build your weekend
                                 home or rent out for premium stays.
                             </p>
@@ -137,26 +135,30 @@ const Home = () => {
 
                         <div
                             className="bg-white/10 border border-white/30 rounded-2xl py-5 px-6 backdrop-blur-md shadow-lg 
-                  w-full max-w-[420px] mx-auto flex flex-col items-center justify-start h-full"
+                  w-full max-w-[420px] mx-auto flex flex-col items-start justify-start h-full"
                         >
-                            <h3 className="text-lg md:text-xl font-bold text-yellow-400 whitespace-nowrap">
+                            <h3 className="text-lg md:text-xl font-bold text-yellow-400 text-left w-full whitespace-nowrap">
                                 Built-Up Farmhouses & Investments
                             </h3>
-                            <p className="mt-1 text-gray-100 text-xs sm:text-sm md:text-sm text-center leading-snug">
+                            <p className="mt-1 text-[#F8F4EC] text-xs sm:text-sm md:text-sm text-left leading-snug">
                                 Move-in ready farmhouses and structured
                                 agricultural investments for high-net-worth
                                 buyers.
                             </p>
                         </div>
                     </div>
+
+                    <h2 className="text-base md:text-lg font-semibold mt-12 leading-none cormorant text-[#F8F4EC] text-center">
+                        At NCR Farms, we simplify every step of your property journey.
+                    </h2>
                 </div>
             </section>
 
-            {/* Featured Properties */}
-            <FeaturedProducts />
-
             {/* Why Choose NCR Farms */}
             <WhychooseNcr />
+
+            {/* Featured Properties */}
+            <FeaturedProducts />
 
             {/* How It Works - Simple 3 Steps */}
             <section className="bg-[#F7EEDD] py-20 px-6">

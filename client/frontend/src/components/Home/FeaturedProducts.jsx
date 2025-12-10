@@ -8,7 +8,7 @@ export default function FeaturedProperties() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-16 px-4 md:px-10 bg-[#D9D9D9]">
+    <section className="py-16 px-4 md:px-10 bg-[#F5F5F5]">
       {/* Heading */}
       <h2 className="text-2xl md:text-3xl font-bold text-center mb-2 text-gray-800">
         Our Featured Properties

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchFeaturedProductById } from '../api/featuredProduct';
 import { FaArrowLeft, FaCheckCircle, FaTree, FaHome, FaStar, FaMapMarkerAlt, FaShieldAlt, FaLeaf, FaHeart, FaAward, FaCrown } from 'react-icons/fa';
+import ContactButtons from '../components/common/ContactButtons';
 import '../blog.css';
 
 const FeaturedProductDetails = () => {
@@ -170,41 +171,6 @@ const FeaturedProductDetails = () => {
             </div>
           ) : null}
 
-          {/* ============= BLOCK 3: DETAILED SECTION ============= */}
-          {product.block3?.heading || product.block3?.description || (product.block3?.images && product.block3.images.length > 0) ? (
-            <div className="bg-[#F2ECE3] px-8 py-6 rounded-xl shadow-md mb-8 ">
-              {/* BLOCK 3 HEADING */}
-              <h2 className="text-2xl font-bold text-[#2E5D4F] mb-4 text-center">
-                {product.block3?.heading || "BLOCK 3"}
-              </h2>
-
-              <div className="flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-4">
-                {/* LEFT SIDE: BLOCK 3 TEXT CONTENT */}
-                <div className="flex-1">
-                  {product.block3?.description ? (
-                    <div className="blog-content text-[#404040]" dangerouslySetInnerHTML={{ __html: product.block3.description }} />
-                  ) : (
-                    <p className="text-[#404040] leading-relaxed">No description available</p>
-                  )}
-                </div>
-
-                {/* RIGHT SIDE: BLOCK 3 IMAGES */}
-                {product.block3?.images && product.block3.images.length > 0 && (
-                  <div className="flex-1 flex justify-center gap-3">
-                    {product.block3.images.slice(0, 2).map((img, idx) => (
-                      <img
-                        key={idx}
-                        src={img}
-                        alt={`Block 3 Image ${idx + 1}`}
-                        className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : null}
-
           {/* Why Choose Section - Dynamic from Backend */}
           {product.highlights && (product.highlights.heading || (product.highlights.items && product.highlights.items.length > 0)) ? (
             <div className="bg-[#2d5d4f] text-white p-8 rounded-xl shadow-md">
@@ -320,18 +286,91 @@ const FeaturedProductDetails = () => {
               </div>
             </div>
           )}*/}
+
+          {/* ============= BLOCK 3: DETAILED SECTION (After Gallery) ============= */}
+          {product.block3?.heading || product.block3?.description || (product.block3?.images && product.block3.images.length > 0) ? (
+            <div className="mt-12 mb-8">
+              <div className="bg-[#F2ECE3] px-8 py-6 rounded-xl shadow-md ">
+                {/* BLOCK 3 HEADING */}
+                <h2 className="text-2xl font-bold text-[#2E5D4F] mb-4 text-center">
+                  {product.block3?.heading || "BLOCK 3"}
+                </h2>
+
+                <div className="flex flex-col md:flex-row items-center justify-between gap-12 px-4 py-4">
+                  {/* LEFT SIDE: BLOCK 3 TEXT CONTENT */}
+                  <div className="flex-1">
+                    {product.block3?.description ? (
+                      <div className="blog-content text-[#404040]" dangerouslySetInnerHTML={{ __html: product.block3.description }} />
+                    ) : (
+                      <p className="text-[#404040] leading-relaxed">No description available</p>
+                    )}
+                  </div>
+
+                  {/* RIGHT SIDE: BLOCK 3 IMAGES */}
+                  {product.block3?.images && product.block3.images.length > 0 && (
+                    <div className="flex-1 flex justify-center gap-3">
+                      {product.block3.images.slice(0, 2).map((img, idx) => (
+                        <img
+                          key={idx}
+                          src={img}
+                          alt={`Block 3 Image ${idx + 1}`}
+                          className="w-36 h-36 md:w-40 md:h-40 object-cover rounded-lg shadow-md"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {/* Brochure Section */}
+          <div className="bg-[#2F5D50] mt-12 rounded-t-3xl text-center py-16 px-4 text-white">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-3">
+              Download {product.title || "Product"} Brochure
+            </h3>
+            <p className="text-gray-200 mb-8">
+              Get complete details, floor plans, amenities & pricing
+            </p>
+            <button className="bg-[#417C68] hover:bg-[#376c59] text-white font-bold py-3 px-8 rounded-md shadow-md transition">
+              BROCHURE
+            </button>
+          </div>
         </div>
       )}
 
-      {/* ------------------- Back Button & Description ------------------- */}
-      <div className="max-w-7xl mx-auto mt-16 px-6 pb-16">
-        {product.description && (
-          <div className="mb-8 bg-gray-50 p-8 rounded-lg">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Description</h3>
-            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{product.description}</p>
-          </div>
-        )}
+      {/* ------------------- Contact Section ------------------- */}
+      <div className="max-w-5xl mx-auto p-6 mt-12">
+        <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-xl p-8 text-white text-center">
+          <h2 className="text-2xl font-bold mb-4">
+            Interested in this Product?
+          </h2>
+          <p className="text-green-100 mb-6 text-lg">
+            Get in touch with us for more details, site visits, or booking assistance
+          </p>
+          <ContactButtons 
+            propertyTitle={product.title}
+            propertyId={product._id}
+            size="lg"
+            className="justify-center"
+          />
+        </div>
+      </div>
 
+      {/* ------------------- Description Section ------------------- */}
+      <div className="max-w-5xl mx-auto p-6 mt-12 text-gray-800">
+        <h2 className="text-2xl font-semibold mb-4">
+          About this Product
+        </h2>
+        {product.description && (
+          <p className="text-gray-600 mb-4">
+            {product.description}
+          </p>
+        )}
+      </div>
+
+      {/* ------------------- Back Button ------------------- */}
+      <div className="max-w-7xl mx-auto px-6 pb-16">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-green-700 font-semibold hover:text-green-800 transition"
