@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchBlogs } from "../api/blog";
 import { stripHtml } from "../utils/stripHtml";
+import Breadcrumb from "../components/common/Breadcrumb";
 import "../blog.css";
 
 const Blog = () => {
@@ -47,6 +48,7 @@ const Blog = () => {
 
   return (
     <div className="pt-24 px-4 md:px-10">
+      <Breadcrumb />
       <div className="max-w-7xl mx-auto">
         
         {/* Page Heading */}

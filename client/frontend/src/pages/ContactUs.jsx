@@ -6,6 +6,8 @@ import {
     FaClock,
     FaMapMarkerAlt,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
+import Breadcrumb from "../components/common/Breadcrumb";
 import bgImage from "../assets/contactus.png";
 
 const ContactUs = () => {
@@ -28,12 +30,26 @@ const ContactUs = () => {
 
     useEffect(() => {
         if (success) {
+            toast.success("Thank you for contacting us! We'll get back to you shortly.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
             setForm({ name: "", email: "", message: "" });
         }
     }, [success]);
 
+    useEffect(() => {
+        if (error) {
+            toast.error(error, {
+                position: "top-right",
+                autoClose: 3000,
+            });
+        }
+    }, [error]);
+
     return (
         <div className="bg-white min-h-screen">
+            <Breadcrumb />
             {/* Hero Section */}
             <div className="relative h-64 md:h-80 flex items-center justify-center">
                 <img

@@ -1,10 +1,12 @@
 import React from "react";
 import aboutus from "../assets/aboutus.png";
 import forestBg from "../assets/aboutvision.png"; // Import the forest background image
+import Breadcrumb from "../components/common/Breadcrumb";
 
 const AboutUs = () => {
     return (
-        <div className="w-full p overflow-x-hidden">
+        <div className="w-full pt-16 overflow-x-hidden">
+            <Breadcrumb />
 
             {/* Hero Section */}
             <div className="relative h-[270px] sm:h-[380px] md:h-[400px] w-full">

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchFeaturedProductById } from '../api/featuredProduct';
 import { FaArrowLeft, FaCheckCircle, FaTree, FaHome, FaStar, FaMapMarkerAlt, FaShieldAlt, FaLeaf, FaHeart, FaAward, FaCrown } from 'react-icons/fa';
 import ContactButtons from '../components/common/ContactButtons';
+import Breadcrumb from '../components/common/Breadcrumb';
 import '../blog.css';
 
 const FeaturedProductDetails = () => {
@@ -44,6 +45,10 @@ const FeaturedProductDetails = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Breadcrumb customItems={[
+        { label: 'Featured Products', path: '/' },
+        { label: product.title }
+      ]} />
       {/* ------------------- HERO SECTION ------------------- */}
       <div className="relative w-full h-[500px] md:h-[650px]">
         <img

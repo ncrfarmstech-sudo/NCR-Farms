@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Fuse from "fuse.js";
 import { useProperties } from "../context/PropertiesContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Breadcrumb from "../components/common/Breadcrumb";
 
 const Properties = () => {
     const { properties, loading, error } = useProperties();
@@ -204,6 +205,7 @@ const Properties = () => {
 
     return (
         <div className="pt-20 pb-12 bg-[#F2ECE3] min-h-screen">
+            <Breadcrumb />
             {/* Header */}
             <div className="px-4 md:px-10 mb-6 md:mb-10">
                 <h1 className="text-2xl md:text-4xl font-bold text-center mb-2 text-gray-800">

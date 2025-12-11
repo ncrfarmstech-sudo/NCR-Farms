@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchPropertyById } from "../api/property";
 import axios from "../api/axios";
 import ContactButtons from "../components/common/ContactButtons";
+import Breadcrumb from "../components/common/Breadcrumb";
 import img1 from "../assets/istockphoto1.jpg";
 import img2 from "../assets/pexels1.jpg";
 import "../blog.css";
@@ -82,6 +83,10 @@ const PropertyDetails = () => {
 
     return (
         <div className="min-h-screen bg-white">
+            <Breadcrumb customItems={[
+                { label: 'Properties', path: '/properties' },
+                { label: property.title }
+            ]} />
             {/* ------------------- HERO SECTION ------------------- */}
             <div className="relative w-full h-[500px] md:h-[650px]">
                 <img
