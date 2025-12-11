@@ -5,7 +5,7 @@ export const uploadImages = async (files) => {
   for (let file of files) {
     formData.append('images', file);
   }
-  const res = await axios.post('/api/upload/upload', formData, {
+  const res = await axios.post('/api/upload/multiple', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
   return res.data.urls;

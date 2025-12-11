@@ -7,7 +7,7 @@ const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const router = express.Router();
 
 // Simple GET route to verify reachability
-router.get('/upload', (req, res) => {
+router.get('/', (req, res) => {
   res.json({ message: 'Upload route is reachable' });
 });
 
@@ -21,8 +21,22 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
+// Upload single image (for CKEditor)
+router.post('/', upload.single('image'), (req, res) => {
+  try {
+    if (!req.file) {
+      console.error('No file received:', req.file);
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    res.json({ url: req.file.path });
+  } catch (err) {
+    console.error('Image upload error:', err);
+    res.status(500).json({ error: err.message || 'Upload failed' });
+  }
+});
+
 // Upload multiple images
-router.post('/upload', upload.array('images', 10), (req, res) => {
+router.post('/multiple', upload.array('images', 10), (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       console.error('No files received:', req.files);

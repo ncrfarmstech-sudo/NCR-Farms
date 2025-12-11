@@ -203,7 +203,7 @@ const Properties = () => {
     };
 
     return (
-        <div className="pt-20 pb-12 bg-[#f3e9db] min-h-screen">
+        <div className="pt-20 pb-12 bg-[#F2ECE3] min-h-screen">
             {/* Header */}
             <div className="px-4 md:px-10 mb-6 md:mb-10">
                 <h1 className="text-2xl md:text-4xl font-bold text-center mb-2 text-gray-800">

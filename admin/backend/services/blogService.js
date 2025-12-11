@@ -3,9 +3,28 @@ async function partialUpdateBlog(id, data, files) {
   const blog = await Blog.findById(id);
   if (!blog) return null;
 
-  if (typeof data.title !== 'undefined') blog.title = data.title;
+  const updateData = {};
+
+  if (typeof data.title !== 'undefined') {
+    updateData.title = data.title;
+  }
   if (typeof data.content !== 'undefined') {
-    blog.content = sanitizeHtml(data.content);
+    updateData.content = sanitizeHtml(data.content, {
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'figure', 'figcaption']),
+      allowedAttributes: {
+        ...sanitizeHtml.defaults.allowedAttributes,
+        img: ['src', 'alt', 'title', 'width', 'height', 'style', 'class'],
+        figure: ['class', 'style'],
+        figcaption: ['class', 'style']
+      },
+      allowedStyles: {
+        '*': {
+          'width': [/^\d+(?:px|em|%)$/],
+          'height': [/^\d+(?:px|em|%)$/],
+          'max-width': [/^\d+(?:px|em|%)$/],
+        }
+      }
+    });
   }
 
   // Handle existing image URLs from frontend
@@ -26,8 +45,9 @@ async function partialUpdateBlog(id, data, files) {
     }
   }
   // Merge existing and new
-  blog.imageUrls = [...existingImageUrls, ...newImageUrls];
-  return await blog.save();
+  updateData.imageUrls = [...existingImageUrls, ...newImageUrls];
+  
+  return await Blog.findByIdAndUpdate(id, updateData, { new: true });
 }
 
 
@@ -90,7 +110,22 @@ async function getBlogById(id) {
 
 // Update Blog
 async function updateBlog(id, data, files) {
-  const sanitizedContent = sanitizeHtml(data.content || "");
+  const sanitizedContent = sanitizeHtml(data.content || "", {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'figure', 'figcaption']),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ['src', 'alt', 'title', 'width', 'height', 'style', 'class'],
+      figure: ['class', 'style'],
+      figcaption: ['class', 'style']
+    },
+    allowedStyles: {
+      '*': {
+        'width': [/^\d+(?:px|em|%)$/],
+        'height': [/^\d+(?:px|em|%)$/],
+        'max-width': [/^\d+(?:px|em|%)$/],
+      }
+    }
+  });
   const blog = await Blog.findById(id);
   if (!blog) return null;
 

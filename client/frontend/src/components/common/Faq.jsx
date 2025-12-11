@@ -66,7 +66,7 @@ const FAQ = () => {
             {faqData.map((item, index) => (
                 <div
                     key={index}
-                    className="rounded-xl border border-gray-300 bg-[#EAE0D2] shadow-sm hover:shadow-md transition-all p-3"
+                    className="rounded-xl border border-gray-300 bg-[#F2ECE3] shadow-sm hover:shadow-md transition-all p-3"
                 >
                     {/* Question */}
                     <button

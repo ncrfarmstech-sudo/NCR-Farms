@@ -9,6 +9,7 @@ const contactRoutes = require('./routes/contactUsRoutes');
 const blogRoutes = require('./routes/blogRoutes'); // ✅ import blog routes
 const propertyRoutes = require('./routes/propertyRoutes');
 const featuredProductRoutes = require('./routes/featuredProductRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 // ensure cloudinary config is loaded (optional)
 require('./config/cloudinary');
 
@@ -49,6 +50,7 @@ app.use('/api/contactus', contactRoutes);
 app.use('/api/blogs', blogRoutes); // ✅ register blog routes
 app.use('/api/properties', propertyRoutes);
 app.use('/api/featured-products', featuredProductRoutes);
+app.use('/api/upload', uploadRoutes);
 
 const PORT = process.env.PORT || 5000;
 

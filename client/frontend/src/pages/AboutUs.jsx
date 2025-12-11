@@ -4,15 +4,16 @@ import forestBg from "../assets/aboutvision.png"; // Import the forest backgroun
 
 const AboutUs = () => {
     return (
-        <div className="w-full">
+        <div className="w-full p overflow-x-hidden">
+
             {/* Hero Section */}
-            <div className="relative h-[220px] sm:h-[280px] md:h-[400px] w-full">
+            <div className="relative h-[270px] sm:h-[380px] md:h-[400px] w-full">
                 <img
                     src={aboutus}
                     alt="Farmland"
                     className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0  bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
+                <div className="absolute inset-0 bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
                     <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
                         NCR Farms: Your Trusted Farmland Consultants
                     </h1>
@@ -26,17 +27,11 @@ const AboutUs = () => {
 
             {/* Who We Are */}
             <div className="bg-[#f3e9db] py-8 px-4">
-                {" "}
-                {/* reduced py-12 → py-8 */}
                 <div className="max-w-6xl mx-auto bg-white shadow-md rounded-md p-6 text-justify">
-                    {" "}
-                    {/* reduced p-8 → p-6 */}
                     <h2 className="text-xl sm:text-2xl font-semibold text-[#1D3C33] mb-4 text-center">
                         Who We Are
                     </h2>
                     <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-8">
-                        {" "}
-                        {/* leading-relaxed → leading-normal */}
                         NCR Farms is your premier partner in farmland
                         consultancy, dedicated to helping individuals and
                         families realize their dream of owning land.
@@ -59,18 +54,20 @@ const AboutUs = () => {
                 <h2 className="text-xl sm:text-2xl font-semibold text-[#1D3C33] mb-4">
                     What We Do
                 </h2>
-                <p className="mx-auto text-gray-600 text-sm sm:text-base mb-8 whitespace-nowrap">
+
+                <p className="mx-auto text-gray-600 text-sm sm:text-base mb-8 max-w-xl">
                     We serve as a comprehensive one-stop solution for all your
                     farmland needs, guiding you from initial consultation to
                     long-term management.
                 </p>
 
                 {/* Core Offerings */}
-                <div className="bg-white py-12 px-4">
+                <div className="max-w-5xl mx-auto mt-10">
                     <h2 className="text-xl sm:text-2xl font-semibold text-center text-[#1D3C33] mb-8">
                         Our core offerings include
                     </h2>
-                    <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
                             <h3 className="font-semibold text-[#1D3C33] mb-2">
                                 Property Recommendation and Acquisition:
@@ -95,144 +92,141 @@ const AboutUs = () => {
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {/* Specialized Services */}
-                <div className="bg-white py-12 px-4">
-                    <h2 className="text-xl sm:text-2xl font-semibold text-center text-[#1D3C33] mb-8">
-                        Specialized Services
-                    </h2>
-                    <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                        <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
-                            <h3 className="font-semibold text-gray-800 mb-2">
-                                CLU Assistance:
-                            </h3>
-                            <p className="text-gray-700 text-sm sm:text-base">
-                                We navigate the Change of Land Use (CLU) process
-                                efficiently, helping you convert land for
-                                residential or other purposes without hassle.
-                            </p>
-                        </div>
+            {/* Specialized Services */}
+            <div className="bg-white py-12 px-4">
+                <h2 className="text-xl sm:text-2xl font-semibold text-center text-[#1D3C33] mb-8">
+                    Specialized Services
+                </h2>
 
-                        <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
-                            <h3 className="font-semibold text-gray-800 mb-2">
-                                Prefabricated Farmhouse Setup:
-                            </h3>
-                            <p className="text-gray-700 text-sm sm:text-base">
-                                Quick, customizable, and eco-friendly
-                                prefabricated structures to get your farmhouse
-                                up and running in no time.
-                            </p>
-                        </div>
-
-                        <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
-                            <h3 className="font-semibold text-gray-800 mb-2">
-                                ROI Optimization:
-                            </h3>
-                            <p className="text-gray-700 text-sm sm:text-base">
-                                Strategies to generate returns from your land,
-                                including setting up hydroponics systems or
-                                organic farms for sustainable income.
-                            </p>
-                        </div>
-
-                        <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
-                            <h3 className="font-semibold text-gray-800 mb-2">
-                                Solar Power Solutions:
-                            </h3>
-                            <p className="text-gray-700 text-sm sm:text-base">
-                                Integration of renewable energy systems to power
-                                your farm cost-effectively and reduce
-                                environmental impact.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                {/* Vision & Mission Section */}
-                <div className="relative text-white py-16 px-6 overflow-hidden">
-                    {/* Background image */}
-                    <img
-                        src={forestBg}
-                        alt="Forest background"
-                        className="absolute inset-0 w-full h-full object-cover opacity-100"
-                    />
-
-                    {/* Content Wrapper */}
-                    <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row justify-center gap-6">
-                        {/* Vision Box */}
-                        <div className="bg-[#e6decd]/95 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
-                            <h3 className="font-semibold mb-2">Our Vision:</h3>
-                            <p className="text-sm sm:text-base leading-relaxed">
-                                To empower every individual to own a piece of
-                                land, fostering a widespread reconnection with
-                                nature and promoting sustainable living for
-                                generations to come.
-                            </p>
-                        </div>
-
-                        {/* Mission Box */}
-                        <div className="bg-[#e6decd]/90 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
-                            <h3 className="font-semibold mb-2">Our Mission:</h3>
-                            <p className="text-sm sm:text-base leading-relaxed">
-                                To deliver expert, end-to-end farmland
-                                consultancy that makes owning and managing
-                                agricultural properties accessible, legally
-                                secure, and economically viable.
-                            </p>
-                        </div>
+                <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
+                        <h3 className="font-semibold text-gray-800 mb-2">
+                            CLU Assistance:
+                        </h3>
+                        <p className="text-gray-700 text-sm sm:text-base">
+                            We navigate the Change of Land Use (CLU) process
+                            efficiently, helping you convert land without hassle.
+                        </p>
                     </div>
 
-                    {/* Bottom Text */}
-                    <p className="relative z-10 text-center text-white mt-10 text-sm sm:text-base md:text-lg max-w-full mx-auto leading-relaxed whitespace-nowrap overflow-x-auto">
-                        We strive to create personalized solutions that align
-                        with our clients’ lifestyles, while advocating for
-                        eco-conscious practices in land use and development.
-                    </p>
+                    <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
+                        <h3 className="font-semibold text-gray-800 mb-2">
+                            Prefabricated Farmhouse Setup:
+                        </h3>
+                        <p className="text-gray-700 text-sm sm:text-base">
+                            Quick, customizable, and eco-friendly prefabricated
+                            structures for fast farmhouse development.
+                        </p>
+                    </div>
+
+                    <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
+                        <h3 className="font-semibold text-gray-800 mb-2">
+                            ROI Optimization:
+                        </h3>
+                        <p className="text-gray-700 text-sm sm:text-base">
+                            Strategies to generate returns from your land,
+                            including hydroponics or organic farms.
+                        </p>
+                    </div>
+
+                    <div className="bg-[#f3e9db] p-6 rounded-md shadow-md">
+                        <h3 className="font-semibold text-gray-800 mb-2">
+                            Solar Power Solutions:
+                        </h3>
+                        <p className="text-gray-700 text-sm sm:text-base">
+                            Integration of solar systems to reduce environmental
+                            impact and power your farm efficiently.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            {/* What Makes Us Different from Others */}
-<div className="py-16 px-4">
-  <div className="max-w-5xl mx-auto text-center">
-    <h2 className="text-xl sm:text-2xl font-semibold text-[#1D3C33] mb-6">
-      What Makes Us Different from Others?
-    </h2>
-    <p className="text-gray-700 text-sm sm:text-base mb-10 leading-relaxed">
-      In a crowded real estate market, NCR Farms stands out through our specialized focus and client-first approach:
-    </p>
+            {/* Vision & Mission Section */}
+            <div className="relative text-white py-16 px-6 overflow-hidden">
+                <img
+                    src={forestBg}
+                    alt="Forest background"
+                    className="absolute inset-0 w-full h-full object-cover opacity-100"
+                />
 
-    <div className="flex flex-col gap-4 text-left">
-      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
-        <p className="text-gray-800 text-sm sm:text-base">
-          <span className="font-semibold">Exclusive Expertise in Farmland:</span> Unlike general real estate agents, we concentrate solely on agricultural and farmhouse properties, backed by in-depth knowledge of rural regulations, soil quality, and sustainable farming.
-        </p>
-      </div>
+                <div className="relative z-10 max-w-6xl mx-auto flex flex-col md:flex-row justify-center gap-6">
+                    <div className="bg-[#e6decd]/95 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
+                        <h3 className="font-semibold mb-2">Our Vision:</h3>
+                        <p className="text-sm sm:text-base leading-relaxed">
+                            To empower every individual to own a piece of land,
+                            reconnecting them with nature and sustainable living.
+                        </p>
+                    </div>
 
-      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
-        <p className="text-gray-800 text-sm sm:text-base">
-          <span className="font-semibold">Comprehensive, Tailored Services:</span> From legal aid to innovative add-ons like hydroponics and solar setups, we offer more than just land sales — we provide a complete ecosystem for thriving in nature.
-        </p>
-      </div>
+                    <div className="bg-[#e6decd]/90 text-[#1D3C33] p-6 rounded-md shadow-md md:w-1/2">
+                        <h3 className="font-semibold mb-2">Our Mission:</h3>
+                        <p className="text-sm sm:text-base leading-relaxed">
+                            To deliver expert farmland consultancy that makes
+                            owning and managing agriculture properties easy,
+                            legal, and profitable.
+                        </p>
+                    </div>
+                </div>
 
-      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
-        <p className="text-gray-800 text-sm sm:text-base">
-          <span className="font-semibold">Commitment to Sustainability and ROI:</span> We prioritize eco-friendly solutions that not only enhance your lifestyle but also ensure your investment grows, setting us apart from firms that overlook long-term value.
-        </p>
-      </div>
+                <p className="relative z-10 text-center text-white mt-10 text-sm sm:text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+                    We strive to create personalized solutions that align with
+                    our clients’ lifestyles while advocating for eco-conscious
+                    land practices.
+                </p>
+            </div>
 
-      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
-        <p className="text-gray-800 text-sm sm:text-base">
-          <span className="font-semibold">Personalized and Transparent Process:</span> Our team listens to your needs, offers unbiased recommendations, and maintains clear communication — building trust that generic consultancies often lack.
-        </p>
-      </div>
+            {/* What Makes Us Different */}
+            <div className="py-16 px-4">
+                <div className="max-w-5xl mx-auto text-center">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-[#1D3C33] mb-6">
+                        What Makes Us Different from Others?
+                    </h2>
 
-      <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
-        <p className="text-gray-800 text-sm sm:text-base">
-          <span className="font-semibold">Proven Track Record:</span> With a history of successful CLU conversions, property transfers, and satisfied clients reconnecting with nature, we deliver results that speak for themselves.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
+                    <p className="text-gray-700 text-sm sm:text-base mb-10 leading-relaxed">
+                        In a crowded real estate market, NCR Farms stands out through our specialized focus and client-first approach:
+                    </p>
+
+                    <div className="flex flex-col gap-4 text-left">
+                        <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+                            <p className="text-gray-800 text-sm sm:text-base">
+                                <span className="font-semibold">Exclusive Expertise in Farmland:</span>
+                                We specialize only in agricultural and farmhouse properties backed by deep rural knowledge.
+                            </p>
+                        </div>
+
+                        <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+                            <p className="text-gray-800 text-sm sm:text-base">
+                                <span className="font-semibold">Comprehensive, Tailored Services:</span>
+                                From legal aid to hydroponics and solar setups — a complete ecosystem.
+                            </p>
+                        </div>
+
+                        <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+                            <p className="text-gray-800 text-sm sm:text-base">
+                                <span className="font-semibold">Commitment to Sustainability & ROI:</span>
+                                Eco-friendly solutions that grow value long-term.
+                            </p>
+                        </div>
+
+                        <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+                            <p className="text-gray-800 text-sm sm:text-base">
+                                <span className="font-semibold">Transparent & Personalized Process:</span>
+                                Clear communication and unbiased recommendations.
+                            </p>
+                        </div>
+
+                        <div className="bg-[#e6decd] border-l-8 border-[#1D3C33] p-4 rounded-md shadow-sm">
+                            <p className="text-gray-800 text-sm sm:text-base">
+                                <span className="font-semibold">Proven Track Record:</span>
+                                Successful CLU conversions, property transfers and happy clients.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
         </div>
     );
