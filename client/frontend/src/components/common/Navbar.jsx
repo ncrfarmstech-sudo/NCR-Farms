@@ -34,7 +34,7 @@ const Navbar = () => {
     };
 
     // ---------------- Typing effect setup ----------------
-    const words = ["Agricultural land", "Built up farmhouse", "Farmland", "Gated Farmhouse"];
+    const words = ["Agricultural land...", "Built up farmhouse...", "Farmland...", "Gated Farmhouse..."];
 
     // Visible placeholder (state)
     const [displayText, setDisplayText] = useState("");
@@ -315,7 +315,12 @@ useEffect(() => {
                                 {recentSearches.map((item, idx) => (
                                     <li
                                         key={idx}
-                                        className="flex justify-between items-center border-b border-gray-200 pb-2"
+                                        className="flex justify-between items-center border-b border-gray-200 pb-2 cursor-pointer hover:bg-gray-50 px-2 py-1 rounded transition-colors"
+                                        onClick={() => {
+                                            setSearchText(item);
+                                            navigate(`/properties?search=${encodeURIComponent(item)}`);
+                                            setIsSearchOpen(false);
+                                        }}
                                     >
                                         <span className="text-gray-800">
                                             {item}

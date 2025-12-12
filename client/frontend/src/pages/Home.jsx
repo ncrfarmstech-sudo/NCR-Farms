@@ -36,7 +36,7 @@ const Home = () => {
                 <div className="absolute inset-0 bg-black/30 z-10" />
 
                 {/* Centered Content */}
-                <div className="relative z-20 text-center text-white">
+                <div className="relative z-20 text-center text-white px-6">
                     <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-5 cormorant">
                         Own Land. Grow Wealth. Live Better
                     </h1>
@@ -48,11 +48,17 @@ const Home = () => {
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                        <button className="px-12 py-3 border border-yellow-400  bg-yellow-400  text-green-900  text-sm md:text-base font-medium rounded-md transition-all duration-300  lato hover:bg-white/10 hover:backdrop-blur-md hover:text-white hover:border-white">
+                        <button 
+                            onClick={() => navigate("/properties")}
+                            className="px-12 py-3 border border-yellow-400  bg-yellow-400  text-green-900  text-sm md:text-base font-medium rounded-md transition-all duration-300  lato hover:bg-white/10 hover:backdrop-blur-md hover:text-white hover:border-white"
+                        >
                             EXPLORE PROPERTIES
                         </button>
 
-                        <button className="px-4 py-3 border border-yellow-400  text-yellow-400 text-sm md:text-base  font-medium rounded-md transition-all duration-300 lato hover:bg-white/10hover:backdrop-blur-md hover:text-white hover:border-white">
+                        <button 
+                            onClick={() => navigate("/contactus")}
+                            className="px-4 py-3 border border-yellow-400  text-yellow-400 text-sm md:text-base  font-medium rounded-md transition-all duration-300 lato hover:bg-white/10hover:backdrop-blur-md hover:text-white hover:border-white"
+                        >
                             BOOK A FREE CONSULTATION
                         </button>
                     </div>

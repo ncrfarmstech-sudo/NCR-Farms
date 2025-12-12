@@ -207,11 +207,11 @@ const Properties = () => {
         <div className="pt-20 pb-12 bg-[#F2ECE3] min-h-screen">
             <Breadcrumb />
             {/* Header */}
-            <div className="px-4 md:px-10 mb-6 md:mb-10">
-                <h1 className="text-2xl md:text-4xl font-bold text-center mb-2 text-gray-800">
+            <div className="px-4 md:px-10 mb-6 md:mb-10 mt-4">
+                <h1 className="text-2xl md:text-4xl font-bold text-center mb-3 text-gray-800">
                     Available Properties
                 </h1>
-                <p className="text-gray-600 text-center text-sm md:text-base max-w-2xl mx-auto">
+                <p className="text-gray-600 text-center text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
                     Browse our curated list of premium farmhouses and properties
                 </p>
             </div>
@@ -220,10 +220,10 @@ const Properties = () => {
             <div className="md:hidden px-4 mb-4">
                 <button
                     onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-                    className="w-full bg-[#275A4D] text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition"
+                    className="w-full bg-[#275A4D] text-white py-3.5 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md"
                 >
                     <span>🔍 Filters</span>
-                    <span className="text-lg">{mobileFilterOpen ? "−" : "+"}</span>
+                    <span className="text-xl font-bold">{mobileFilterOpen ? "−" : "+"}</span>
                 </button>
             </div>
 
@@ -390,11 +390,11 @@ const Properties = () => {
                             <p className="text-gray-500 text-sm">Try adjusting your filters</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 md:px-10">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 md:px-10">
                             {filtered.map((p) => (
                                 <div
                                     key={p._id || p.id}
-                                    className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow hover:shadow-lg transition flex flex-col cursor-pointer"
+                                    className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all active:scale-[0.98] flex flex-col cursor-pointer"
                                     onClick={() => navigate(`/properties/${p._id || p.id}`)}
                                 >
                                     {/* Image */}
@@ -406,7 +406,7 @@ const Properties = () => {
                                                     : "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
                                             }
                                             alt={p.title || "Property"}
-                                            className="w-full h-40 md:h-56 object-cover"
+                                            className="w-full h-48 md:h-56 object-cover"
                                         />
                                         {p.rating && (
                                             <span className="absolute bottom-2 right-2 bg-white px-2 py-1 rounded text-xs md:text-sm font-semibold">
@@ -417,36 +417,36 @@ const Properties = () => {
 
                                     {/* Content */}
                                     <div className="p-4 md:p-5 flex flex-col flex-grow">
-                                        <h3 className="text-base md:text-lg font-semibold text-green-900 mb-1 line-clamp-2">
+                                        <h3 className="text-lg md:text-xl font-semibold text-green-900 mb-2 line-clamp-2">
                                             {p.title || "Farmhouse"}
                                         </h3>
-                                        <p className="text-gray-500 text-xs md:text-sm mb-3">
-                                            {p.address?.city}, {p.address?.state}
+                                        <p className="text-gray-500 text-sm md:text-sm mb-4">
+                                            📍 {p.address?.city}, {p.address?.state}
                                         </p>
 
                                         {/* Features Grid */}
-                                        <div className="grid grid-cols-3 gap-2 text-gray-600 text-xs md:text-sm mb-3">
-                                            <div className="text-center py-2 bg-gray-50 rounded">
-                                                <div>🏠</div>
-                                                <div className="font-semibold text-sm">{p.propertyType || "N/A"}</div>
+                                        <div className="grid grid-cols-2 gap-2 text-gray-600 text-xs md:text-sm mb-4">
+                                            <div className="text-center py-2.5 bg-gray-50 rounded-lg">
+                                                <div className="text-lg mb-1">🏠</div>
+                                                <div className="font-semibold text-xs">{p.propertyType || "N/A"}</div>
                                             </div>
                                             
-                                            <div className="text-center py-2 bg-gray-50 rounded">
-                                                <div>📐</div>
-                                                <div className="font-semibold text-xs">{p.features?.area || 0}</div>
+                                            <div className="text-center py-2.5 bg-gray-50 rounded-lg">
+                                                <div className="text-lg mb-1">📐</div>
+                                                <div className="font-semibold text-xs">{p.features?.area || 0} sqyd</div>
                                             </div>
                                         </div>
 
                                         {/* Price and Button */}
-                                        <div className="flex justify-between items-end mt-auto">
+                                        <div className="flex justify-between items-end mt-auto pt-3 border-t border-gray-100">
                                             <div>
-                                                <p className="text-green-900 font-bold text-base md:text-lg">
+                                                <p className="text-green-900 font-bold text-lg md:text-xl">
                                                     ₹{p.price || "N/A"}
                                                 </p>
                                                 <p className="text-gray-500 text-xs">/night</p>
                                             </div>
                                             <button
-                                                className="bg-green-900 text-white px-4 py-2 rounded-md hover:bg-green-800 transition text-xs md:text-sm font-medium"
+                                                className="bg-green-900 text-white px-5 py-2.5 rounded-lg hover:bg-green-800 transition-all active:scale-95 text-sm font-medium shadow-sm"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     navigate(`/properties/${p._id || p.id}`);

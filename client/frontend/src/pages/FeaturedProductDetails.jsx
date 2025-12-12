@@ -44,7 +44,7 @@ const FeaturedProductDetails = () => {
       : product.imageUrl || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c';
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white pt-16">
       <Breadcrumb customItems={[
         { label: 'Featured Products', path: '/' },
         { label: product.title }

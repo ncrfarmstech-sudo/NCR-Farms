@@ -16,7 +16,6 @@ const Breadcrumb = ({ customItems = null }) => {
                                 to="/" 
                                 className="flex items-center text-[#2D5D4F] hover:text-[#1a3d2e] transition"
                             >
-                                <FaHome className="mr-1" />
                                 Home
                             </Link>
                         </li>
@@ -66,7 +65,6 @@ const Breadcrumb = ({ customItems = null }) => {
                             to="/" 
                             className="flex items-center text-[#2D5D4F] hover:text-[#1a3d2e] transition"
                         >
-                            <FaHome className="mr-1" />
                             Home
                         </Link>
                     </li>

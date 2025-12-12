@@ -48,7 +48,7 @@ const ContactUs = () => {
     }, [error]);
 
     return (
-        <div className="bg-white min-h-screen">
+        <div className="bg-white min-h-screen pt-16">
             <Breadcrumb />
             {/* Hero Section */}
             <div className="relative h-64 md:h-80 flex items-center justify-center">
@@ -159,15 +159,6 @@ const ContactUs = () => {
                         className="w-full bg-[#2D5D4F] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 text-[#F8F4EC]"
                         required
                     ></textarea>
-
-                    {error && (
-                        <div className="text-red-500 text-sm">{error}</div>
-                    )}
-                    {success && (
-                        <div className="text-green-600 text-sm">
-                            Thank you for contacting us!
-                        </div>
-                    )}
 
                     <div className="flex justify-center mt-4">
                         <button
