@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FeaturedProducts from "../components/Home/FeaturedProducts";
 import WhychooseNcr from "../components/common/WhychooseNcr";
@@ -8,6 +8,13 @@ import "../index.css";
 
 const Home = () => {
     const navigate = useNavigate();
+    const [zoomReady, setZoomReady] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setZoomReady(true), 300);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="bg-gray-50">
             {/* Hero Section */}
@@ -16,7 +23,7 @@ const Home = () => {
                 <img
                     src="/images/Home/Banner.webp"
                     alt="Banner"
-                    className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden"
+                    className={`absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden${zoomReady ? " animate-zoom" : ""}`}
                     fetchPriority="high"
                     loading="eager"
                     decoding="sync"
@@ -25,7 +32,7 @@ const Home = () => {
                 <img
                     src="/images/Home/Banner-desktop.webp"
                     alt="Banner Desktop"
-                    className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
+                    className={`absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block${zoomReady ? " animate-zoom" : ""}`}
                     fetchPriority="high"
                     loading="eager"
                     decoding="sync"
