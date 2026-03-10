@@ -1,17 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import heroImg from "../assets/Home/Banner.png";
-import heroImgDesktop from "../assets/Home/Banner-desktop.png";
-import statsImg from "../assets/Home/Banner2.png";
-import statsImgDesktop from "../assets/Home/Banner2-desktop.png";
 import FeaturedProducts from "../components/Home/FeaturedProducts";
 import WhychooseNcr from "../components/common/WhychooseNcr";
 import Faq from "../components/common/Faq";
-import "../index.css";
-
-// ✅ Correct name here
 import WhatsappAndCallsButton from "../components/common/WhatsappAndCallsButton";
-import FAQ from "../components/common/Faq";
+import "../index.css";
 
 const Home = () => {
     const navigate = useNavigate();
@@ -21,15 +14,21 @@ const Home = () => {
             <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
                 {/* Mobile Banner */}
                 <img
-                    src={heroImg}
+                    src="/images/Home/Banner.webp"
                     alt="Banner"
-                    className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden animate-zoom"
+                    className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden"
+                    fetchPriority="high"
+                    loading="eager"
+                    decoding="sync"
                 />
                 {/* Desktop Banner */}
                 <img
-                    src={heroImgDesktop}
+                    src="/images/Home/Banner-desktop.webp"
                     alt="Banner Desktop"
-                    className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block animate-zoom"
+                    className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
+                    fetchPriority="high"
+                    loading="eager"
+                    decoding="sync"
                 />
 
                 {/* Overlay */}
@@ -89,14 +88,16 @@ const Home = () => {
             {/* Stats Section */}
             <section className="relative text-white text-center px-6 py-16 md:py-24 overflow-hidden">
                 <img
-                    src={statsImg}
+                    src="/images/Home/Banner2.webp"
                     alt="Stats Banner"
                     className="absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden"
+                    loading="lazy"
                 />
                 <img
-                    src={statsImgDesktop}
+                    src="/images/Home/Banner2-desktop.webp"
                     alt="Stats Banner Desktop"
                     className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden md:block"
+                    loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/40 z-0"></div>
 

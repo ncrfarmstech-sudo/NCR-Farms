@@ -1,8 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { fetchBlogs } from "../api/blog";
 import { stripHtml } from "../utils/stripHtml";
 import Breadcrumb from "../components/common/Breadcrumb";
 import "../blog.css";
+
+// Parses HTML, injects unique IDs into H2/H3/H4, returns processed HTML + TOC entries
+function processContent(html) {
+  if (!html) return { processedHtml: html, headings: [] };
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+  const headings = [];
+  let counter = 0;
+  doc.querySelectorAll("h2, h3, h4").forEach((el) => {
+    const text = el.textContent.trim();
+    const slug = text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const id = `toc-${counter++}-${slug}`;
+    el.id = id;
+    headings.push({ id, text, tag: el.tagName.toLowerCase() });
+  });
+  return { processedHtml: doc.body.innerHTML, headings };
+}
+
+const indentClass = { h2: "pl-0", h3: "pl-4", h4: "pl-8" };
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -29,6 +48,16 @@ const Blog = () => {
 
     getBlogs();
   }, []);
+
+  const { processedHtml, headings } = useMemo(
+    () => processContent(activeBlog?.content || ""),
+    [activeBlog]
+  );
+
+  const scrollToHeading = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   if (loading) {
     return (
@@ -89,37 +118,68 @@ const Blog = () => {
           {/* RIGHT SIDE — Selected Blog Content */}
           <div className="md:col-span-2">
             {activeBlog ? (
-              <>
-                {/* Blog Image */}
-                {activeBlog.imageUrls?.length > 0 && (
-                  <img
-                    src={activeBlog.imageUrls[0]}
-                    alt={activeBlog.title}
-                    className="w-full h-64 object-cover rounded-lg mb-6"
-                  />
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+
+                {/* Blog Content — left 2/3 */}
+                <div className="lg:col-span-2">
+                  {/* Blog Image */}
+                  {activeBlog.imageUrls?.length > 0 && (
+                    <img
+                      src={activeBlog.imageUrls[0]}
+                      alt={activeBlog.title}
+                      className="w-full h-64 object-cover rounded-lg mb-6"
+                    />
+                  )}
+
+                  {/* Blog Title */}
+                  <h2 className="text-3xl font-bold text-[#234436] mb-3">
+                    {activeBlog.title}
+                  </h2>
+
+                  {/* Meta Info */}
+                  <p className="text-gray-600 mb-4">
+                    {activeBlog.author && (
+                      <span className="font-semibold">{activeBlog.author}</span>
+                    )}
+                    {activeBlog.author && activeBlog.createdAt && " • "}
+                    {activeBlog.createdAt && (
+                      <span>{new Date(activeBlog.createdAt).toLocaleDateString()}</span>
+                    )}
+                  </p>
+
+                  {/* Blog Content - Render HTML with styles */}
+                  <div className="blog-content text-gray-700 leading-relaxed">
+                    <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
+                  </div>
+                </div>
+
+                {/* TOC — full width on mobile, sticky on the right 1/3 on desktop */}
+                {headings.length > 0 && (
+                  <div className="block lg:sticky lg:top-24 lg:self-start order-first lg:order-none mb-4 lg:mb-0">
+                    <div className="border border-[#234436] rounded-xl bg-[#f4f9f6] shadow-md overflow-hidden">
+                      <div className="px-4 py-3 border-b border-[#234436] bg-[#234436]">
+                        <p className="text-xs font-bold text-white uppercase tracking-widest">
+                          Table of Contents
+                        </p>
+                      </div>
+                      <ol className="list-none p-4 space-y-1 overflow-y-auto max-h-[60vh]">
+                        {headings.map((h, idx) => (
+                          <li key={h.id} className={indentClass[h.tag]}>
+                            <button
+                              onClick={() => scrollToHeading(h.id)}
+                              className="text-left text-sm text-[#234436] hover:underline hover:text-[#3a6b52] transition-colors duration-150 w-full"
+                            >
+                              <span className="font-semibold mr-1">{idx + 1}.</span>
+                              {h.text}
+                            </button>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
+                  </div>
                 )}
 
-                {/* Blog Title */}
-                <h2 className="text-3xl font-bold text-[#234436] mb-3">
-                  {activeBlog.title}
-                </h2>
-
-                {/* Meta Info */}
-                <p className="text-gray-600 mb-4">
-                  {activeBlog.author && (
-                    <span className="font-semibold">{activeBlog.author}</span>
-                  )}
-                  {activeBlog.author && activeBlog.createdAt && " • "}
-                  {activeBlog.createdAt && (
-                    <span>{new Date(activeBlog.createdAt).toLocaleDateString()}</span>
-                  )}
-                </p>
-
-                {/* Blog Content - Render HTML with styles */}
-                <div className="blog-content text-gray-700 leading-relaxed">
-                  <div dangerouslySetInnerHTML={{ __html: activeBlog.content }} />
-                </div>
-              </>
+              </div>
             ) : (
               <p className="text-gray-600">Select a blog to view details.</p>
             )}

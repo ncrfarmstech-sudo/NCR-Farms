@@ -5,6 +5,9 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ncr-Farms</title>
+    <!-- Preload hero images so the browser fetches them before JS runs -->
+    <link rel="preload" as="image" href="/images/Home/Banner.webp" media="(max-width: 767px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="/images/Home/Banner-desktop.webp" media="(min-width: 768px)" fetchpriority="high" />
   </head>
   <body>
     <div id="root"></div>
