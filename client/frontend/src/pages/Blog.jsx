@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { fetchBlogs } from "../api/blog";
 import { stripHtml } from "../utils/stripHtml";
 import Breadcrumb from "../components/common/Breadcrumb";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import "../blog.css";
 
 // Parses HTML, injects unique IDs into H2/H3/H4, returns processed HTML + TOC entries
@@ -28,6 +29,7 @@ const Blog = () => {
   const [activeBlog, setActiveBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [tocOpen, setTocOpen] = useState(false);
 
   // Fetch all blogs
   useEffect(() => {
@@ -79,29 +81,104 @@ const Blog = () => {
     <div className="pt-24 px-4 md:px-10">
       <Breadcrumb />
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Page Heading */}
-        <h1 className="text-4xl font-bold mb-8 text-[#234436]">Blog</h1>
+        <h1 className="text-4xl font-bold mb-6 text-[#234436]">Blog</h1>
 
-        {/* Main Layout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
+        {/* ── MOBILE: horizontal scrollable blog tabs ── */}
+        <div className="flex md:hidden gap-3 overflow-x-auto pb-3 mb-6 scrollbar-none">
+          {blogs.map((blog) => (
+            <button
+              key={blog._id}
+              onClick={() => { setActiveBlog(blog); setTocOpen(false); }}
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium border transition-all duration-200
+                ${activeBlog?._id === blog._id
+                  ? "bg-[#234436] text-white border-[#234436]"
+                  : "bg-white text-gray-700 border-gray-300"
+                }`}
+            >
+              {blog.title.length > 30 ? blog.title.slice(0, 30) + "…" : blog.title}
+            </button>
+          ))}
+        </div>
 
-          {/* LEFT SIDE — Blog Titles */}
+        {/* ── MOBILE: selected blog content ── */}
+        <div className="block md:hidden">
+          {activeBlog ? (
+            <div>
+              {/* Blog Image */}
+              {activeBlog.imageUrls?.length > 0 && (
+                <img
+                  src={activeBlog.imageUrls[0]}
+                  alt={activeBlog.title}
+                  className="w-full h-52 object-cover rounded-2xl mb-5 shadow"
+                />
+              )}
+
+              {/* Blog Title */}
+              <h2 className="text-2xl font-bold text-[#234436] mb-2 leading-snug">
+                {activeBlog.title}
+              </h2>
+
+              {/* Meta */}
+              <p className="text-sm text-gray-500 mb-5">
+                {activeBlog.author && <span className="font-semibold text-gray-600">{activeBlog.author}</span>}
+                {activeBlog.author && activeBlog.createdAt && " · "}
+                {activeBlog.createdAt && <span>{new Date(activeBlog.createdAt).toLocaleDateString()}</span>}
+              </p>
+
+              {/* Collapsible TOC on mobile */}
+              {headings.length > 0 && (
+                <div className="mb-6 rounded-xl border border-[#234436] overflow-hidden shadow-sm">
+                  <button
+                    onClick={() => setTocOpen(!tocOpen)}
+                    className="w-full flex items-center justify-between px-4 py-3 bg-[#234436] text-white text-sm font-bold uppercase tracking-widest"
+                  >
+                    <span>Table of Contents</span>
+                    {tocOpen ? <FiChevronUp size={18} /> : <FiChevronDown size={18} />}
+                  </button>
+                  {tocOpen && (
+                    <ol className="list-none p-4 space-y-2 bg-[#f4f9f6]">
+                      {headings.map((h, idx) => (
+                        <li key={h.id} className={indentClass[h.tag]}>
+                          <button
+                            onClick={() => { scrollToHeading(h.id); setTocOpen(false); }}
+                            className="text-left text-sm text-[#234436] hover:underline w-full"
+                          >
+                            <span className="font-semibold mr-1">{idx + 1}.</span>{h.text}
+                          </button>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </div>
+              )}
+
+              {/* Blog Content */}
+              <div className="blog-content text-gray-700 leading-relaxed text-[15px]">
+                <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
+              </div>
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center mt-10">Select a blog to read.</p>
+          )}
+        </div>
+
+        {/* ── DESKTOP: original 3-column layout ── */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-10">
+
+          {/* LEFT — Blog Titles */}
           <div className="border-r pr-4 h-[75vh] overflow-y-auto scrollbar-thin">
-            <h2 className="text-2xl font-semibold text-[#234436] mb-4">
-              All Blogs
-            </h2>
-
+            <h2 className="text-2xl font-semibold text-[#234436] mb-4">All Blogs</h2>
             <div className="flex flex-col gap-3">
               {blogs.map((blog) => (
                 <button
                   key={blog._id}
                   onClick={() => setActiveBlog(blog)}
                   className={`text-left p-3 rounded-lg border transition-all duration-200
-                    ${
-                      activeBlog?._id === blog._id
-                        ? "bg-[#234436] text-white border-[#234436]"
-                        : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
+                    ${activeBlog?._id === blog._id
+                      ? "bg-[#234436] text-white border-[#234436]"
+                      : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
                     }`}
                 >
                   <div className="font-semibold">{blog.title}</div>
@@ -115,14 +192,13 @@ const Blog = () => {
             </div>
           </div>
 
-          {/* RIGHT SIDE — Selected Blog Content */}
+          {/* RIGHT — Selected Blog Content */}
           <div className="md:col-span-2">
             {activeBlog ? (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
-                {/* Blog Content — left 2/3 */}
+                {/* Blog Content */}
                 <div className="lg:col-span-2">
-                  {/* Blog Image */}
                   {activeBlog.imageUrls?.length > 0 && (
                     <img
                       src={activeBlog.imageUrls[0]}
@@ -130,37 +206,23 @@ const Blog = () => {
                       className="w-full h-64 object-cover rounded-lg mb-6"
                     />
                   )}
-
-                  {/* Blog Title */}
-                  <h2 className="text-3xl font-bold text-[#234436] mb-3">
-                    {activeBlog.title}
-                  </h2>
-
-                  {/* Meta Info */}
+                  <h2 className="text-3xl font-bold text-[#234436] mb-3">{activeBlog.title}</h2>
                   <p className="text-gray-600 mb-4">
-                    {activeBlog.author && (
-                      <span className="font-semibold">{activeBlog.author}</span>
-                    )}
+                    {activeBlog.author && <span className="font-semibold">{activeBlog.author}</span>}
                     {activeBlog.author && activeBlog.createdAt && " • "}
-                    {activeBlog.createdAt && (
-                      <span>{new Date(activeBlog.createdAt).toLocaleDateString()}</span>
-                    )}
+                    {activeBlog.createdAt && <span>{new Date(activeBlog.createdAt).toLocaleDateString()}</span>}
                   </p>
-
-                  {/* Blog Content - Render HTML with styles */}
                   <div className="blog-content text-gray-700 leading-relaxed">
                     <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
                   </div>
                 </div>
 
-                {/* TOC — full width on mobile, sticky on the right 1/3 on desktop */}
+                {/* TOC */}
                 {headings.length > 0 && (
                   <div className="block lg:sticky lg:top-24 lg:self-start order-first lg:order-none mb-4 lg:mb-0">
                     <div className="border border-[#234436] rounded-xl bg-[#f4f9f6] shadow-md overflow-hidden">
                       <div className="px-4 py-3 border-b border-[#234436] bg-[#234436]">
-                        <p className="text-xs font-bold text-white uppercase tracking-widest">
-                          Table of Contents
-                        </p>
+                        <p className="text-xs font-bold text-white uppercase tracking-widest">Table of Contents</p>
                       </div>
                       <ol className="list-none p-4 space-y-1 overflow-y-auto max-h-[60vh]">
                         {headings.map((h, idx) => (
@@ -169,8 +231,7 @@ const Blog = () => {
                               onClick={() => scrollToHeading(h.id)}
                               className="text-left text-sm text-[#234436] hover:underline hover:text-[#3a6b52] transition-colors duration-150 w-full"
                             >
-                              <span className="font-semibold mr-1">{idx + 1}.</span>
-                              {h.text}
+                              <span className="font-semibold mr-1">{idx + 1}.</span>{h.text}
                             </button>
                           </li>
                         ))}
@@ -178,13 +239,13 @@ const Blog = () => {
                     </div>
                   </div>
                 )}
-
               </div>
             ) : (
               <p className="text-gray-600">Select a blog to view details.</p>
             )}
           </div>
         </div>
+
       </div>
     </div>
   );

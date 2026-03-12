@@ -6,6 +6,7 @@ import BlogForm from './components/blog/BlogForm';
 import FeaturedProducts from './pages/FeaturedProducts';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
+import PrivateRoute from './components/common/PrivateRoute';
 import { createBlog, updateBlog } from './api/blog';
 import { PropertiesProvider } from './context/PropertiesContext';
 import { BlogProvider } from './context/BlogContext';
@@ -19,8 +20,8 @@ const AppRoutes = () => (
       <ContactUsProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/properties" element={<Properties />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/properties" element={<PrivateRoute><Properties /></PrivateRoute>} />
+          <Route path="/blog" element={<PrivateRoute><Blog /></PrivateRoute>} />
           <Route path="/create-blog" element={<BlogForm onSubmit={async (data) => {
             try {
               await createBlog(data);
@@ -38,13 +39,15 @@ const AppRoutes = () => (
               console.error('Error updating blog:', error);
             }
           }} onCancel={() => console.log('Cancel')} />} />
-          <Route path="/contactus" element={<ContactUsList />} />
+          <Route path="/contactus" element={<PrivateRoute><ContactUsList /></PrivateRoute>} />
           <Route path="/featured-products" element={
-            <FeaturedProductsProvider>
-              <FeaturedProducts />
-            </FeaturedProductsProvider>
+            <PrivateRoute>
+              <FeaturedProductsProvider>
+                <FeaturedProducts />
+              </FeaturedProductsProvider>
+            </PrivateRoute>
           } />
-          <Route path="*" element={<Navigate to="/properties" />} />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </ContactUsProvider>
     </BlogProvider>
