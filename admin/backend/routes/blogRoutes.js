@@ -3,13 +3,14 @@ const router = express.Router();
 const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-const { createBlog, getBlogs, getBlog, updateBlog, partialUpdateBlog, deleteBlog } = require("../controllers/blogController");
+const { createBlog, getBlogs, getBlog, getBlogBySlug, updateBlog, partialUpdateBlog, deleteBlog } = require("../controllers/blogController");
 
 router.post("/", upload.fields([
  { name: "images", maxCount: 10 }
 ]), createBlog);
 
 router.get("/", getBlogs);
+router.get("/slug/:slug", getBlogBySlug);
 router.get("/:id", getBlog);
 
 

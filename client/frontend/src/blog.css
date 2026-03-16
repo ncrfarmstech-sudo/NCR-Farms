@@ -231,3 +231,20 @@
   padding: 0.125rem 0.25rem;
   border-radius: 0.125rem;
 }
+
+/* Table of Contents List */
+.toc-list {
+  list-style: none !important;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-list li {
+  list-style: none !important;
+}
+
+.toc-list li button span:first-child {
+  font-size: 1.1rem;
+  line-height: 1;
+  opacity: 0.75;
+}

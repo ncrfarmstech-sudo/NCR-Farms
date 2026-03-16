@@ -14,6 +14,18 @@ exports.partialUpdateBlog = async (req, res) => {
 };
 const blogService = require("../services/blogService");
 
+// Get blog by slug
+exports.getBlogBySlug = async (req, res) => {
+  try {
+    const blog = await blogService.getBlogBySlug(req.params.slug);
+    if (!blog) return res.status(404).json({ message: "Blog not found" });
+    res.json(blog);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // Create blog
 exports.createBlog = async (req, res) => {
   try {

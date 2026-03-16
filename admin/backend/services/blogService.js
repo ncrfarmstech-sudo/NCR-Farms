@@ -108,6 +108,15 @@ async function getBlogById(id) {
   return await Blog.findById(id);
 }
 
+// Get Blog by slug (match title-derived slug)
+async function getBlogBySlug(slug) {
+  const blogs = await Blog.find();
+  return blogs.find((b) => {
+    const titleSlug = b.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    return titleSlug === slug;
+  }) || null;
+}
+
 // Update Blog
 async function updateBlog(id, data, files) {
   const sanitizedContent = sanitizeHtml(data.content || "", {
@@ -165,4 +174,4 @@ async function deleteBlog(id) {
   return await Blog.findByIdAndDelete(id);
 }
 
-module.exports = { createBlog, getAllBlogs, getBlogById, updateBlog, partialUpdateBlog, deleteBlog };
+module.exports = { createBlog, getAllBlogs, getBlogById, getBlogBySlug, updateBlog, partialUpdateBlog, deleteBlog };
