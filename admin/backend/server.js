@@ -21,7 +21,9 @@ const allowedOrigins = [
   'http://localhost:5174',
   'https://ncr-farms.onrender.com',
   'https://ncr-farms-admin.onrender.com',
-  'https://ncr-farms-rx04.onrender.com'
+  'https://ncr-farms-rx04.onrender.com',
+  'https://ncrfarms.com',
+  'https://www.ncrfarms.com'
 ];
 app.use((req, res, next) => {
   const origin = req.headers.origin;
