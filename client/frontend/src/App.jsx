@@ -36,7 +36,23 @@ import WhatsappAndCallsButton from './components/common/WhatsappAndCallsButton';
 
 
 
+const MAINTENANCE = true;
+
 function App() {
+  if (MAINTENANCE) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#f4f9f6] px-6 text-center">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-[#234436] mb-4">
+          🚧 Under Maintenance
+        </h1>
+        <p className="text-lg md:text-xl text-gray-600 max-w-xl mb-6 leading-relaxed">
+          We're currently making some improvements to serve you better. Please check back shortly.
+        </p>
+        <p className="text-sm text-gray-400">— NCR Farms Team</p>
+      </div>
+    );
+  }
+
   return (
     <ContactUsProvider>
       <PropertiesProvider>
