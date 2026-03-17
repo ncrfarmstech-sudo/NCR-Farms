@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { fetchBlogs } from "../api/blog";
 import { stripHtml } from "../utils/stripHtml";
 
-const BLOGS_PER_PAGE = 9;
-
 const toBlogSlug = (title) =>
   title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
@@ -112,7 +110,6 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -130,11 +127,6 @@ const Blog = () => {
     };
     getBlogs();
   }, []);
-
-  const goTo = (page) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   if (loading) {
     return (
@@ -155,13 +147,9 @@ const Blog = () => {
     );
   }
 
-  const isFirstPage = currentPage === 1;
-  const featured = isFirstPage && blogs.length > 0 ? blogs[0] : null;
-  const twoColBlogs = isFirstPage ? blogs.slice(1, 3) : [];
-  const gridBlogs = isFirstPage
-    ? blogs.slice(3, BLOGS_PER_PAGE)
-    : blogs.slice((currentPage - 1) * BLOGS_PER_PAGE, currentPage * BLOGS_PER_PAGE);
-  const totalPages = Math.ceil(blogs.length / BLOGS_PER_PAGE);
+  const isOdd = blogs.length % 2 !== 0;
+  const topBlog = isOdd ? blogs[0] : null;
+  const gridBlogs = isOdd ? blogs.slice(1) : blogs;
 
   return (
     <div className="bg-white min-h-screen">
@@ -185,20 +173,18 @@ const Blog = () => {
             <p className="text-gray-400 text-center mt-24 text-lg">No blogs published yet.</p>
           ) : (
 <>
-              {/* Featured post — page 1 only */}
-              {featured && (
+              {/* Full-width top card — only when odd count */}
+              {topBlog && (
                 <FeaturedCard
-                  blog={featured}
-                  onClick={() => navigate(`/blog/${toBlogSlug(featured.title)}`)}
+                  blog={topBlog}
+                  onClick={() => navigate(`/blog/${toBlogSlug(topBlog.title)}`)}
                 />
               )}
 
-              {/* 2-column row — blogs[1] & blogs[2], page 1 only */}
-              {twoColBlogs.length > 0 && (
-                <div className={`grid gap-7 mb-7 ${
-                  twoColBlogs.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"
-                }`}>
-                  {twoColBlogs.map((blog) => (
+              {/* 2-column grid */}
+              {gridBlogs.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
+                  {gridBlogs.map((blog) => (
                     <BlogCard
                       key={blog._id}
                       blog={blog}
@@ -208,60 +194,6 @@ const Blog = () => {
                 </div>
               )}
 
-              {/* 3-column grid — remaining blogs */}
-              {gridBlogs.length > 0 && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                  {gridBlogs.map((blog, index) => (
-                    <div
-                      key={blog._id}
-                      onClick={() => navigate(`/blog/${toBlogSlug(blog.title, blog._id)}`)}
-                      className={gridBlogs.length % 3 === 1 && index === gridBlogs.length - 1
-                        ? "sm:col-span-2 lg:col-span-3"
-                        : gridBlogs.length % 3 === 2 && index === gridBlogs.length - 1
-                        ? "lg:col-span-1"
-                        : ""}
-                    >
-                      <BlogCard
-                        blog={blog}
-                        onClick={() => {}}
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* ── Pagination ── */}
-              <div className="flex items-center justify-center gap-1.5 mt-14 flex-wrap">
-                  <button
-                    onClick={() => goTo(Math.max(currentPage - 1, 1))}
-                    disabled={currentPage === 1}
-                    className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                  >
-                    ← Prev
-                  </button>
-
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                      key={page}
-                      onClick={() => goTo(page)}
-                      className={`w-9 h-9 rounded-lg text-sm font-semibold border transition ${
-                        page === currentPage
-                          ? "bg-[#234436] text-white border-[#234436] shadow-sm"
-                          : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
-
-                  <button
-                    onClick={() => goTo(Math.min(currentPage + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className="flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium text-gray-600 bg-white border border-gray-200 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                  >
-                    Next →
-                  </button>
-                </div>
             </>
           )}
         </div>

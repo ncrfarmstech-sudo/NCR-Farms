@@ -231,20 +231,69 @@
   padding: 0.125rem 0.25rem;
   border-radius: 0.125rem;
 }
+/* ============================================= */
+/* Table of Contents – matching the screenshot   */
+/* ============================================= */
+/.toc-container {
+  position: relative;
+}
 
-/* Table of Contents List */
+.toc-card {
+  background: white;
+  border-radius: 12px;
+  border-left: 5px solid #234436;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  padding: 0.4rem 1.25rem 1.25rem;     /* reduced top padding */
+}
+
+.toc-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0.8rem 0 1rem 0;             /* adjusted top margin */
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
 .toc-list {
-  list-style: none !important;
-  padding-left: 0;
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
-.toc-list li {
-  list-style: none !important;
+.toc-item {
+  margin-bottom: 0.65rem;
+  padding-left: 0;
 }
 
-.toc-list li button span:first-child {
-  font-size: 1.1rem;
-  line-height: 1;
-  opacity: 0.75;
+.toc-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  color: #234436;
+  font-size: 0.96rem;
+  line-height: 1.45;
+  transition: all 0.16s ease;
+  padding: 0.55rem 0.9rem;
+  border-radius: 8px;
+  margin: 0;
 }
+
+.toc-link:hover {
+  color: #234436;
+  background: rgba(35, 68, 54, 0.05);
+}
+
+/* Active heading highlight */
+.toc-link.active {
+  color: #ffffff !important;
+  font-weight: 700;
+  background: #234436;
+  border-left: none;
+  padding-left: 0.9rem;
+  border-radius: 8px;
+}
+
+/* Indentation */
+.toc-item.pl-5  .toc-link { padding-left: 1.4rem; }
+.toc-item.pl-9  .toc-link { padding-left: 2.4rem; }

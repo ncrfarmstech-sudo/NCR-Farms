@@ -116,7 +116,7 @@ useEffect(() => {
                 {/* Logo */}
                 <NavLink
                     to="/"
-                    className="text-xl font-bold tracking-wide text-white md:text-2xl hover:text-yellow-400"
+                    className="font-[serif] text-xl font-bold tracking-wide text-white md:text-2xl hover:text-yellow-400"
                     style={{ textDecoration: "none" }}
                 >
                     NCR Farms

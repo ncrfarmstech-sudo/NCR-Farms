@@ -4,6 +4,7 @@ import FeaturedProducts from "../components/Home/FeaturedProducts";
 import WhychooseNcr from "../components/common/WhychooseNcr";
 import Faq from "../components/common/Faq";
 import WhatsappAndCallsButton from "../components/common/WhatsappAndCallsButton";
+import mobileHero from "../assets/Home/ncr-mobile-hero.webp";
 import "../index.css";
 
 const Home = () => {
@@ -21,7 +22,7 @@ const Home = () => {
             <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
                 {/* Mobile Banner */}
                 <img
-                    src="/images/Home/Banner.webp"
+                    src={mobileHero}
                     alt="Banner"
                     className={`absolute inset-0 w-full h-full object-cover object-center z-0 block md:hidden${zoomReady ? " animate-zoom" : ""}`}
                     fetchPriority="high"
